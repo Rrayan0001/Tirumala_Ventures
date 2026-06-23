@@ -454,7 +454,7 @@ function Hero() {
           </MouseGlowTracker>
         </div>
 
-        <div className="lg:col-span-12 mt-12 pt-10 border-t border-gold/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-float-up">
+        <div className="lg:col-span-12 mt-6 pt-6 border-t border-gold/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-float-up">
           {[
             { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience" },
             { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance" },
