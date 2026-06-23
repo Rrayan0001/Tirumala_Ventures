@@ -109,7 +109,7 @@ function Nav() {
 
       {/* Backdrop overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-md lg:hidden transition-all duration-300 ${
           open ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setOpen(false)}
@@ -117,42 +117,42 @@ function Nav() {
 
       {/* Slide-in glassmorphic drawer */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-72 bg-background/98 backdrop-blur-lg border-l border-gold/15 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-50 w-72 bg-emerald-deep border-l border-gold/30 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${
           open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
         }`}
       >
         <div>
-          <div className="flex items-center justify-between pb-6 border-b border-gold/15">
-            <div className="font-serif text-gold tracking-widest text-sm">MENU</div>
+          <div className="flex items-center justify-between pb-6 border-b border-gold/30">
+            <div className="font-serif text-gold tracking-widest text-sm font-semibold">MENU</div>
             <button onClick={() => setOpen(false)} className="text-gold p-1 hover:text-white" aria-label="Close menu">
               <X className="size-6" />
             </button>
           </div>
-          <nav className="flex flex-col gap-1 py-6 overflow-y-auto max-h-[60vh]">
+          <nav className="flex flex-col gap-2 py-6 overflow-y-auto max-h-[60vh]">
             {NAV.map(n => (
               <a
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="text-base py-3 px-3 rounded-lg text-foreground hover:text-gold hover:bg-gold/5 font-medium transition-all flex items-center justify-between group"
+                className="text-base py-3 px-4 rounded-lg text-gold hover:text-white hover:bg-gold/10 font-serif font-medium transition-all flex items-center justify-between group border border-gold/10"
               >
                 <span className="tracking-wide">{n.label}</span>
                 {n.soon ? (
-                  <span className="text-[8px] tracking-[0.15em] uppercase px-1.5 py-0.5 rounded-full border border-gold/45 text-gold">Soon</span>
+                  <span className="text-[8px] tracking-[0.15em] uppercase px-1.5 py-0.5 rounded-full border border-gold/45 text-gold bg-gold/5">Soon</span>
                 ) : (
-                  <ArrowRight className="size-4 opacity-0 group-hover:opacity-100 transition-opacity text-gold" />
+                  <ArrowRight className="size-4 opacity-60 text-gold group-hover:opacity-100 group-hover:text-white transition-all" />
                 )}
               </a>
             ))}
           </nav>
         </div>
-        <div className="pt-6 border-t border-gold/15 space-y-4">
-          <div className="text-xs text-muted-foreground flex flex-col gap-2">
-            <a href="mailto:info@tirumalaventures.com" className="hover:text-gold flex items-center gap-2 py-1">
-              <Mail className="size-4 text-gold/80" /> info@tirumalaventures.com
+        <div className="pt-6 border-t border-gold/30 space-y-4">
+          <div className="text-xs text-gold/80 flex flex-col gap-2">
+            <a href="mailto:info@tirumalaventures.com" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
+              <Mail className="size-4 text-gold" /> info@tirumalaventures.com
             </a>
-            <a href="tel:+9198XXXXXXXX" className="hover:text-gold flex items-center gap-2 py-1">
-              <Phone className="size-4 text-gold/80" /> +91 98XXX XXXXX
+            <a href="tel:+9198XXXXXXXX" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
+              <Phone className="size-4 text-gold" /> +91 98XXX XXXXX
             </a>
           </div>
         </div>
