@@ -24,7 +24,7 @@ import gallery4 from "@/assets/gallery-4.jpg";
 import logoAsset from "@/assets/logo.png";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
-
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -547,7 +547,7 @@ function USP() {
   return (
     <section className="section-pad">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="Why Choose Us" title="The Tirumala advantage" />
+        <SectionHeading eyebrow="Why Choose Us" title="The Tirumala advantage" sub="Master the Markets with Confidence" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {usps.map(({ i: Icon, t }) => (
             <MouseGlowTracker key={t} className="rounded-xl">
@@ -566,27 +566,70 @@ function USP() {
 }
 
 function ExperiencedTraders() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30, bounce: 0 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30, bounce: 0 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const translateZContent = useTransform(mouseYSpring, [-0.5, 0.5], [15, -15]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const { width, height, left, top } = rect;
+    const mouseX = e.clientX - left;
+    const mouseY = e.clientY - top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
     <section className="section-pad">
       <div className="mx-auto max-w-6xl px-6">
         <MouseGlowTracker className="rounded-3xl">
-          <div className="relative glass-card glowing-border p-6 sm:p-10 md:p-16 overflow-hidden">
-            <div className="absolute -top-24 -right-24 size-72 rounded-full bg-gold/10 blur-3xl" />
-            <div className="relative max-w-3xl">
+          <motion.div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+              rotateY,
+              rotateX,
+              transformStyle: "preserve-3d",
+            }}
+            className="relative glass-card glowing-border p-6 sm:p-10 md:p-16 overflow-hidden cursor-default"
+          >
+            <div className="absolute -top-24 -right-24 size-72 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
+            
+            <motion.div
+              style={{
+                transform: "translateZ(30px)",
+                translateY: translateZContent,
+              }}
+              className="relative max-w-3xl"
+            >
               <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Experienced Traders</div>
-              <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6">Already an experienced trader?</h2>
-              <p className="text-muted-foreground text-sm sm:text-lg mb-8">
-                If you are an experienced trader looking for a professional trading environment,
-                advanced market discussions, networking opportunities and a corporate trading floor experience —
-                join us for a completely new trading experience.
+              <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6">If You Are a Experienced Trader</h2>
+              <p className="text-muted-foreground text-sm sm:text-lg mb-8 leading-relaxed">
+                Come join us For the new experience.
               </p>
               <a href="#contact" className="w-full sm:w-auto inline-block">
                 <Button variant="hero" size="lg" className="w-full">
                   Join the Trading Community <ArrowRight />
                 </Button>
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </MouseGlowTracker>
       </div>
     </section>
