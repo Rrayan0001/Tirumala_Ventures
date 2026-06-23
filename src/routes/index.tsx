@@ -165,23 +165,23 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="relative pt-20 pb-6 sm:pb-8 overflow-hidden">
+    <section id="home" className="relative pt-24 pb-8 sm:pb-12 overflow-hidden">
       <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" width={1920} height={1280} />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
-      <div className="relative mx-auto max-w-7xl px-6 pt-6 pb-6 lg:pt-8 lg:pb-8 grid lg:grid-cols-12 gap-y-8 lg:gap-y-10 gap-x-12 items-center">
+      <div className="relative mx-auto max-w-7xl px-6 pt-8 pb-8 lg:pt-12 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center">
         <div className="lg:col-span-7 animate-float-up">
-          <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-4">
+          <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
             <span className="h-px w-10 bg-gold" /> Tirumala Ventures
           </div>
-          <h1 className="font-serif text-4xl sm:text-6xl lg:text-6xl leading-[1.05] mb-5">
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-6xl leading-[1.05] mb-6">
             Master the Markets <br />
             <span className="text-gradient-gold">with Confidence</span>
           </h1>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10">
             Learn professional trading inside a corporate-grade live trading floor.
             Mentorship, real-time market exposure and a community of disciplined traders.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-6 max-w-4xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8 max-w-4xl">
             <a href="#contact" className="w-full"><Button variant="hero" size="lg" className="w-full"><GraduationCap /> Enroll Now</Button></a>
             <a href="#contact" className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Calendar /> Book a Visit</Button></a>
             <a href="/brochure.pdf" download className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Download /> Download Brochure</Button></a>
@@ -224,7 +224,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="lg:col-span-12 mt-8 pt-8 border-t border-gold/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-float-up">
+        <div className="lg:col-span-12 mt-12 pt-10 border-t border-gold/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-float-up">
           {[
             { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience" },
             { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance" },
@@ -269,7 +269,7 @@ function About() {
     { i: Network, t: "Community Driven", d: "Network of traders, investors and market enthusiasts." },
   ];
   return (
-    <section id="about" className="pt-12 pb-16 sm:pt-16 sm:pb-24">
+    <section id="about" className="pt-16 pb-16 sm:pt-20 sm:pb-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="About Us"
