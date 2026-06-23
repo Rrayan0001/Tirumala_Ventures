@@ -38,6 +38,7 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
+  { label: "Leadership", href: "#leadership" },
   { label: "Services", href: "#services" },
   { label: "Courses", href: "#courses" },
   { label: "Live Market", href: "#live-market" },
@@ -67,6 +68,7 @@ function Index() {
       <Nav />
       <Hero />
       <About />
+      <section id="leadership"><Leadership /></section>
       <Services />
       <LiveMarket />
       <USP />
@@ -822,6 +824,129 @@ function Field({ label, name, type = "text", required, placeholder }: { label: s
       <Label className="text-xs tracking-widest uppercase text-muted-foreground">{label}</Label>
       <Input name={name} type={type} required={required} placeholder={placeholder} className="mt-2 bg-input/40 border-gold/20" />
     </div>
+  );
+}
+
+function Leadership() {
+  return (
+    <section className="section-pad bg-card/10">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeading eyebrow="Our Leadership" title="The minds behind Tirumala" />
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-stretch">
+          {/* Founder 1: Mr. Channu Dalawai */}
+          <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
+            <div>
+              <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
+                Founder & Managing Director
+              </div>
+              <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
+              
+              <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug">
+                A Vision to Educate.<br />
+                A Mission to Empower.
+              </h3>
+              <div className="w-16 h-0.5 bg-gold/40 mb-6" />
+              
+              <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
+                <p>
+                  At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
+                </p>
+                <p>
+                  Our journey was founded on a simple yet meaningful vision—to make quality financial education accessible, practical, and impactful for aspiring market participants and investors. We are committed to empowering individuals with the understanding and confidence needed to navigate the ever-evolving world of finance.
+                </p>
+                <p>
+                  At Tirumala Ventures, learning extends beyond theory. We focus on fostering analytical thinking, disciplined decision-making, and a long-term approach towards wealth creation. Our objective is to nurture a community of informed individuals who can participate in financial markets with clarity, responsibility, and conviction.
+                </p>
+                <p>
+                  As we continue to expand our horizons, our commitment remains steadfast: to inspire learning, create opportunities, and contribute towards building a financially aware and empowered society.
+                </p>
+              </div>
+            </div>
+            
+            <div>
+              <div className="h-px w-full bg-gold/15 my-6" />
+              <div className="flex flex-col items-start">
+                <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2">
+                  Channu Dalawai
+                </div>
+                <div className="text-left mt-2">
+                  <div className="font-serif text-sm sm:text-base text-gold font-semibold tracking-wide">
+                    Mr. Channu Dalawai
+                  </div>
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
+                    Founder & Managing Director
+                  </div>
+                  <div className="text-[9px] uppercase tracking-wider text-muted-foreground/80">
+                    Tirumala Ventures
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Founder 2: Mr. Sharankumar Tantri */}
+          <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 border-l-4 border-l-gold">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
+            <div>
+              <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
+                Founder & Chief Strategy Officer
+              </div>
+              <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
+              
+              <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight">
+                Sharankumar Tantri
+              </h3>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5">
+                Founder & Chief Strategy Officer
+              </div>
+              
+              <div className="flex flex-wrap items-center gap-y-2 gap-x-3 mb-6 text-gold">
+                <div className="flex items-center gap-1.5 text-xs font-medium">
+                  <GraduationCap className="size-3.5" /> Master's in Management
+                </div>
+                <div className="text-gold/30 text-xs hidden sm:block">|</div>
+                <div className="flex items-center gap-1.5 text-xs font-medium">
+                  <TrendingUp className="size-3.5" /> Professional Trader
+                </div>
+                <div className="text-gold/30 text-xs hidden sm:block">|</div>
+                <div className="flex items-center gap-1.5 text-xs font-medium">
+                  <Users className="size-3.5" /> Mentor
+                </div>
+              </div>
+
+              <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
+                <p>
+                  The stock market is a powerful wealth creation avenue when approached with the right knowledge, the right mindset and the right strategy. My mission is to make this knowledge practical, understandable and accessible to everyone.
+                </p>
+                <p>
+                  As the Founder & Chief Strategy Officer of Tirumala Ventures, I shape the vision, architect the roadmap and drive the execution of all training and education initiatives. I personally lead the learning programs, mentor aspiring traders and work closely with every learner to help them build a strong foundation in the markets.
+                </p>
+                <p>
+                  Our training is built on real market experience, proven strategies, risk management and emotional discipline. I focus on transforming beginners into confident, independent traders and investors who can make informed and responsible decisions.
+                </p>
+                <p>
+                  Every single program, session and strategy at Tirumala Ventures is designed, tested and refined with one purpose – to educate, empower and create successful market participants.
+                </p>
+                <p>
+                  I am personally committed to your growth and to building a community of disciplined, knowledgeable and financially free individuals.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div className="h-px w-full bg-gold/15 my-6" />
+              <div className="flex flex-col items-end">
+                <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none">
+                  Sharankumar Tantri
+                </div>
+                <div className="w-32 h-px bg-gold/30 mt-1" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
