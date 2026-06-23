@@ -22,6 +22,9 @@ import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import logoAsset from "@/assets/logo.png";
+import CandlestickBackground from "@/components/CandlestickBackground";
+import MouseGlowTracker from "@/components/MouseGlowTracker";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -59,6 +62,30 @@ function Index() {
       document.body.style.overflow = "";
     };
   }, [showSplash]);
+
+  useEffect(() => {
+    // Fallback for browsers that don't support native CSS scroll-driven animations
+    if (typeof window !== "undefined" && (!window.CSS || !CSS.supports || !CSS.supports("(animation-timeline: view()) and (animation-range: entry)"))) {
+      const handleScroll = () => {
+        const scrolled = window.scrollY;
+        const bgs = document.querySelectorAll(".parallax-bg");
+        const fgs = document.querySelectorAll(".parallax-fg");
+
+        bgs.forEach((bg) => {
+          const htmlBg = bg as HTMLElement;
+          htmlBg.style.transform = `translateY(${scrolled * 0.15}px)`;
+        });
+
+        fgs.forEach((fg) => {
+          const htmlFg = fg as HTMLElement;
+          htmlFg.style.transform = `translateY(${scrolled * -0.06}px)`;
+        });
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -343,11 +370,17 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="relative pt-24 pb-8 sm:pb-12 overflow-hidden">
-      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" width={1920} height={1280} />
+    <section id="home" className="relative pt-24 pb-8 sm:pb-12 overflow-hidden parallax-container">
+      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 parallax-bg" width={1920} height={1280} />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
+      
+      {/* Dynamic drifting stock candlesticks background chart */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden parallax-bg select-none opacity-20">
+        <CandlestickBackground />
+      </div>
+
       <div className="relative mx-auto max-w-7xl px-6 pt-8 pb-8 lg:pt-12 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center">
-        <div className="lg:col-span-7 animate-float-up">
+        <div className="lg:col-span-7 animate-float-up parallax-fg">
           <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
             <span className="h-px w-10 bg-gold" /> Tirumala Ventures
           </div>
@@ -371,35 +404,37 @@ function Hero() {
           </a>
         </div>
         <div className="lg:col-span-5">
-          <div className="relative glass-card rounded-2xl p-5 sm:p-8 shadow-gold">
-            <div className="absolute -inset-px rounded-2xl animate-shimmer pointer-events-none" />
-            <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
-              {[
-                { v: "12K+", l: "Active Traders" },
-                { v: "₹240Cr", l: "Tracked Capital" },
-                { v: "4.9★", l: "Mentor Rating" },
-              ].map(s => (
-                <div key={s.l}>
-                  <div className="font-serif text-lg sm:text-2xl text-gold">{s.v}</div>
-                  <div className="text-[9px] sm:text-[10px] tracking-widest uppercase text-muted-foreground mt-1 leading-tight">{s.l}</div>
-                </div>
-              ))}
+          <MouseGlowTracker className="rounded-3xl">
+            <div className="relative glass-card glowing-border p-5 sm:p-8 shadow-gold">
+              <div className="absolute -inset-px rounded-2xl animate-shimmer pointer-events-none" />
+              <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
+                {[
+                  { v: "12K+", l: "Active Traders" },
+                  { v: "₹240Cr", l: "Tracked Capital" },
+                  { v: "4.9★", l: "Mentor Rating" },
+                ].map(s => (
+                  <div key={s.l}>
+                    <div className="font-serif text-lg sm:text-2xl text-gold">{s.v}</div>
+                    <div className="text-[9px] sm:text-[10px] tracking-widest uppercase text-muted-foreground mt-1 leading-tight">{s.l}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 border-t border-gold/15 pt-6 space-y-3 text-xs sm:text-sm">
+                {[
+                  ["NIFTY 50", "24,812.45", "+0.84%"],
+                  ["BANK NIFTY", "53,204.10", "+1.12%"],
+                  ["SENSEX", "81,402.30", "+0.67%"],
+                  ["GOLD", "₹74,210", "+0.31%"],
+                ].map(([k, v, c]) => (
+                  <div key={k} className="grid grid-cols-3 items-center">
+                    <span className="text-muted-foreground tracking-wide text-left">{k}</span>
+                    <span className="text-foreground text-right font-mono pr-4 sm:pr-8">{v}</span>
+                    <span className="text-gold text-right font-mono">{c}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mt-8 border-t border-gold/15 pt-6 space-y-3 text-xs sm:text-sm">
-              {[
-                ["NIFTY 50", "24,812.45", "+0.84%"],
-                ["BANK NIFTY", "53,204.10", "+1.12%"],
-                ["SENSEX", "81,402.30", "+0.67%"],
-                ["GOLD", "₹74,210", "+0.31%"],
-              ].map(([k, v, c]) => (
-                <div key={k} className="grid grid-cols-3 items-center">
-                  <span className="text-muted-foreground tracking-wide text-left">{k}</span>
-                  <span className="text-foreground text-right font-mono pr-4 sm:pr-8">{v}</span>
-                  <span className="text-gold text-right font-mono">{c}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          </MouseGlowTracker>
         </div>
 
         <div className="lg:col-span-12 mt-12 pt-10 border-t border-gold/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-float-up">
@@ -456,20 +491,21 @@ function About() {
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {pillars.map(({ i: Icon, t, d }) => (
-            <div key={t} className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-colors">
-              <div className="size-12 rounded-lg gradient-gold grid place-items-center mb-4">
-                <Icon className="size-6 text-primary-foreground" />
+            <MouseGlowTracker key={t} className="rounded-xl">
+              <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-colors h-full">
+                <div className="size-12 rounded-lg gradient-gold grid place-items-center mb-4">
+                  <Icon className="size-6 text-primary-foreground" />
+                </div>
+                <h3 className="font-serif text-xl mb-2">{t}</h3>
+                <p className="text-sm text-muted-foreground">{d}</p>
               </div>
-              <h3 className="font-serif text-xl mb-2">{t}</h3>
-              <p className="text-sm text-muted-foreground">{d}</p>
-            </div>
+            </MouseGlowTracker>
           ))}
         </div>
       </div>
     </section>
   );
 }
-
 function Services() {
   const items = [
     { i: Briefcase, t: "Mentorship Program", d: "One-on-one guidance, strategy development, risk management and market psychology training." },
@@ -483,11 +519,13 @@ function Services() {
         <SectionHeading eyebrow="Services" title="What we offer" />
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {items.map(({ i: Icon, t, d }) => (
-            <div key={t} className="glass-card rounded-xl p-6 group hover:-translate-y-1 transition-transform">
-              <Icon className="size-8 text-gold mb-4" />
-              <h3 className="font-serif text-xl mb-2">{t}</h3>
-              <p className="text-sm text-muted-foreground">{d}</p>
-            </div>
+            <MouseGlowTracker key={t} className="rounded-xl">
+              <div className="glass-card rounded-xl p-6 group hover:-translate-y-1 transition-transform h-full">
+                <Icon className="size-8 text-gold mb-4" />
+                <h3 className="font-serif text-xl mb-2">{t}</h3>
+                <p className="text-sm text-muted-foreground">{d}</p>
+              </div>
+            </MouseGlowTracker>
           ))}
         </div>
       </div>
@@ -512,38 +550,44 @@ function USP() {
         <SectionHeading eyebrow="Why Choose Us" title="The Tirumala advantage" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {usps.map(({ i: Icon, t }) => (
-            <div key={t} className="glass-card rounded-xl p-6 text-center hover:border-gold/40 transition-all">
-              <div className="mx-auto size-14 rounded-full border border-gold/40 grid place-items-center mb-4">
-                <Icon className="size-6 text-gold" />
+            <MouseGlowTracker key={t} className="rounded-xl">
+              <div className="glass-card rounded-xl p-6 text-center hover:border-gold/40 transition-all h-full">
+                <div className="mx-auto size-14 rounded-full border border-gold/40 grid place-items-center mb-4">
+                  <Icon className="size-6 text-gold" />
+                </div>
+                <div className="font-serif text-base">{t}</div>
               </div>
-              <div className="font-serif text-base">{t}</div>
-            </div>
+            </MouseGlowTracker>
           ))}
         </div>
       </div>
     </section>
   );
-}function ExperiencedTraders() {
+}
+
+function ExperiencedTraders() {
   return (
     <section className="section-pad">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="relative glass-card rounded-3xl p-6 sm:p-10 md:p-16 overflow-hidden">
-          <div className="absolute -top-24 -right-24 size-72 rounded-full bg-gold/10 blur-3xl" />
-          <div className="relative max-w-3xl">
-            <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Experienced Traders</div>
-            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6">Already an experienced trader?</h2>
-            <p className="text-muted-foreground text-sm sm:text-lg mb-8">
-              If you are an experienced trader looking for a professional trading environment,
-              advanced market discussions, networking opportunities and a corporate trading floor experience —
-              join us for a completely new trading experience.
-            </p>
-            <a href="#contact" className="w-full sm:w-auto inline-block">
-              <Button variant="hero" size="lg" className="w-full">
-                Join the Trading Community <ArrowRight />
-              </Button>
-            </a>
+        <MouseGlowTracker className="rounded-3xl">
+          <div className="relative glass-card glowing-border p-6 sm:p-10 md:p-16 overflow-hidden">
+            <div className="absolute -top-24 -right-24 size-72 rounded-full bg-gold/10 blur-3xl" />
+            <div className="relative max-w-3xl">
+              <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Experienced Traders</div>
+              <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6">Already an experienced trader?</h2>
+              <p className="text-muted-foreground text-sm sm:text-lg mb-8">
+                If you are an experienced trader looking for a professional trading environment,
+                advanced market discussions, networking opportunities and a corporate trading floor experience —
+                join us for a completely new trading experience.
+              </p>
+              <a href="#contact" className="w-full sm:w-auto inline-block">
+                <Button variant="hero" size="lg" className="w-full">
+                  Join the Trading Community <ArrowRight />
+                </Button>
+              </a>
+            </div>
           </div>
-        </div>
+        </MouseGlowTracker>
       </div>
     </section>
   );
@@ -679,19 +723,21 @@ function Workspace() {
   return (
     <section className="section-pad">
       <div className="mx-auto max-w-5xl px-6">
-        <div className="relative glass-card rounded-3xl p-6 sm:p-12 md:p-20 text-center overflow-hidden">
-          <div className="absolute inset-0 animate-shimmer opacity-40" />
-          <div className="relative">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/50 text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-pulse-glow">
-              <Sparkles className="size-3" /> Coming Soon
+        <MouseGlowTracker className="rounded-3xl">
+          <div className="relative glass-card glowing-border p-6 sm:p-12 md:p-20 text-center overflow-hidden">
+            <div className="absolute inset-0 animate-shimmer opacity-40" />
+            <div className="relative">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/50 text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-pulse-glow">
+                <Sparkles className="size-3" /> Coming Soon
+              </div>
+              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Trading Workspace</h2>
+              <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                A dedicated professional workspace for traders, investors and market enthusiasts
+                is currently under development and will be launching soon.
+              </p>
             </div>
-            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Trading Workspace</h2>
-            <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-              A dedicated professional workspace for traders, investors and market enthusiasts
-              is currently under development and will be launching soon.
-            </p>
           </div>
-        </div>
+        </MouseGlowTracker>
       </div>
     </section>
   );
@@ -713,12 +759,14 @@ function Courses() {
         <SectionHeading eyebrow="Courses" title="Programs crafted for every level" />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {COURSES.map(c => (
-            <div key={c.t} className="glass-card rounded-xl p-6 flex flex-col hover:border-gold/40 transition-colors">
-              <BookOpen className="size-7 text-gold mb-4" />
-              <h3 className="font-serif text-xl mb-3">{c.t}</h3>
-              <p className="text-sm text-muted-foreground mb-6 flex-1">{c.d}</p>
-              <a href="#contact"><Button variant="heroOutline" size="sm" className="w-full">Learn More <ArrowRight /></Button></a>
-            </div>
+            <MouseGlowTracker key={c.t} className="rounded-xl">
+              <div className="glass-card rounded-xl p-6 flex flex-col hover:border-gold/40 transition-colors h-full">
+                <BookOpen className="size-7 text-gold mb-4" />
+                <h3 className="font-serif text-xl mb-3">{c.t}</h3>
+                <p className="text-sm text-muted-foreground mb-6 flex-1">{c.d}</p>
+                <a href="#contact"><Button variant="heroOutline" size="sm" className="w-full">Learn More <ArrowRight /></Button></a>
+              </div>
+            </MouseGlowTracker>
           ))}
         </div>
         <div className="text-center mt-12">
@@ -785,33 +833,35 @@ function Contact() {
             <div className="flex items-start gap-3"><Clock className="size-5 text-gold mt-0.5" /><span>Mon — Sat · 8:30 AM to 8:00 PM IST</span></div>
           </div>
         </div>
-        <form onSubmit={onSubmit} className="lg:col-span-3 glass-card rounded-2xl p-5 sm:p-8 space-y-5">
-          <div className="grid sm:grid-cols-2 gap-5">
-            <Field label="Full Name" name="name" required placeholder="Your full name" />
-            <Field label="Mobile Number" name="mobile" type="tel" required placeholder="+91" />
-            <Field label="Email" name="email" type="email" required placeholder="you@example.com" />
-            <Field label="City" name="city" required placeholder="City" />
-          </div>
-          <div>
-            <Label className="text-xs tracking-widest uppercase text-muted-foreground">Interested Program</Label>
-            <Select name="program">
-              <SelectTrigger className="mt-2 bg-input/40 border-gold/20"><SelectValue placeholder="Select an inquiry type / program" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="enrollment">Course Enrollment</SelectItem>
-                <SelectItem value="floor-visit">Trading Floor Visit Booking</SelectItem>
-                <SelectItem value="general">General Inquiry</SelectItem>
-                {COURSES.map(c => <SelectItem key={c.t} value={c.t}>{c.t}</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label className="text-xs tracking-widest uppercase text-muted-foreground">Message</Label>
-            <Textarea name="message" placeholder="Tell us a bit about your goals…" rows={4} className="mt-2 bg-input/40 border-gold/20" />
-          </div>
-          <Button type="submit" variant="hero" size="lg" disabled={submitting} className="w-full">
-            {submitting ? "Sending…" : <>Send Inquiry <ArrowRight /></>}
-          </Button>
-        </form>
+        <MouseGlowTracker className="lg:col-span-3 rounded-2xl">
+          <form onSubmit={onSubmit} className="glass-card glowing-border p-5 sm:p-8 space-y-5">
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Full Name" name="name" required placeholder="Your full name" />
+              <Field label="Mobile Number" name="mobile" type="tel" required placeholder="+91" />
+              <Field label="Email" name="email" type="email" required placeholder="you@example.com" />
+              <Field label="City" name="city" required placeholder="City" />
+            </div>
+            <div>
+              <Label className="text-xs tracking-widest uppercase text-muted-foreground">Interested Program</Label>
+              <Select name="program">
+                <SelectTrigger className="mt-2 bg-input/40 border-gold/20"><SelectValue placeholder="Select an inquiry type / program" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="enrollment">Course Enrollment</SelectItem>
+                  <SelectItem value="floor-visit">Trading Floor Visit Booking</SelectItem>
+                  <SelectItem value="general">General Inquiry</SelectItem>
+                  {COURSES.map(c => <SelectItem key={c.t} value={c.t}>{c.t}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-xs tracking-widest uppercase text-muted-foreground">Message</Label>
+              <Textarea name="message" placeholder="Tell us a bit about your goals…" rows={4} className="mt-2 bg-input/40 border-gold/20" />
+            </div>
+            <Button type="submit" variant="hero" size="lg" disabled={submitting} className="w-full">
+              {submitting ? "Sending…" : <>Send Inquiry <ArrowRight /></>}
+            </Button>
+          </form>
+        </MouseGlowTracker>
       </div>
     </section>
   );
@@ -833,116 +883,120 @@ function Leadership() {
         <SectionHeading eyebrow="Our Leadership" title="The minds behind Tirumala" />
         <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-stretch">
           {/* Founder 1: Mr. Channu Dalawai */}
-          <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
-            <div>
-              <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
-                Founder & Managing Director
-              </div>
-              <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
-              
-              <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug">
-                A Vision to Educate.<br />
-                A Mission to Empower.
-              </h3>
-              <div className="w-16 h-0.5 bg-gold/40 mb-6" />
-              
-              <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
-                <p>
-                  At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
-                </p>
-                <p>
-                  Our journey was founded on a simple yet meaningful vision—to make quality financial education accessible, practical, and impactful for aspiring market participants and investors. We are committed to empowering individuals with the understanding and confidence needed to navigate the ever-evolving world of finance.
-                </p>
-                <p>
-                  At Tirumala Ventures, learning extends beyond theory. We focus on fostering analytical thinking, disciplined decision-making, and a long-term approach towards wealth creation. Our objective is to nurture a community of informed individuals who can participate in financial markets with clarity, responsibility, and conviction.
-                </p>
-                <p>
-                  As we continue to expand our horizons, our commitment remains steadfast: to inspire learning, create opportunities, and contribute towards building a financially aware and empowered society.
-                </p>
-              </div>
-            </div>
-            
-            <div>
-              <div className="h-px w-full bg-gold/15 my-6" />
-              <div className="flex flex-col items-start">
-                <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2">
-                  Channu Dalawai
+          <MouseGlowTracker className="rounded-3xl h-full">
+            <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 h-full">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
+              <div>
+                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
+                  Founder & Managing Director
                 </div>
-                <div className="text-left mt-2">
-                  <div className="font-serif text-sm sm:text-base text-gold font-semibold tracking-wide">
-                    Mr. Channu Dalawai
-                  </div>
-                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
-                    Founder & Managing Director
-                  </div>
-                  <div className="text-[9px] uppercase tracking-wider text-muted-foreground/80">
-                    Tirumala Ventures
-                  </div>
+                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
+                
+                <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug">
+                  A Vision to Educate.<br />
+                  A Mission to Empower.
+                </h3>
+                <div className="w-16 h-0.5 bg-gold/40 mb-6" />
+                
+                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
+                  <p>
+                    At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
+                  </p>
+                  <p>
+                    Our journey was founded on a simple yet meaningful vision—to make quality financial education accessible, practical, and impactful for aspiring market participants and investors. We are committed to empowering individuals with the understanding and confidence needed to navigate the ever-evolving world of finance.
+                  </p>
+                  <p>
+                    At Tirumala Ventures, learning extends beyond theory. We focus on fostering analytical thinking, disciplined decision-making, and a long-term approach towards wealth creation. Our objective is to nurture a community of informed individuals who can participate in financial markets with clarity, responsibility, and conviction.
+                  </p>
+                  <p>
+                    As we continue to expand our horizons, our commitment remains steadfast: to inspire learning, create opportunities, and contribute towards building a financially aware and empowered society.
+                  </p>
                 </div>
               </div>
+              
+              <div>
+                <div className="h-px w-full bg-gold/15 my-6" />
+                <div className="flex flex-col items-start">
+                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2">
+                    Channu Dalawai
+                  </div>
+                  <div className="text-left mt-2">
+                    <div className="font-serif text-sm sm:text-base text-gold font-semibold tracking-wide">
+                      Mr. Channu Dalawai
+                    </div>
+                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
+                      Founder & Managing Director
+                    </div>
+                    <div className="text-[9px] uppercase tracking-wider text-muted-foreground/80">
+                      Tirumala Ventures
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </MouseGlowTracker>
 
           {/* Founder 2: Mr. Sharankumar Tantri */}
-          <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 border-l-4 border-l-gold">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
-            <div>
-              <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
-                Founder & Chief Strategy Officer
-              </div>
-              <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
-              
-              <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight">
-                Sharankumar Tantri
-              </h3>
-              <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5">
-                Founder & Chief Strategy Officer
-              </div>
-              
-              <div className="flex flex-wrap items-center gap-y-2 gap-x-3 mb-6 text-gold">
-                <div className="flex items-center gap-1.5 text-xs font-medium">
-                  <GraduationCap className="size-3.5" /> Master's in Management
+          <MouseGlowTracker className="rounded-3xl h-full">
+            <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 border-l-4 border-l-gold h-full">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
+              <div>
+                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
+                  Founder & Chief Strategy Officer
                 </div>
-                <div className="text-gold/30 text-xs hidden sm:block">|</div>
-                <div className="flex items-center gap-1.5 text-xs font-medium">
-                  <TrendingUp className="size-3.5" /> Professional Trader
-                </div>
-                <div className="text-gold/30 text-xs hidden sm:block">|</div>
-                <div className="flex items-center gap-1.5 text-xs font-medium">
-                  <Users className="size-3.5" /> Mentor
-                </div>
-              </div>
-
-              <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
-                <p>
-                  The stock market is a powerful wealth creation avenue when approached with the right knowledge, the right mindset and the right strategy. My mission is to make this knowledge practical, understandable and accessible to everyone.
-                </p>
-                <p>
-                  As the Founder & Chief Strategy Officer of Tirumala Ventures, I shape the vision, architect the roadmap and drive the execution of all training and education initiatives. I personally lead the learning programs, mentor aspiring traders and work closely with every learner to help them build a strong foundation in the markets.
-                </p>
-                <p>
-                  Our training is built on real market experience, proven strategies, risk management and emotional discipline. I focus on transforming beginners into confident, independent traders and investors who can make informed and responsible decisions.
-                </p>
-                <p>
-                  Every single program, session and strategy at Tirumala Ventures is designed, tested and refined with one purpose – to educate, empower and create successful market participants.
-                </p>
-                <p>
-                  I am personally committed to your growth and to building a community of disciplined, knowledgeable and financially free individuals.
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <div className="h-px w-full bg-gold/15 my-6" />
-              <div className="flex flex-col items-end">
-                <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none">
+                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
+                
+                <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight">
                   Sharankumar Tantri
+                </h3>
+                <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5">
+                  Founder & Chief Strategy Officer
                 </div>
-                <div className="w-32 h-px bg-gold/30 mt-1" />
+                
+                <div className="flex flex-wrap items-center gap-y-2 gap-x-3 mb-6 text-gold">
+                  <div className="flex items-center gap-1.5 text-xs font-medium">
+                    <GraduationCap className="size-3.5" /> Master's in Management
+                  </div>
+                  <div className="text-gold/30 text-xs hidden sm:block">|</div>
+                  <div className="flex items-center gap-1.5 text-xs font-medium">
+                    <TrendingUp className="size-3.5" /> Professional Trader
+                  </div>
+                  <div className="text-gold/30 text-xs hidden sm:block">|</div>
+                  <div className="flex items-center gap-1.5 text-xs font-medium">
+                    <Users className="size-3.5" /> Mentor
+                  </div>
+                </div>
+
+                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
+                  <p>
+                    The stock market is a powerful wealth creation avenue when approached with the right knowledge, the right mindset and the right strategy. My mission is to make this knowledge practical, understandable and accessible to everyone.
+                  </p>
+                  <p>
+                    As the Founder & Chief Strategy Officer of Tirumala Ventures, I shape the vision, architect the roadmap and drive the execution of all training and education initiatives. I personally lead the learning programs, mentor aspiring traders and work closely with every learner to help them build a strong foundation in the markets.
+                  </p>
+                  <p>
+                    Our training is built on real market experience, proven strategies, risk management and emotional discipline. I focus on transforming beginners into confident, independent traders and investors who can make informed and responsible decisions.
+                  </p>
+                  <p>
+                    Every single program, session and strategy at Tirumala Ventures is designed, tested and refined with one purpose – to educate, empower and create successful market participants.
+                  </p>
+                  <p>
+                    I am personally committed to your growth and to building a community of disciplined, knowledgeable and financially free individuals.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <div className="h-px w-full bg-gold/15 my-6" />
+                <div className="flex flex-col items-end">
+                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none">
+                    Sharankumar Tantri
+                  </div>
+                  <div className="w-32 h-px bg-gold/30 mt-1" />
+                </div>
               </div>
             </div>
-          </div>
+          </MouseGlowTracker>
         </div>
       </div>
     </section>
