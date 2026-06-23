@@ -312,6 +312,23 @@ function Nav() {
             </button>
           </div>
         </div>
+
+        {/* Scrolling alerts marquee ticker */}
+        <div className="w-full bg-gold/[0.04] border-t border-gold/10 py-2 overflow-hidden select-none text-[10px] sm:text-xs text-gold/90 font-medium uppercase tracking-[0.25em] relative flex items-center">
+          <div className="animate-marquee whitespace-nowrap flex gap-12">
+            <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
+            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
+            <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
+            <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
+            <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
+            {/* Duplicate for seamless infinite loop */}
+            <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
+            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
+            <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
+            <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
+            <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
+          </div>
+        </div>
       </header>
 
       {/* Backdrop overlay */}
@@ -370,7 +387,7 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="relative pt-24 pb-8 sm:pb-12 overflow-hidden parallax-container">
+    <section id="home" className="relative pt-32 pb-8 sm:pb-12 overflow-hidden parallax-container">
       <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 parallax-bg" width={1920} height={1280} />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
       
