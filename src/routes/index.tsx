@@ -223,6 +223,25 @@ function Hero() {
             </div>
           </div>
         </div>
+
+        <div className="lg:col-span-12 mt-4 pt-8 border-t border-gold/15 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+          {[
+            { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience" },
+            { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance" },
+            { i: TrendingUp, t: "Practical Learning", d: "Trade with real capital" },
+            { i: Calendar, t: "Flexible Batches", d: "Weekday & weekend classes" }
+          ].map(({ i: Icon, t, d }) => (
+            <div key={t} className="flex gap-3 items-center">
+              <div className="size-10 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5">
+                <Icon className="size-5 text-gold" />
+              </div>
+              <div>
+                <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight">{t}</div>
+                <div className="text-xs text-muted-foreground mt-0.5 leading-tight">{d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
