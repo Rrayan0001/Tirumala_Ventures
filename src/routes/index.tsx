@@ -165,23 +165,23 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="relative pt-20 pb-8 sm:pb-12 overflow-hidden">
+    <section id="home" className="relative pt-20 pb-0 overflow-hidden">
       <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" width={1920} height={1280} />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
-      <div className="relative mx-auto max-w-7xl px-6 pt-6 pb-12 lg:pt-10 lg:pb-16 grid lg:grid-cols-12 gap-12 items-center">
+      <div className="relative mx-auto max-w-7xl px-6 pt-4 pb-4 lg:pt-6 lg:pb-8 grid lg:grid-cols-12 gap-y-6 lg:gap-y-8 gap-x-12 items-center">
         <div className="lg:col-span-7 animate-float-up">
-          <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-6">
+          <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-3">
             <span className="h-px w-10 bg-gold" /> Tirumala Ventures
           </div>
-          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl leading-[1.05] mb-6">
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-6xl leading-[1.05] mb-4">
             Master the Markets <br />
             <span className="text-gradient-gold">with Confidence</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl mb-10">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-6">
             Learn professional trading inside a corporate-grade live trading floor.
             Mentorship, real-time market exposure and a community of disciplined traders.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-6 max-w-4xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-4 max-w-4xl">
             <a href="#contact" className="w-full"><Button variant="hero" size="lg" className="w-full"><GraduationCap /> Enroll Now</Button></a>
             <a href="#contact" className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Calendar /> Book a Visit</Button></a>
             <a href="/brochure.pdf" download className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Download /> Download Brochure</Button></a>
@@ -207,7 +207,7 @@ function Hero() {
                 </div>
               ))}
             </div>
-            <div className="mt-8 border-t border-gold/15 pt-6 space-y-3 text-xs sm:text-sm">
+            <div className="mt-6 border-t border-gold/15 pt-5 space-y-3 text-xs sm:text-sm">
               {[
                 ["NIFTY 50", "24,812.45", "+0.84%"],
                 ["BANK NIFTY", "53,204.10", "+1.12%"],
@@ -224,8 +224,8 @@ function Hero() {
           </div>
         </div>
 
-        <div className="lg:col-span-12 mt-8 sm:mt-12 animate-float-up">
-          <div className="glass-card rounded-2xl p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative overflow-hidden shadow-gold/10 shadow-lg">
+        <div className="lg:col-span-12 mt-4 sm:mt-6 animate-float-up">
+          <div className="glass-card rounded-2xl p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative overflow-hidden shadow-gold/10 shadow-lg">
             <div className="absolute -inset-px rounded-2xl animate-shimmer pointer-events-none opacity-30" />
             {[
               { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience" },
@@ -233,9 +233,9 @@ function Hero() {
               { i: TrendingUp, t: "Practical Learning", d: "Trade with real capital" },
               { i: Calendar, t: "Flexible Batches", d: "Weekday & weekend classes" }
             ].map(({ i: Icon, t, d }) => (
-              <div key={t} className="flex gap-4 items-center p-3 rounded-xl border border-transparent hover:border-gold/20 hover:bg-gold/[0.03] transition-all duration-300 group">
-                <div className="size-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:scale-110 group-hover:bg-gold/20 transition-all duration-300">
-                  <Icon className="size-6 text-gold" />
+              <div key={t} className="flex gap-3 items-center p-2 rounded-xl border border-transparent hover:border-gold/20 hover:bg-gold/[0.03] transition-all duration-300 group">
+                <div className="size-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:scale-110 group-hover:bg-gold/20 transition-all duration-300">
+                  <Icon className="size-5 text-gold" />
                 </div>
                 <div>
                   <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors">{t}</div>
@@ -272,7 +272,7 @@ function About() {
     { i: Network, t: "Community Driven", d: "Network of traders, investors and market enthusiasts." },
   ];
   return (
-    <section id="about" className="section-pad">
+    <section id="about" className="pt-10 pb-16 sm:pt-16 sm:pb-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="About Us"
