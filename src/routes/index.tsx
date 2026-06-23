@@ -47,8 +47,34 @@ const NAV = [
 ];
 
 function Index() {
+  const [showSplash, setShowSplash] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    if (showSplash) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    const fadeTimer = setTimeout(() => {
+      setFadeOut(true);
+    }, 2000);
+
+    const removeTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2500);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+      document.body.style.overflow = "";
+    };
+  }, [showSplash]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {showSplash && <WelcomeSplash fadeOut={fadeOut} />}
       <Toaster />
       <Nav />
       <Hero />
@@ -63,6 +89,48 @@ function Index() {
       <Gallery />
       <Contact />
       <Footer />
+    </div>
+  );
+}
+
+function WelcomeSplash({ fadeOut }: { fadeOut: boolean }) {
+  return (
+    <div
+      className={`fixed inset-0 z-[9999] bg-background flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out ${
+        fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
+      }`}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,oklch(0.24_0.045_155)_0%,oklch(0.17_0.04_155)_100%)] opacity-85" />
+      
+      <div className="relative flex flex-col items-center max-w-md px-6 text-center">
+        <div className="relative mb-6 animate-pulse-glow rounded-full p-2">
+          <img
+            src={logoAsset}
+            alt="Tirumala Ventures Logo"
+            className="size-20 sm:size-24 object-contain drop-shadow-[0_0_20px_rgba(212,175,55,0.55)] animate-float-up"
+          />
+        </div>
+
+        <div className="overflow-hidden mb-3">
+          <h1 className="font-serif text-3xl sm:text-4xl text-gold tracking-[0.25em] uppercase leading-tight animate-float-up">
+            Tirumala
+          </h1>
+          <div className="text-xs uppercase tracking-[0.4em] text-gold/80 mt-1.5 leading-tight animate-float-up">
+            ventures
+          </div>
+        </div>
+
+        <div className="relative mt-3 px-4 py-1.5 overflow-hidden animate-float-up">
+          <span className="text-xs sm:text-sm tracking-[0.2em] uppercase text-gradient-gold font-semibold leading-relaxed">
+            Master the Markets
+          </span>
+          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gold to-transparent mt-2 opacity-65" />
+        </div>
+
+        <div className="w-48 h-[2px] bg-gold/15 rounded-full overflow-hidden mt-6 mx-auto relative">
+          <div className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar" />
+        </div>
+      </div>
     </div>
   );
 }
