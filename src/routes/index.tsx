@@ -82,30 +82,32 @@ function Nav() {
   }, [open]);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-gold/15">
-      <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-3">
-          <img src={logoAsset} alt="Tirumala Ventures" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" />
-          <div className="leading-tight">
-            <div className="font-serif text-lg text-gold tracking-widest">TIRUMALA</div>
-            <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">ventures</div>
+    <>
+      <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-gold/15">
+        <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
+          <a href="#home" className="flex items-center gap-3">
+            <img src={logoAsset} alt="Tirumala Ventures" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" />
+            <div className="leading-tight">
+              <div className="font-serif text-lg text-gold tracking-widest">TIRUMALA</div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">ventures</div>
+            </div>
+          </a>
+          <nav className="hidden lg:flex items-center gap-8">
+            {NAV.map(n => (
+              <a key={n.href} href={n.href} className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5">
+                {n.label}
+                {n.soon && <span className="text-[9px] tracking-[0.2em] uppercase px-1.5 py-0.5 rounded-full border border-gold/50 text-gold">Soon</span>}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-3">
+            <a href="#contact" className="hidden md:inline-flex"><Button variant="hero" size="sm">Enroll Now</Button></a>
+            <button onClick={() => setOpen(true)} className="lg:hidden text-gold p-1.5" aria-label="Open Menu">
+              <Layers className="size-6" />
+            </button>
           </div>
-        </a>
-        <nav className="hidden lg:flex items-center gap-8">
-          {NAV.map(n => (
-            <a key={n.href} href={n.href} className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5">
-              {n.label}
-              {n.soon && <span className="text-[9px] tracking-[0.2em] uppercase px-1.5 py-0.5 rounded-full border border-gold/50 text-gold">Soon</span>}
-            </a>
-          ))}
-        </nav>
-        <div className="flex items-center gap-3">
-          <a href="#contact" className="hidden md:inline-flex"><Button variant="hero" size="sm">Enroll Now</Button></a>
-          <button onClick={() => setOpen(true)} className="lg:hidden text-gold p-1.5" aria-label="Open Menu">
-            <Layers className="size-6" />
-          </button>
         </div>
-      </div>
+      </header>
 
       {/* Backdrop overlay */}
       <div
@@ -157,7 +159,7 @@ function Nav() {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }
 
