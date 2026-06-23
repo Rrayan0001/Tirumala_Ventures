@@ -21,14 +21,14 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import logoAsset from "@/assets/logo.png.asset.json";
+import logoAsset from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tirumala Trading Academy — Premium Trading Education & Live Trading Floor" },
+      { title: "Tirumala Ventures — Premium Trading Education & Live Trading Floor" },
       { name: "description", content: "India's premier trading institute. Live trading floor, expert mentors, practical courses, corporate ambience. Enroll, visit our floor, or download the brochure." },
-      { property: "og:title", content: "Tirumala Trading Academy" },
+      { property: "og:title", content: "Tirumala Ventures" },
       { property: "og:description", content: "Premium trading education and live corporate trading floor. Mentorship, weekend classes, live trading, demat support." },
     ],
   }),
@@ -85,10 +85,10 @@ function Nav() {
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-gold/15">
       <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-3">
-          <img src={logoAsset.url} alt="Tirumala Trading Academy" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" />
+          <img src={logoAsset} alt="Tirumala Ventures" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" />
           <div className="leading-tight">
             <div className="font-serif text-lg text-gold tracking-widest">TIRUMALA</div>
-            <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">trading academy</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">ventures</div>
           </div>
         </a>
         <nav className="hidden lg:flex items-center gap-8">
@@ -117,7 +117,7 @@ function Nav() {
 
       {/* Slide-in glassmorphic drawer */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-72 bg-card/95 backdrop-blur-lg border-l border-gold/15 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${
+        className={`fixed inset-y-0 right-0 z-50 w-72 bg-background/98 backdrop-blur-lg border-l border-gold/15 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${
           open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
         }`}
       >
@@ -134,7 +134,7 @@ function Nav() {
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="text-base py-3 px-3 rounded-lg text-foreground/80 hover:text-gold hover:bg-gold/5 transition-all flex items-center justify-between group"
+                className="text-base py-3 px-3 rounded-lg text-foreground hover:text-gold hover:bg-gold/5 font-medium transition-all flex items-center justify-between group"
               >
                 <span className="tracking-wide">{n.label}</span>
                 {n.soon ? (
@@ -155,9 +155,6 @@ function Nav() {
               <Phone className="size-4 text-gold/80" /> +91 98XXX XXXXX
             </a>
           </div>
-          <a href="#contact" onClick={() => setOpen(false)} className="block">
-            <Button variant="hero" className="w-full py-5 text-sm">Enroll Now</Button>
-          </a>
         </div>
       </div>
     </header>
@@ -172,7 +169,7 @@ function Hero() {
       <div className="relative mx-auto max-w-7xl px-6 py-16 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 animate-float-up">
           <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-6">
-            <span className="h-px w-10 bg-gold" /> Premium Trading Academy
+            <span className="h-px w-10 bg-gold" /> Tirumala Ventures
           </div>
           <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl leading-[1.05] mb-6">
             Master the Markets <br />
@@ -636,7 +633,7 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-4 gap-10">
         <div>
           <div className="font-serif text-xl text-gold tracking-widest mb-2">TIRUMALA</div>
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">trading academy</div>
+          <div className="text-xs uppercase tracking-[0.3em] text-gold/80 mb-4">ventures</div>
           <p className="text-sm text-muted-foreground">A premium trading education and live trading workspace — a unit of CMPS group.</p>
         </div>
         <div>
@@ -663,7 +660,7 @@ function Footer() {
         </div>
       </div>
       <div className="mx-auto max-w-7xl px-6 mt-10 pt-6 border-t border-gold/10 text-xs text-muted-foreground flex flex-wrap justify-between gap-3">
-        <span>© {new Date().getFullYear()} Tirumala Trading Academy. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Tirumala Ventures. All rights reserved.</span>
         <span>Crafted with discipline.</span>
       </div>
     </footer>
