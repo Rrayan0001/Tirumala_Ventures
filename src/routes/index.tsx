@@ -582,7 +582,7 @@ function Contact() {
             our team responds within one business day.
           </p>
           <div className="space-y-4 text-sm">
-            <div className="flex items-start gap-3"><MapPin className="size-5 text-gold mt-0.5" /><span>2nd Floor, Opp. Karnataka Bank, NTTF Stop, Hosa Yellapur, Dharwad — 580001</span></div>
+            <div className="flex items-start gap-3"><MapPin className="size-5 text-gold mt-0.5" /><span>Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001</span></div>
             <div className="flex items-start gap-3"><Phone className="size-5 text-gold mt-0.5" /><span>+91 98XXX XXXXX</span></div>
             <div className="flex items-start gap-3"><Mail className="size-5 text-gold mt-0.5" /><span>info@tirumalaventures.com</span></div>
             <div className="flex items-start gap-3"><Clock className="size-5 text-gold mt-0.5" /><span>Mon — Sat · 8:30 AM to 8:00 PM IST</span></div>
@@ -632,19 +632,19 @@ function Field({ label, name, type = "text", required, placeholder }: { label: s
 function Footer() {
   return (
     <footer className="border-t border-gold/15 py-12">
-      <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-4 gap-10">
-        <div>
+      <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+        <div className="lg:col-span-3">
           <div className="font-serif text-xl text-gold tracking-widest mb-2">TIRUMALA</div>
           <div className="text-xs uppercase tracking-[0.3em] text-gold/80 mb-4">ventures</div>
           <p className="text-sm text-muted-foreground">A premium trading education and live trading workspace — a unit of CMPS group.</p>
         </div>
-        <div>
+        <div className="lg:col-span-2">
           <div className="text-sm font-serif text-gold mb-3">Explore</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
             {NAV.map(n => <li key={n.href}><a href={n.href} className="hover:text-gold">{n.label}</a></li>)}
           </ul>
         </div>
-        <div>
+        <div className="lg:col-span-2">
           <div className="text-sm font-serif text-gold mb-3">Resources</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><a href="/brochure.pdf" download className="hover:text-gold inline-flex items-center gap-2"><Download className="size-4" /> Download Brochure</a></li>
@@ -652,13 +652,23 @@ function Footer() {
             <li><a href="#courses" className="hover:text-gold">All Courses</a></li>
           </ul>
         </div>
-        <div>
+        <div className="lg:col-span-2">
           <div className="text-sm font-serif text-gold mb-3">Contact</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>Dharwad — 580001</li>
-            <li>+91 98XXX XXXXX</li>
-            <li>info@tirumalaventures.com</li>
+            <li className="leading-relaxed">Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001</li>
+            <li className="pt-2"><a href="tel:+9198XXXXXXXX" className="hover:text-gold">+91 98XXX XXXXX</a></li>
+            <li><a href="mailto:info@tirumalaventures.com" className="hover:text-gold">info@tirumalaventures.com</a></li>
           </ul>
+        </div>
+        <div className="lg:col-span-3 h-48 lg:h-auto min-h-[160px]">
+          <iframe
+            title="Tirumala Ventures Location Map"
+            src="https://maps.google.com/maps?q=Ramraj%20Cotton%20Dharwad%20Ward%2015%20near%20NTTF%2015%2F1183%20Ramnagar%20Karnataka%20Bank%20Hosayellapur%20Hubballi%20580001&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            className="w-full h-full rounded-xl border border-gold/15 shadow-gold/10 shadow-md filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
       <div className="mx-auto max-w-7xl px-6 mt-10 pt-6 border-t border-gold/10 text-xs text-muted-foreground flex flex-wrap justify-between gap-3">
