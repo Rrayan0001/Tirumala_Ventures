@@ -181,11 +181,11 @@ function Hero() {
             Learn professional trading inside a corporate-grade live trading floor.
             Mentorship, real-time market exposure and a community of disciplined traders.
           </p>
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-6">
-            <a href="#contact" className="w-full sm:w-auto"><Button variant="hero" size="lg" className="w-full"><GraduationCap /> Enroll Now</Button></a>
-            <a href="#contact" className="w-full sm:w-auto"><Button variant="heroOutline" size="lg" className="w-full"><Calendar /> Book a Visit</Button></a>
-            <a href="/brochure.pdf" download className="w-full sm:w-auto"><Button variant="heroOutline" size="lg" className="w-full"><Download /> Download Brochure</Button></a>
-            <a href="#courses" className="w-full sm:w-auto"><Button variant="heroOutline" size="lg" className="w-full"><BookOpen /> Courses</Button></a>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-6 max-w-4xl">
+            <a href="#contact" className="w-full"><Button variant="hero" size="lg" className="w-full"><GraduationCap /> Enroll Now</Button></a>
+            <a href="#contact" className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Calendar /> Book a Visit</Button></a>
+            <a href="/brochure.pdf" download className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Download /> Download Brochure</Button></a>
+            <a href="#courses" className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><BookOpen /> Courses</Button></a>
           </div>
           <a href="#floor" className="inline-flex items-center gap-2 text-sm text-gold/90 hover:text-gold">
             <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
@@ -214,10 +214,10 @@ function Hero() {
                 ["SENSEX", "81,402.30", "+0.67%"],
                 ["GOLD", "₹74,210", "+0.31%"],
               ].map(([k, v, c]) => (
-                <div key={k} className="flex justify-between">
-                  <span className="text-muted-foreground tracking-wide">{k}</span>
-                  <span className="text-foreground">{v}</span>
-                  <span className="text-gold">{c}</span>
+                <div key={k} className="grid grid-cols-3 items-center">
+                  <span className="text-muted-foreground tracking-wide text-left">{k}</span>
+                  <span className="text-foreground text-right font-mono pr-4 sm:pr-8">{v}</span>
+                  <span className="text-gold text-right font-mono">{c}</span>
                 </div>
               ))}
             </div>

@@ -176,6 +176,10 @@
   50% { box-shadow: 0 0 0 12px oklch(0.82 0.14 90 / 0); }
 }
 
+@utility gradient-gold {
+  background: var(--gradient-gold);
+}
+
 @utility text-gradient-gold {
   background: var(--gradient-gold);
   -webkit-background-clip: text;
