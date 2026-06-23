@@ -224,23 +224,26 @@ function Hero() {
           </div>
         </div>
 
-        <div className="lg:col-span-12 mt-4 pt-8 border-t border-gold/15 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
-          {[
-            { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience" },
-            { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance" },
-            { i: TrendingUp, t: "Practical Learning", d: "Trade with real capital" },
-            { i: Calendar, t: "Flexible Batches", d: "Weekday & weekend classes" }
-          ].map(({ i: Icon, t, d }) => (
-            <div key={t} className="flex gap-3 items-center">
-              <div className="size-10 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5">
-                <Icon className="size-5 text-gold" />
+        <div className="lg:col-span-12 mt-8 sm:mt-12 animate-float-up">
+          <div className="glass-card rounded-2xl p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative overflow-hidden shadow-gold/10 shadow-lg">
+            <div className="absolute -inset-px rounded-2xl animate-shimmer pointer-events-none opacity-30" />
+            {[
+              { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience" },
+              { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance" },
+              { i: TrendingUp, t: "Practical Learning", d: "Trade with real capital" },
+              { i: Calendar, t: "Flexible Batches", d: "Weekday & weekend classes" }
+            ].map(({ i: Icon, t, d }) => (
+              <div key={t} className="flex gap-4 items-center p-3 rounded-xl border border-transparent hover:border-gold/20 hover:bg-gold/[0.03] transition-all duration-300 group">
+                <div className="size-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:scale-110 group-hover:bg-gold/20 transition-all duration-300">
+                  <Icon className="size-6 text-gold" />
+                </div>
+                <div>
+                  <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors">{t}</div>
+                  <div className="text-xs text-muted-foreground mt-1 leading-tight">{d}</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight">{t}</div>
-                <div className="text-xs text-muted-foreground mt-0.5 leading-tight">{d}</div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
