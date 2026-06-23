@@ -315,7 +315,7 @@ function Nav() {
 
         {/* Scrolling alerts marquee ticker */}
         <div className="w-full bg-gold/[0.04] border-t border-gold/10 py-2 overflow-hidden select-none text-[10px] sm:text-xs text-gold/90 font-medium uppercase tracking-[0.25em] relative flex items-center">
-          <div className="animate-marquee whitespace-nowrap flex gap-12">
+          <div className="animate-marquee whitespace-nowrap gap-12">
             <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
             <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
             <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
