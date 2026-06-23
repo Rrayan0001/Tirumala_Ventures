@@ -387,7 +387,7 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="relative pt-32 pb-8 sm:pb-12 overflow-hidden parallax-container">
+    <section id="home" className="relative pt-28 pb-8 sm:pb-12 overflow-hidden parallax-container">
       <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 parallax-bg" width={1920} height={1280} />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
       
@@ -396,7 +396,7 @@ function Hero() {
         <CandlestickBackground />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-8 pb-8 lg:pt-12 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center">
+      <div className="relative mx-auto max-w-7xl px-6 pt-2 pb-8 lg:pt-4 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center">
         <div className="lg:col-span-7 animate-float-up parallax-fg">
           <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
             <span className="h-px w-10 bg-gold" /> Tirumala Ventures
