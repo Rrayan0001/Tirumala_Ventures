@@ -81,8 +81,8 @@ function Index() {
   );
 }
 
-const LOGO_PHASE_MS = 2300;
-const CURTAIN_PHASE_MS = 1100;
+const LOGO_PHASE_MS = 1600;
+const CURTAIN_PHASE_MS = 900;
 
 function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   const [phase, setPhase] = useState<"logo" | "reveal" | "done">("logo");
@@ -139,14 +139,14 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          animation: logoPop 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: logoPop 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .intro-logo {
           position: relative;
           z-index: 1;
           opacity: 0;
           transform: scale(0.94);
-          animation: logoFade 1.6s ease-out forwards 0.15s;
+          animation: logoFade 1.1s ease-out forwards 0.1s;
         }
         @keyframes logoPop {
           0% { transform: scale(0.82); opacity: 0; }
@@ -178,16 +178,16 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           border-color: rgba(212, 175, 55, 0.85);
         }
         .curtain-open .panel-1 {
-          animation: liftPanel 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.18s;
+          animation: liftPanel 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.14s;
         }
         .curtain-open .panel-2 {
-          animation: liftPanel 0.78s cubic-bezier(0.22, 1, 0.36, 1) forwards 0s;
+          animation: liftPanel 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards 0s;
         }
         .curtain-open .panel-3 {
-          animation: liftPanel 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.06s;
+          animation: liftPanel 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.04s;
         }
         .curtain-open .panel-4 {
-          animation: liftPanel 0.88s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.22s;
+          animation: liftPanel 0.68s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.18s;
         }
         @keyframes liftPanel {
           from { transform: translateY(0); }

@@ -219,7 +219,7 @@
 }
 
 @utility animate-progress-bar {
-  animation: progress-bar 2s linear forwards;
+  animation: progress-bar 1.6s linear forwards;
 }
 
 /* Hide outer base layer body rule duplicate */
