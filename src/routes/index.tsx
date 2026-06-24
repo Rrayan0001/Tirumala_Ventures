@@ -401,9 +401,9 @@ function Hero() {
           <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
             <span className="h-px w-10 bg-gold" /> Tirumala Ventures
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-5xl leading-[1.1] mb-6">
-            If You Are a Experienced Trader <br />
-            <span className="text-gradient-gold">Come join us For the new experience.</span>
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-6xl leading-[1.05] mb-6">
+            Master the Markets <br />
+            <span className="text-gradient-gold">with Confidence</span>
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10">
             Learn professional trading inside a corporate-grade live trading floor.
