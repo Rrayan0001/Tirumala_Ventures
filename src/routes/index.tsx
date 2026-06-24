@@ -947,40 +947,40 @@ function Leadership() {
             <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 h-full">
               <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
               <div>
-                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
+                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
                   Founder & Managing Director
                 </div>
-                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
+                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
                 
-                <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug">
+                <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug text-center">
                   A Vision to Educate.<br />
                   A Mission to Empower.
                 </h3>
-                <div className="w-16 h-0.5 bg-gold/40 mb-6" />
+                <div className="w-16 h-0.5 bg-gold/40 mb-6 mx-auto" />
                 
-                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
+                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
                   <p>
                     At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
                   </p>
                   <p>
-                    Our journey was founded on a simple yet meaningful vision—to make quality financial education accessible, practical, and impactful for aspiring market participants and investors. We are committed to empowering individuals with the understanding and confidence needed to navigate the ever-evolving world of finance.
+                    Our vision is to make quality financial education accessible, practical, and impactful, empowering individuals to navigate the markets with confidence.
                   </p>
                   <p>
-                    At Tirumala Ventures, learning extends beyond theory. We focus on fostering analytical thinking, disciplined decision-making, and a long-term approach towards wealth creation. Our objective is to nurture a community of informed individuals who can participate in financial markets with clarity, responsibility, and conviction.
+                    Learning here extends beyond theory. We focus on analytical thinking, disciplined decision-making, and a long-term approach to nurture a community that participates in the markets with clarity and conviction.
                   </p>
                   <p>
-                    As we continue to expand our horizons, our commitment remains steadfast: to inspire learning, create opportunities, and contribute towards building a financially aware and empowered society.
+                    Our commitment remains steadfast: to inspire learning, create opportunities, and build a financially aware and empowered society.
                   </p>
                 </div>
               </div>
               
               <div>
                 <div className="h-px w-full bg-gold/15 my-6" />
-                <div className="flex flex-col items-start">
-                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2">
+                <div className="flex flex-col items-center">
+                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2 text-center">
                     Channu Dalawai
                   </div>
-                  <div className="text-left mt-2">
+                  <div className="text-center mt-2">
                     <div className="font-serif text-sm sm:text-base text-gold font-semibold tracking-wide">
                       Mr. Channu Dalawai
                     </div>
@@ -1001,19 +1001,19 @@ function Leadership() {
             <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 border-l-4 border-l-gold h-full">
               <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
               <div>
-                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold">
+                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
                   Founder & Chief Strategy Officer
                 </div>
-                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4" />
+                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
                 
-                <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight">
+                <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight text-center">
                   Sharankumar Tantri
                 </h3>
-                <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5">
+                <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5 text-center">
                   Founder & Chief Strategy Officer
                 </div>
                 
-                <div className="flex flex-wrap items-center gap-y-2 gap-x-3 mb-6 text-gold">
+                <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-3 mb-6 text-gold">
                   <div className="flex items-center gap-1.5 text-xs font-medium">
                     <GraduationCap className="size-3.5" /> Master's in Management
                   </div>
@@ -1027,29 +1027,26 @@ function Leadership() {
                   </div>
                 </div>
 
-                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans">
+                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
                   <p>
-                    The stock market is a powerful wealth creation avenue when approached with the right knowledge, the right mindset and the right strategy. My mission is to make this knowledge practical, understandable and accessible to everyone.
+                    The stock market is a powerful wealth creation avenue when approached with the right knowledge, mindset, and strategy. My mission is to make this knowledge practical and accessible to everyone.
                   </p>
                   <p>
-                    As the Founder & Chief Strategy Officer of Tirumala Ventures, I shape the vision, architect the roadmap and drive the execution of all training and education initiatives. I personally lead the learning programs, mentor aspiring traders and work closely with every learner to help them build a strong foundation in the markets.
+                    As Chief Strategy Officer, I personally lead our learning programs and mentor aspiring traders to help them build a strong foundation in the markets.
                   </p>
                   <p>
-                    Our training is built on real market experience, proven strategies, risk management and emotional discipline. I focus on transforming beginners into confident, independent traders and investors who can make informed and responsible decisions.
+                    Our training is built on real market experience, risk management, and emotional discipline to transform beginners into confident, independent traders.
                   </p>
                   <p>
-                    Every single program, session and strategy at Tirumala Ventures is designed, tested and refined with one purpose – to educate, empower and create successful market participants.
-                  </p>
-                  <p>
-                    I am personally committed to your growth and to building a community of disciplined, knowledgeable and financially free individuals.
+                    We design every program to educate, empower, and build a community of disciplined, knowledgeable, and financially free individuals.
                   </p>
                 </div>
               </div>
 
               <div>
                 <div className="h-px w-full bg-gold/15 my-6" />
-                <div className="flex flex-col items-end">
-                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none">
+                <div className="flex flex-col items-center">
+                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none text-center">
                     Sharankumar Tantri
                   </div>
                   <div className="w-32 h-px bg-gold/30 mt-1" />
