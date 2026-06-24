@@ -289,6 +289,23 @@ function Nav() {
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-gold/15">
+        {/* Scrolling alerts marquee ticker */}
+        <div className="w-full bg-gold/[0.04] border-b border-gold/10 py-2 overflow-hidden select-none text-[10px] sm:text-xs text-gold/90 font-medium uppercase tracking-[0.25em] relative flex items-center">
+          <div className="animate-marquee whitespace-nowrap gap-12">
+            <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
+            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
+            <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
+            <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
+            <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
+            {/* Duplicate for seamless infinite loop */}
+            <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
+            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
+            <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
+            <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
+            <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
+          </div>
+        </div>
+
         <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
           <a href="#home" className="flex items-center gap-3">
             <img src={logoAsset} alt="Tirumala Ventures" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" />
@@ -310,23 +327,6 @@ function Nav() {
             <button onClick={() => setOpen(true)} className="lg:hidden text-gold p-1.5" aria-label="Open Menu">
               <Layers className="size-6" />
             </button>
-          </div>
-        </div>
-
-        {/* Scrolling alerts marquee ticker */}
-        <div className="w-full bg-gold/[0.04] border-t border-gold/10 py-2 overflow-hidden select-none text-[10px] sm:text-xs text-gold/90 font-medium uppercase tracking-[0.25em] relative flex items-center">
-          <div className="animate-marquee whitespace-nowrap gap-12">
-            <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
-            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
-            <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
-            <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
-            <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
-            {/* Duplicate for seamless infinite loop */}
-            <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
-            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
-            <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
-            <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
-            <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
           </div>
         </div>
       </header>
