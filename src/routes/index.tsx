@@ -223,7 +223,7 @@ function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden w-full relative">
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold/60 via-gold to-gold/60 origin-left z-[60]"
         style={{ scaleX }}
@@ -595,9 +595,6 @@ function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
           >
-            <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
-              <span className="h-px w-10 bg-gold" /> Tirumala Ventures
-            </div>
             <h1 className="font-serif leading-[1.08] mb-6 tracking-tight">
               {/* Line 1 — light cream, regular weight */}
               <span className="block text-4xl sm:text-5xl lg:text-6xl font-light text-foreground/80">
