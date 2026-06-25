@@ -6,6 +6,7 @@ import {
   Briefcase, Activity, Wallet, ShieldCheck, Sparkles, Building2,
   Network, Layers, Monitor, Wifi, MessageSquare, Trophy, Phone,
   Mail, MapPin, ArrowRight, ArrowLeft, CheckCircle2, Clock, ArrowUpRight, ArrowDownRight, LineChart, X,
+  Facebook, Twitter,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,6 +25,7 @@ import gallery2 from "@/assets/gallery/gallery-2.webp";
 import gallery3 from "@/assets/gallery/gallery-3.webp";
 import gallery4 from "@/assets/gallery/gallery-4.webp";
 import logoAsset from "@/assets/brand/logo.webp";
+import contactBg from "@/assets/contact_us/bg1.webp";
 import box1 from "@/assets/services/box1.webp";
 import box2 from "@/assets/services/box2.webp";
 import box3 from "@/assets/services/box3.webp";
@@ -1611,53 +1613,179 @@ function Contact() {
       toast.success("Thank you! Our team will reach out within one business day.");
     }, 600);
   }
+
+  const lookingForOptions = [
+    { value: "website", label: "Website" },
+    { value: "mobile-app", label: "Mobile App" },
+    { value: "web-app", label: "Web App" },
+    { value: "ecommerce", label: "E-Commerce" },
+    { value: "brand-identity", label: "Brand Identity" },
+    { value: "3d-animation", label: "3D & Animation" },
+    { value: "social-media", label: "Social Media Marketing" },
+    { value: "brand-strategy", label: "Brand Strategy & Consulting" },
+    { value: "other", label: "Other" },
+  ];
+
   return (
-    <section id="contact" className="section-pad bg-card/40">
-      <div className="mx-auto max-w-6xl px-6 grid lg:grid-cols-5 gap-10">
-        <ScrollReveal direction="left" className="lg:col-span-2">
-          <div>
-            <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Contact Us</div>
-            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6 leading-tight">Let's start your trading journey</h2>
-            <p className="text-muted-foreground text-sm sm:text-base mb-8">
-              Enroll in a course, book a floor visit, or send us a general inquiry —
-              our team responds within one business day.
-            </p>
-            <div className="space-y-4 text-sm">
-              <div className="flex items-start gap-3"><MapPin className="size-5 text-gold mt-0.5" /><span>Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001</span></div>
-              <div className="flex items-start gap-3"><Phone className="size-5 text-gold mt-0.5" /><span>+91 98XXX XXXXX</span></div>
-              <div className="flex items-start gap-3"><Mail className="size-5 text-gold mt-0.5" /><span>info@tirumalaventures.com</span></div>
-              <div className="flex items-start gap-3"><Clock className="size-5 text-gold mt-0.5" /><span>Mon — Sat · 8:30 AM to 8:00 PM IST</span></div>
+    <section id="contact" className="relative section-pad overflow-hidden flex items-center justify-center min-h-[700px] bg-background">
+      {/* Background Image Container */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={contactBg}
+          alt="Contact Background"
+          className="w-full h-full object-cover object-center pointer-events-none"
+        />
+        <div className="absolute inset-0 bg-[#030d08]/15 pointer-events-none" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
+        {/* Left Column: Let's Build Something Amazing Together */}
+        <ScrollReveal direction="left" className="lg:col-span-5 text-left">
+          <div className="max-w-xl">
+            <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-4">
+              Contact Us
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-[1.1] text-foreground font-medium uppercase mb-10 tracking-wide">
+              Let's Build<br />
+              Something<br />
+              Amazing<br />
+              Together!
+            </h2>
+
+            <div className="space-y-6 text-sm sm:text-base text-foreground/90">
+              <div className="flex items-start gap-4">
+                <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 mt-0.5 shadow-md">
+                  <MapPin className="size-5 text-gold" />
+                </div>
+                <span className="leading-relaxed">
+                  Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001
+                </span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
+                  <Phone className="size-5 text-gold" />
+                </div>
+                <span>+91 98XXX XXXXX</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
+                  <Mail className="size-5 text-gold" />
+                </div>
+                <span>info@tirumalaventures.com</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
+                  <Clock className="size-5 text-gold" />
+                </div>
+                <span>Mon — Sat · 8:30 AM to 8:00 PM IST</span>
+              </div>
             </div>
           </div>
         </ScrollReveal>
-        <ScrollReveal direction="right" className="lg:col-span-3">
-          <MouseGlowTracker className="rounded-2xl">
-            <form onSubmit={onSubmit} className="glass-card glowing-border p-5 sm:p-8 space-y-5">
-              <div className="grid sm:grid-cols-2 gap-5">
-                <Field label="Full Name" name="name" required placeholder="Your full name" />
-                <Field label="Mobile Number" name="mobile" type="tel" required placeholder="+91" />
-                <Field label="Email" name="email" type="email" required placeholder="you@example.com" />
-                <Field label="City" name="city" required placeholder="City" />
+
+        {/* Right Column: Glassmorphic Contact Card */}
+        <ScrollReveal direction="right" className="lg:col-span-7 w-full">
+          <MouseGlowTracker className="rounded-3xl w-full">
+            <form onSubmit={onSubmit} className="glass-card rounded-3xl p-6 sm:p-10 text-left relative z-10 w-full hover:border-gold/30 transition-all duration-500">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                <div>
+                  <h3 className="font-serif text-xl sm:text-2xl font-semibold text-foreground tracking-wide flex items-center gap-2">
+                    Reach out to us today! ✨
+                  </h3>
+                  <div className="mt-2 text-xs sm:text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap">
+                    <span>Mail us at</span>
+                    <a href="mailto:info@tirumalaventures.com" className="text-foreground hover:text-gold transition-colors font-medium">
+                      info@tirumalaventures.com
+                    </a>
+                  </div>
+                </div>
+                {/* Social media links */}
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="text-xs text-muted-foreground uppercase tracking-widest mr-1">OR</span>
+                  <a
+                    href="https://facebook.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="size-10 rounded-xl border border-gold/25 bg-background/40 hover:bg-gold/15 hover:border-gold/50 flex items-center justify-center text-gold transition-all duration-300 shadow-md"
+                  >
+                    <Facebook className="size-4.5" />
+                  </a>
+                  <a
+                    href="https://twitter.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="size-10 rounded-xl border border-gold/25 bg-background/40 hover:bg-gold/15 hover:border-gold/50 flex items-center justify-center text-gold transition-all duration-300 shadow-md"
+                  >
+                    <Twitter className="size-4.5" />
+                  </a>
+                </div>
               </div>
-              <div>
-                <Label className="text-xs tracking-widest uppercase text-muted-foreground">Interested Program</Label>
-                <Select name="program">
-                  <SelectTrigger className="mt-2 bg-input/40 border-gold/20"><SelectValue placeholder="Select an inquiry type / program" /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="enrollment">Course Enrollment</SelectItem>
-                    <SelectItem value="floor-visit">Trading Floor Visit Booking</SelectItem>
-                    <SelectItem value="general">General Inquiry</SelectItem>
-                    {COURSES.map(c => <SelectItem key={c.t} value={c.t}>{c.t}</SelectItem>)}
-                  </SelectContent>
-                </Select>
+
+              <div className="h-px bg-gold/15 w-full mb-6" />
+
+              <div className="space-y-6">
+                <div className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest">
+                  Leave us a brief message
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Your name</Label>
+                    <Input
+                      name="name"
+                      required
+                      placeholder="Your name"
+                      className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl py-5"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Email</Label>
+                    <Input
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="Email"
+                      className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl py-5"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Briefly describe your project idea...</Label>
+                  <Textarea
+                    name="message"
+                    required
+                    placeholder="Briefly describe your project idea..."
+                    rows={4}
+                    className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl resize-none"
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium block mb-3">I'm looking for...</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-3.5 gap-x-4">
+                    {lookingForOptions.map((opt) => (
+                      <label key={opt.value} className="flex items-center gap-3 cursor-pointer text-xs sm:text-sm text-foreground/90 hover:text-white select-none group">
+                        <input
+                          type="checkbox"
+                          name="lookingFor"
+                          value={opt.value}
+                          className="appearance-none size-4.5 rounded-full border border-gold/35 bg-[#0e261c]/45 checked:bg-gold checked:border-gold cursor-pointer transition-all relative shrink-0 after:content-[''] after:absolute after:hidden checked:after:block after:left-[5px] after:top-[2px] after:w-[4px] after:h-[7px] after:border-[#0e261c] after:border-r-2 after:border-b-2 after:rotate-45 focus:ring-1 focus:ring-gold/30"
+                        />
+                        <span className="group-hover:translate-x-0.5 transition-transform duration-200">{opt.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-gradient-to-r from-gold via-gold/90 to-gold-soft text-[#030d08] hover:brightness-[1.08] active:scale-[0.99] font-serif tracking-wider text-sm sm:text-base uppercase py-6 rounded-xl transition-all duration-300 font-semibold shadow-gold/20 shadow-lg cursor-pointer"
+                >
+                  {submitting ? "Sending..." : "Send a message"}
+                </Button>
               </div>
-              <div>
-                <Label className="text-xs tracking-widest uppercase text-muted-foreground">Message</Label>
-                <Textarea name="message" placeholder="Tell us a bit about your goals…" rows={4} className="mt-2 bg-input/40 border-gold/25" />
-              </div>
-              <Button type="submit" variant="hero" size="lg" disabled={submitting} className="w-full">
-                {submitting ? "Sending…" : <>Send Inquiry <ArrowRight /></>}
-              </Button>
             </form>
           </MouseGlowTracker>
         </ScrollReveal>
