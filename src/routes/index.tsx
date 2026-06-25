@@ -999,23 +999,26 @@ function USP() {
               <ScrollReveal key={t} direction={direction} delay={delay} className="h-full">
                 <MouseGlowTracker className="rounded-2xl h-full">
                   <div className="glass-card rounded-2xl overflow-hidden hover:border-gold/40 transition-all duration-300 h-full flex flex-col justify-between relative group min-h-[290px] sm:min-h-[360px]">
-                    {/* 3D image — centered, large */}
-                    <div className="relative w-full h-40 sm:h-48 md:h-52 flex items-center justify-center pt-6 px-6 shrink-0">
+                    {/* 3D image — absolute positioned, very large & overlapping */}
+                    <div className="absolute inset-x-0 top-3 bottom-24 flex items-center justify-center pointer-events-none z-0">
                       <img
                         src={img}
                         alt={t}
-                        className="w-auto h-full max-h-full object-contain scale-100 group-hover:scale-105 transition-transform duration-500 pointer-events-none drop-shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
+                        className="w-auto h-full max-h-[115%] object-contain scale-120 group-hover:scale-125 transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.55)] opacity-90 group-hover:opacity-100"
                       />
                     </div>
 
-                    {/* Bottom area with icon + title + gold underline */}
-                    <div className="px-5 pb-6 pt-3 flex flex-col gap-3 relative z-10">
+                    {/* Spacer to push content down */}
+                    <div className="flex-1" />
+
+                    {/* Bottom area with icon + title + gold underline with contrast gradient */}
+                    <div className="px-5 pb-6 pt-16 flex flex-col gap-3 relative z-10 bg-gradient-to-t from-card via-card/75 to-transparent">
                       <div className="flex items-start gap-3">
-                        <div className="size-8 sm:size-9 rounded-full border border-gold/50 bg-background/60 backdrop-blur-sm flex items-center justify-center shrink-0 mt-0.5">
+                        <div className="size-8 sm:size-9 rounded-full border border-gold/50 bg-background/80 backdrop-blur-sm flex items-center justify-center shrink-0 mt-0.5 shadow-lg">
                           <Icon className="size-3.5 sm:size-4 text-gold" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <h3 className="font-serif text-sm sm:text-base md:text-lg font-semibold tracking-wider text-foreground/95 uppercase leading-tight">
+                          <h3 className="font-serif text-sm sm:text-base md:text-lg font-semibold tracking-wider text-foreground/95 uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
                             {t}
                           </h3>
                           <div className="w-8 h-[2px] bg-gold/70 rounded-full mt-1" />
