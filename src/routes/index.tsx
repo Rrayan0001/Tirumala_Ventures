@@ -223,7 +223,7 @@ function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden w-full relative">
+    <div className="min-h-screen bg-background text-foreground">
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold/60 via-gold to-gold/60 origin-left z-[60]"
         style={{ scaleX }}
@@ -396,8 +396,8 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
 
             {/* Progress line */}
             <div className="w-48 h-[2px] bg-gold/15 rounded-full overflow-hidden mt-6 mx-auto relative">
-              <div 
-                className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar" 
+              <div
+                className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar"
                 style={{ animationDuration: "1s" }}
               />
             </div>
@@ -476,17 +476,15 @@ function Nav() {
 
       {/* Backdrop overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-md lg:hidden transition-all duration-300 ${
-          open ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-md lg:hidden transition-all duration-300 ${open ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         onClick={() => setOpen(false)}
       />
 
       {/* Slide-in glassmorphic drawer */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-72 bg-emerald-deep border-l border-gold/30 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${
-          open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-y-0 right-0 z-50 w-72 bg-emerald-deep border-l border-gold/30 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
+          }`}
       >
         <div>
           <div className="flex items-center justify-between pb-6 border-b border-gold/30">
@@ -537,14 +535,14 @@ function Hero() {
   const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), { stiffness: 60, damping: 18 });
 
   // Parallax layer offsets (different depths)
-  const layerFarX  = useSpring(useTransform(rawX, [-0.5, 0.5], [-18, 18]), { stiffness: 50, damping: 20 });
-  const layerFarY  = useSpring(useTransform(rawY, [-0.5, 0.5], [-10, 10]), { stiffness: 50, damping: 20 });
-  const layerMidX  = useSpring(useTransform(rawX, [-0.5, 0.5], [-10, 10]), { stiffness: 55, damping: 20 });
-  const layerMidY  = useSpring(useTransform(rawY, [-0.5, 0.5], [-6, 6]),  { stiffness: 55, damping: 20 });
-  const layerFgX   = useSpring(useTransform(rawX, [-0.5, 0.5], [-5, 5]),  { stiffness: 60, damping: 22 });
-  const layerFgY   = useSpring(useTransform(rawY, [-0.5, 0.5], [-3, 3]),  { stiffness: 60, damping: 22 });
-  const layerCardX = useSpring(useTransform(rawX, [-0.5, 0.5], [8, -8]),  { stiffness: 55, damping: 20 });
-  const layerCardY = useSpring(useTransform(rawY, [-0.5, 0.5], [5, -5]),  { stiffness: 55, damping: 20 });
+  const layerFarX = useSpring(useTransform(rawX, [-0.5, 0.5], [-18, 18]), { stiffness: 50, damping: 20 });
+  const layerFarY = useSpring(useTransform(rawY, [-0.5, 0.5], [-10, 10]), { stiffness: 50, damping: 20 });
+  const layerMidX = useSpring(useTransform(rawX, [-0.5, 0.5], [-10, 10]), { stiffness: 55, damping: 20 });
+  const layerMidY = useSpring(useTransform(rawY, [-0.5, 0.5], [-6, 6]), { stiffness: 55, damping: 20 });
+  const layerFgX = useSpring(useTransform(rawX, [-0.5, 0.5], [-5, 5]), { stiffness: 60, damping: 22 });
+  const layerFgY = useSpring(useTransform(rawY, [-0.5, 0.5], [-3, 3]), { stiffness: 60, damping: 22 });
+  const layerCardX = useSpring(useTransform(rawX, [-0.5, 0.5], [8, -8]), { stiffness: 55, damping: 20 });
+  const layerCardY = useSpring(useTransform(rawY, [-0.5, 0.5], [5, -5]), { stiffness: 55, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = sectionRef.current?.getBoundingClientRect();
@@ -595,6 +593,9 @@ function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
           >
+            <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
+              <span className="h-px w-10 bg-gold" /> Tirumala Ventures
+            </div>
             <h1 className="font-serif leading-[1.08] mb-6 tracking-tight">
               {/* Line 1 — light cream, regular weight */}
               <span className="block text-4xl sm:text-5xl lg:text-6xl font-light text-foreground/80">
@@ -921,7 +922,7 @@ function Services() {
                       className="absolute right-2 top-2 h-28 sm:h-40 w-auto object-contain drop-shadow-[0_4px_12px_rgba(212,175,55,0.15)] group-hover:scale-105 group-hover:rotate-2 transition-transform duration-500 pointer-events-none z-0 opacity-60 sm:opacity-85 group-hover:opacity-100"
                       suppressHydrationWarning
                     />
-                    
+
                     {/* Main content layer on top of the image */}
                     <div className="relative z-10 flex flex-col justify-between h-full w-full">
                       <div className="size-12 rounded-lg bg-gold/5 border border-gold/15 flex items-center justify-center">
@@ -961,14 +962,14 @@ function Services() {
 
 function USP() {
   const usps = [
-    { i: Activity,      t: "Live Market Exposure",          img: wcuBox1 },
-    { i: Building2,     t: "Corporate Trading Ambience",    img: wcuBox2 },
-    { i: Users,         t: "Experienced Mentors",           img: wcuBox3 },
-    { i: Sparkles,      t: "Practical Learning",            img: wcuBox4 },
-    { i: MessageSquare, t: "Real-Time Trade Discussions",   img: wcuBox5 },
-    { i: Monitor,       t: "Professional Trading Floor",   img: wcuBox6 },
-    { i: Network,       t: "Networking Opportunities",      img: wcuBox7 },
-    { i: Trophy,        t: "Beginner to Advanced Training", img: wcuBox8 },
+    { i: Activity, t: "Live Market Exposure", img: wcuBox1 },
+    { i: Building2, t: "Corporate Trading Ambience", img: wcuBox2 },
+    { i: Users, t: "Experienced Mentors", img: wcuBox3 },
+    { i: Sparkles, t: "Practical Learning", img: wcuBox4 },
+    { i: MessageSquare, t: "Real-Time Trade Discussions", img: wcuBox5 },
+    { i: Monitor, t: "Professional Trading Floor", img: wcuBox6 },
+    { i: Network, t: "Networking Opportunities", img: wcuBox7 },
+    { i: Trophy, t: "Beginner to Advanced Training", img: wcuBox8 },
   ];
 
   return (
@@ -1211,7 +1212,7 @@ function LiveMarket() {
                 const up = s.change >= 0;
                 const callColor = s.call === "BUY" ? "text-emerald-400 border-emerald-400/40 bg-emerald-400/5"
                   : s.call === "SELL" ? "text-red-400 border-red-400/40 bg-red-400/5"
-                  : "text-gold border-gold/40 bg-gold/5";
+                    : "text-gold border-gold/40 bg-gold/5";
                 return (
                   <div key={s.sym} className="grid grid-cols-12 px-3 py-3 sm:px-5 sm:py-4 items-center hover:bg-gold/[0.03] transition-colors">
                     <div className="col-span-4 md:col-span-3">
@@ -1448,7 +1449,7 @@ function Gallery() {
                 transition={{ duration: 0.3 }}
                 className="max-w-full max-h-[70vh] object-contain rounded-lg border border-gold/15 shadow-gold/20 shadow-2xl"
               />
-              
+
               <div className="flex flex-col items-center gap-1">
                 <div className="text-gold font-serif text-sm sm:text-lg tracking-wide text-center">
                   {GALLERY[activeIndex].label}
@@ -1498,80 +1499,38 @@ const TESTIMONIALS = [
   },
 ];
 
-function TestimonialStackCard({
-  testimonial,
-  index,
-  total,
-  progress,
-}: {
-  testimonial: (typeof TESTIMONIALS)[0];
-  index: number;
-  total: number;
-  progress: any;
-}) {
-  // Overlapping stack top position: starting from 6.5rem (~104px) on header offset
-  const stickyTop = `calc(6.5rem + ${index * 1.5}rem)`;
-
-  // Animation parameters: scale and fade out cards as the user scrolls further down the stack
-  const startRange = index / total;
-  const scale = useTransform(progress, [startRange, 1], [1, 1 - (total - index) * 0.035]);
-  const opacity = useTransform(progress, [startRange, 1], [1, 0.75]);
-
-  return (
-    <motion.div
-      style={{
-        scale,
-        opacity,
-        top: stickyTop,
-        zIndex: index + 1,
-      }}
-      className="sticky w-full"
-    >
-      <MouseGlowTracker className="rounded-3xl w-full">
-        <div className="glass-card rounded-3xl p-6 sm:p-10 border border-gold/15 shadow-gold/5 flex flex-col justify-between hover:border-gold/30 transition-all duration-300">
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <span className="text-gold text-5xl font-serif leading-none select-none">“</span>
-              <div className="flex gap-1">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Sparkles key={i} className="size-4 fill-gold text-gold" />
-                ))}
-              </div>
-            </div>
-            
-            <p className="text-foreground/90 text-sm sm:text-base md:text-lg leading-relaxed italic mb-8">
-              {testimonial.text}
-            </p>
-          </div>
-
-          <div>
-            <div className="h-px w-full bg-gold/10 my-4" />
-            <div className="font-serif text-gold text-base sm:text-lg font-semibold tracking-wide">
-              {testimonial.name}
-            </div>
-            <div className="text-xs text-muted-foreground mt-0.5">
-              {testimonial.role}
-            </div>
-          </div>
-        </div>
-      </MouseGlowTracker>
-    </motion.div>
-  );
-}
-
 function Testimonials() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    const interval = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [api]);
 
   return (
-    <section id="testimonials" className="section-pad bg-card/40 relative">
+    <section id="testimonials" className="section-pad bg-card/40 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/[0.02] rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-4xl px-6 relative">
+      <div className="mx-auto max-w-7xl px-6 relative">
         <ScrollReveal>
           <SectionHeading
             eyebrow="Reviews"
@@ -1580,18 +1539,66 @@ function Testimonials() {
           />
         </ScrollReveal>
 
-        {/* Scroll Container for stacking cards */}
-        <div ref={containerRef} className="relative mt-16 flex flex-col gap-24 sm:gap-32 pb-[20vh]">
-          {TESTIMONIALS.map((t, idx) => (
-            <TestimonialStackCard
-              key={idx}
-              testimonial={t}
-              index={idx}
-              total={TESTIMONIALS.length}
-              progress={scrollYProgress}
-            />
-          ))}
-        </div>
+        <ScrollReveal direction="left">
+          <div className="relative px-4 sm:px-12">
+            <Carousel
+              opts={{ align: "start", loop: true }}
+              setApi={setApi}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {TESTIMONIALS.map((t, idx) => (
+                  <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <MouseGlowTracker className="rounded-2xl h-full">
+                      <div className="glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full hover:border-gold/30 transition-all duration-300">
+                        <div>
+                          {/* Quote mark and stars */}
+                          <div className="flex items-center justify-between mb-6">
+                            <span className="text-gold text-5xl font-serif leading-none select-none">“</span>
+                            <div className="flex gap-1">
+                              {Array.from({ length: t.rating }).map((_, i) => (
+                                <Sparkles key={i} className="size-4 fill-gold text-gold" />
+                              ))}
+                            </div>
+                          </div>
+
+                          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed italic mb-8">
+                            {t.text}
+                          </p>
+                        </div>
+
+                        <div>
+                          <div className="h-px w-full bg-gold/10 my-4" />
+                          <div className="font-serif text-gold text-base sm:text-lg font-semibold tracking-wide">
+                            {t.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-0.5">
+                            {t.role}
+                          </div>
+                        </div>
+                      </div>
+                    </MouseGlowTracker>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex border-gold/40 text-gold hover:bg-gold/10 hover:text-white -left-4" />
+              <CarouselNext className="hidden sm:flex border-gold/40 text-gold hover:bg-gold/10 hover:text-white -right-4" />
+            </Carousel>
+
+            {/* Custom Dot Indicators */}
+            <div className="flex justify-center gap-2 mt-8">
+              {Array.from({ length: count }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => api?.scrollTo(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${current === i ? "bg-gold w-6" : "bg-gold/25 w-2 hover:bg-gold/40"
+                    }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -1628,10 +1635,10 @@ function Contact() {
         <img
           src={contactBg}
           alt="Contact Background"
-          className="w-full h-full object-cover object-[center_right] sm:object-center pointer-events-none opacity-25 sm:opacity-50 lg:opacity-75 transition-opacity duration-500"
+          className="w-full h-full object-cover object-center pointer-events-none"
           suppressHydrationWarning
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030d08]/98 via-[#030d08]/90 to-[#030d08]/98 sm:bg-gradient-to-r sm:from-[#030d08]/95 sm:via-[#030d08]/75 sm:to-[#030d08]/50 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#030d08]/15 pointer-events-none" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
@@ -1817,13 +1824,13 @@ function Leadership() {
                     Founder & Managing Director
                   </div>
                   <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
-                  
+
                   <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug text-center">
                     A Vision to Educate.<br />
                     A Mission to Empower.
                   </h3>
                   <div className="w-16 h-0.5 bg-gold/40 mb-6 mx-auto" />
-                  
+
                   <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
                     <p>
                       At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
@@ -1839,7 +1846,7 @@ function Leadership() {
                     </p>
                   </div>
                 </div>
-                
+
                 <div>
                   <div className="h-px w-full bg-gold/15 my-6" />
                   <div className="flex flex-col items-center">
@@ -1873,14 +1880,14 @@ function Leadership() {
                     Founder & Chief Strategy Officer
                   </div>
                   <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
-                  
+
                   <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight text-center">
                     Sharankumar Tantri
                   </h3>
                   <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5 text-center">
                     Founder & Chief Strategy Officer
                   </div>
-                  
+
                   <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-3 mb-6 text-gold">
                     <div className="flex items-center gap-1.5 text-xs font-medium">
                       <GraduationCap className="size-3.5" /> Master's in Management

@@ -65,13 +65,15 @@
   --color-gradient-gold: var(--gradient-gold);
   --color-shadow-gold: var(--shadow-gold);
   --animate-rippling: rippling var(--duration) ease-out;
+
   @keyframes rippling {
-  0% {
-    opacity: 1;
+    0% {
+      opacity: 1;
     }
-  100% {
-    transform: scale(2);
-    opacity: 0;
+
+    100% {
+      transform: scale(2);
+      opacity: 0;
     }
   }
 }
@@ -161,36 +163,64 @@
     border-color: var(--color-border);
   }
 
-  html, body {
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    width: 100%;
   }
 
-  h1, h2, h3, .font-serif {
+  h1,
+  h2,
+  h3,
+  .font-serif {
     font-family: var(--font-serif);
     letter-spacing: 0.01em;
   }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
+
 @keyframes float-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 oklch(0.82 0.14 90 / 0.5); }
-  50% { box-shadow: 0 0 0 12px oklch(0.82 0.14 90 / 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.82 0.14 90 / 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px oklch(0.82 0.14 90 / 0);
+  }
 }
+
 @keyframes progress-bar {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @utility gradient-gold {
@@ -213,9 +243,17 @@
 }
 
 @keyframes border-gradient-rotate {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @utility glowing-border {
@@ -241,21 +279,35 @@
 
 @supports ((animation-timeline: view()) and (animation-range: entry)) {
   @keyframes parallax-scroll-bg {
-    from { transform: translateY(-8%); }
-    to { transform: translateY(8%); }
+    from {
+      transform: translateY(-8%);
+    }
+
+    to {
+      transform: translateY(8%);
+    }
   }
+
   @keyframes parallax-scroll-fg {
-    from { transform: translateY(4%); }
-    to { transform: translateY(-4%); }
+    from {
+      transform: translateY(4%);
+    }
+
+    to {
+      transform: translateY(-4%);
+    }
   }
+
   .parallax-container {
     view-timeline: --section-scroll;
   }
+
   .parallax-bg {
     animation: parallax-scroll-bg linear both;
     animation-timeline: --section-scroll;
     animation-range: entry 0% exit 100%;
   }
+
   .parallax-fg {
     animation: parallax-scroll-fg linear both;
     animation-timeline: --section-scroll;
@@ -265,6 +317,7 @@
 
 @utility section-pad {
   padding-block: 2rem;
+
   @media (min-width: 768px) {
     padding-block: 3.5rem;
   }
@@ -293,18 +346,29 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes marquee-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @utility animate-marquee {
   display: inline-flex;
   animation: marquee 40s linear infinite;
+
   &:hover {
     animation-play-state: paused;
   }
@@ -313,6 +377,7 @@
 @utility animate-marquee-reverse {
   display: inline-flex;
   animation: marquee-reverse 40s linear infinite;
+
   &:hover {
     animation-play-state: paused;
   }
