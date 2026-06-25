@@ -1498,38 +1498,80 @@ const TESTIMONIALS = [
   },
 ];
 
-function Testimonials() {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+function TestimonialStackCard({
+  testimonial,
+  index,
+  total,
+  progress,
+}: {
+  testimonial: (typeof TESTIMONIALS)[0];
+  index: number;
+  total: number;
+  progress: any;
+}) {
+  // Overlapping stack top position: starting from 6.5rem (~104px) on header offset
+  const stickyTop = `calc(6.5rem + ${index * 1.5}rem)`;
 
-  useEffect(() => {
-    if (!api) return;
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-
-  useEffect(() => {
-    if (!api) return;
-    const interval = setInterval(() => {
-      if (api.canScrollNext()) {
-        api.scrollNext();
-      } else {
-        api.scrollTo(0);
-      }
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [api]);
+  // Animation parameters: scale and fade out cards as the user scrolls further down the stack
+  const startRange = index / total;
+  const scale = useTransform(progress, [startRange, 1], [1, 1 - (total - index) * 0.035]);
+  const opacity = useTransform(progress, [startRange, 1], [1, 0.75]);
 
   return (
-    <section id="testimonials" className="section-pad bg-card/40 relative overflow-hidden">
+    <motion.div
+      style={{
+        scale,
+        opacity,
+        top: stickyTop,
+        zIndex: index + 1,
+      }}
+      className="sticky w-full"
+    >
+      <MouseGlowTracker className="rounded-3xl w-full">
+        <div className="glass-card rounded-3xl p-6 sm:p-10 border border-gold/15 shadow-gold/5 flex flex-col justify-between hover:border-gold/30 transition-all duration-300">
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-gold text-5xl font-serif leading-none select-none">“</span>
+              <div className="flex gap-1">
+                {Array.from({ length: testimonial.rating }).map((_, i) => (
+                  <Sparkles key={i} className="size-4 fill-gold text-gold" />
+                ))}
+              </div>
+            </div>
+            
+            <p className="text-foreground/90 text-sm sm:text-base md:text-lg leading-relaxed italic mb-8">
+              {testimonial.text}
+            </p>
+          </div>
+
+          <div>
+            <div className="h-px w-full bg-gold/10 my-4" />
+            <div className="font-serif text-gold text-base sm:text-lg font-semibold tracking-wide">
+              {testimonial.name}
+            </div>
+            <div className="text-xs text-muted-foreground mt-0.5">
+              {testimonial.role}
+            </div>
+          </div>
+        </div>
+      </MouseGlowTracker>
+    </motion.div>
+  );
+}
+
+function Testimonials() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <section id="testimonials" className="section-pad bg-card/40 relative">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/[0.02] rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-6 relative">
+      <div className="mx-auto max-w-4xl px-6 relative">
         <ScrollReveal>
           <SectionHeading
             eyebrow="Reviews"
@@ -1538,67 +1580,18 @@ function Testimonials() {
           />
         </ScrollReveal>
 
-        <ScrollReveal direction="left">
-          <div className="relative px-4 sm:px-12">
-            <Carousel
-              opts={{ align: "start", loop: true }}
-              setApi={setApi}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-4">
-                {TESTIMONIALS.map((t, idx) => (
-                  <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <MouseGlowTracker className="rounded-2xl h-full">
-                      <div className="glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full hover:border-gold/30 transition-all duration-300">
-                        <div>
-                          {/* Quote mark and stars */}
-                          <div className="flex items-center justify-between mb-6">
-                            <span className="text-gold text-5xl font-serif leading-none select-none">“</span>
-                            <div className="flex gap-1">
-                              {Array.from({ length: t.rating }).map((_, i) => (
-                                <Sparkles key={i} className="size-4 fill-gold text-gold" />
-                              ))}
-                            </div>
-                          </div>
-                          
-                          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed italic mb-8">
-                            {t.text}
-                          </p>
-                        </div>
-
-                        <div>
-                          <div className="h-px w-full bg-gold/10 my-4" />
-                          <div className="font-serif text-gold text-base sm:text-lg font-semibold tracking-wide">
-                            {t.name}
-                          </div>
-                          <div className="text-xs text-muted-foreground mt-0.5">
-                            {t.role}
-                          </div>
-                        </div>
-                      </div>
-                    </MouseGlowTracker>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden sm:flex border-gold/40 text-gold hover:bg-gold/10 hover:text-white -left-4" />
-              <CarouselNext className="hidden sm:flex border-gold/40 text-gold hover:bg-gold/10 hover:text-white -right-4" />
-            </Carousel>
-
-            {/* Custom Dot Indicators */}
-            <div className="flex justify-center gap-2 mt-8">
-              {Array.from({ length: count }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => api?.scrollTo(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    current === i ? "bg-gold w-6" : "bg-gold/25 w-2 hover:bg-gold/40"
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
+        {/* Scroll Container for stacking cards */}
+        <div ref={containerRef} className="relative mt-16 flex flex-col gap-24 sm:gap-32 pb-[20vh]">
+          {TESTIMONIALS.map((t, idx) => (
+            <TestimonialStackCard
+              key={idx}
+              testimonial={t}
+              index={idx}
+              total={TESTIMONIALS.length}
+              progress={scrollYProgress}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -1635,10 +1628,10 @@ function Contact() {
         <img
           src={contactBg}
           alt="Contact Background"
-          className="w-full h-full object-cover object-center pointer-events-none"
+          className="w-full h-full object-cover object-[center_right] sm:object-center pointer-events-none opacity-25 sm:opacity-50 lg:opacity-75 transition-opacity duration-500"
           suppressHydrationWarning
         />
-        <div className="absolute inset-0 bg-[#030d08]/15 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030d08]/98 via-[#030d08]/90 to-[#030d08]/98 sm:bg-gradient-to-r sm:from-[#030d08]/95 sm:via-[#030d08]/75 sm:to-[#030d08]/50 pointer-events-none" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
