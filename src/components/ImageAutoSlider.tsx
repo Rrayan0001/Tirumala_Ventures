@@ -42,6 +42,7 @@ export function ImageAutoSlider({
                 src={item.src}
                 alt={item.label}
                 loading="lazy"
+                suppressHydrationWarning
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-85 group-hover:opacity-100 transition-opacity duration-300" />

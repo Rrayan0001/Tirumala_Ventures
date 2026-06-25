@@ -372,6 +372,7 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
                 alt="Tirumala Ventures Logo"
                 className="size-20 sm:size-24 object-contain drop-shadow-[0_0_20px_rgba(212,175,55,0.55)] intro-logo"
                 loading="eager"
+                suppressHydrationWarning
               />
             </div>
 
@@ -450,7 +451,7 @@ function Nav() {
 
         <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
           <a href="#home" className="flex items-center gap-3">
-            <img src={logoAsset} alt="Tirumala Ventures" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" />
+            <img src={logoAsset} alt="Tirumala Ventures" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" suppressHydrationWarning />
             <div className="leading-tight">
               <div className="font-serif text-lg text-gold tracking-widest">TIRUMALA</div>
               <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">ventures</div>
@@ -567,7 +568,7 @@ function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{ x: layerFarX, y: layerFarY, scale: 1.08 }}
       >
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" width={1920} height={1280} />
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" width={1920} height={1280} suppressHydrationWarning />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
 
@@ -799,6 +800,7 @@ function About() {
                   src={aboutUsImg}
                   alt="Tirumala Ventures Live Trading Floor"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  suppressHydrationWarning
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
               </div>
@@ -920,6 +922,7 @@ function Services() {
                       src={img}
                       alt={t}
                       className="absolute right-2 top-2 h-28 sm:h-40 w-auto object-contain drop-shadow-[0_4px_12px_rgba(212,175,55,0.15)] group-hover:scale-105 group-hover:rotate-2 transition-transform duration-500 pointer-events-none z-0 opacity-60 sm:opacity-85 group-hover:opacity-100"
+                      suppressHydrationWarning
                     />
                     
                     {/* Main content layer on top of the image */}
@@ -951,7 +954,7 @@ function Services() {
         {/* Bottom stylized divider line with Tirumala Ventures logo */}
         <div className="w-full flex items-center justify-center mt-12 mb-6 gap-6 select-none opacity-45">
           <div className="h-px bg-gold/15 flex-1" />
-          <img src={logoAsset} alt="Tirumala Ventures" className="size-10 object-contain brightness-95" />
+          <img src={logoAsset} alt="Tirumala Ventures" className="size-10 object-contain brightness-95" suppressHydrationWarning />
           <div className="h-px bg-gold/15 flex-1" />
         </div>
       </div>
@@ -1008,6 +1011,7 @@ function USP() {
                         src={img}
                         alt={t}
                         className="w-auto h-full max-h-[105%] object-contain scale-110 group-hover:scale-115 transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.55)] opacity-90 group-hover:opacity-100"
+                        suppressHydrationWarning
                       />
                     </div>
 
@@ -1103,6 +1107,7 @@ function TradingFloor() {
                   src={tradingFloorSection}
                   alt="Tirumala Ventures Live Trading Floor"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  suppressHydrationWarning
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute bottom-5 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 text-gold text-xs sm:text-sm tracking-widest whitespace-nowrap">
@@ -1634,6 +1639,7 @@ function Contact() {
           src={contactBg}
           alt="Contact Background"
           className="w-full h-full object-cover object-center pointer-events-none"
+          suppressHydrationWarning
         />
         <div className="absolute inset-0 bg-[#030d08]/15 pointer-events-none" />
       </div>
