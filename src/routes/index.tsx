@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { ImageAutoSlider } from "@/components/ImageAutoSlider";
 import heroBg from "@/assets/hero/hero-bg.webp";
 import tradingFloor from "@/assets/gallery/trading-floor.webp";
 import gallery1 from "@/assets/gallery/gallery-1.webp";
@@ -1362,35 +1363,36 @@ function Gallery() {
     };
   }, [activeIndex]);
 
+  // Split gallery images into two halves for the dual-row marquee
+  const row1Images = GALLERY.slice(0, 3);
+  const row2Images = GALLERY.slice(3, 6);
+
   return (
-    <section id="gallery" className="section-pad">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="gallery" className="section-pad overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 mb-8">
         <ScrollReveal>
           <SectionHeading eyebrow="Gallery" title="Moments from our trading floor" />
         </ScrollReveal>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-          {GALLERY.map((g, i) => {
-            const col = i % 3;
-            const direction = col === 0 ? "left" : col === 1 ? "up" : "right";
-            return (
-              <ScrollReveal
-                key={i}
-                direction={direction}
-                delay={i * 0.08}
-                className="h-full"
-              >
-                <div
-                  className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-gold/15 cursor-pointer h-full"
-                  onClick={() => setActiveIndex(i)}
-                >
-                  <img src={g.src} alt={g.label} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                  <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 text-gold font-serif text-xs sm:text-base leading-tight">{g.label}</div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
+      </div>
+
+      {/* Infinite scrolling dual marquees */}
+      <div className="flex flex-col gap-2 md:gap-4 select-none">
+        <ScrollReveal direction="left" delay={0.1}>
+          <ImageAutoSlider
+            images={row1Images}
+            onImageClick={(idx) => setActiveIndex(idx)}
+            startIndex={0}
+            reverse={false}
+          />
+        </ScrollReveal>
+        <ScrollReveal direction="right" delay={0.2}>
+          <ImageAutoSlider
+            images={row2Images}
+            onImageClick={(idx) => setActiveIndex(idx)}
+            startIndex={3}
+            reverse={true}
+          />
+        </ScrollReveal>
       </div>
 
       {/* Lightbox Modal */}
