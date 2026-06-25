@@ -77,16 +77,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Tirumala Ventures — Premium Trading Education & Live Trading Floor" },
+      { name: "description", content: "India's premier trading institute. Live trading floor, expert mentors, practical courses, corporate ambience." },
+      { name: "author", content: "Tirumala Ventures" },
+      { property: "og:title", content: "Tirumala Ventures" },
+      { property: "og:description", content: "Premium trading education and live corporate trading floor." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "theme-color", content: "#102b20" },
     ],
     links: [
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
+      {
+        rel: "manifest",
+        href: "/site.webmanifest",
+      },
       {
         rel: "stylesheet",
         href: appCss,
