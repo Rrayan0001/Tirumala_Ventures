@@ -29,6 +29,14 @@ import box3 from "@/assets/services/box3.webp";
 import box4 from "@/assets/services/box4.webp";
 import aboutUsImg from "@/assets/about/aboutus.webp";
 import tradingFloorSection from "@/assets/trading-floor/Trading_floor_section.webp";
+import wcuBox1 from "@/assets/why_choose_us/box1.webp";
+import wcuBox2 from "@/assets/why_choose_us/box2.webp";
+import wcuBox3 from "@/assets/why_choose_us/box3.webp";
+import wcuBox4 from "@/assets/why_choose_us/box4.webp";
+import wcuBox5 from "@/assets/why_choose_us/box5.webp";
+import wcuBox6 from "@/assets/why_choose_us/box6.webp";
+import wcuBox7 from "@/assets/why_choose_us/box7.webp";
+import wcuBox8 from "@/assets/why_choose_us/box8.webp";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
@@ -950,39 +958,66 @@ function Services() {
 
 function USP() {
   const usps = [
-    { i: Activity, t: "Live Market Exposure" },
-    { i: Building2, t: "Corporate Trading Ambience" },
-    { i: Users, t: "Experienced Mentors" },
-    { i: Sparkles, t: "Practical Learning" },
-    { i: MessageSquare, t: "Real-Time Trade Discussions" },
-    { i: Monitor, t: "Professional Trading Floor" },
-    { i: Network, t: "Networking Opportunities" },
-    { i: Trophy, t: "Beginner to Advanced Training" },
+    { i: Activity,      t: "Live Market Exposure",          img: wcuBox1 },
+    { i: Building2,     t: "Corporate Trading Ambience",    img: wcuBox2 },
+    { i: Users,         t: "Experienced Mentors",           img: wcuBox3 },
+    { i: BookOpen,      t: "Practical Learning",            img: wcuBox4 },
+    { i: MessageSquare, t: "Real-Time Trade Discussions",   img: wcuBox5 },
+    { i: Monitor,       t: "Professional Trading Floor",   img: wcuBox6 },
+    { i: Network,       t: "Networking Opportunities",      img: wcuBox7 },
+    { i: Trophy,        t: "Beginner to Advanced Training", img: wcuBox8 },
   ];
+
   return (
-    <section className="section-pad">
+    <section id="why-choose-us" className="pt-16 pb-16 sm:pt-20 sm:pb-24">
       <div className="mx-auto max-w-7xl px-6">
+        {/* Section Header */}
         <ScrollReveal>
-          <SectionHeading eyebrow="Why Choose Us" title="The Tirumala advantage" sub="If You Are a Experienced Trader, Come join us For the new experience." />
+          <div className="text-center max-w-3xl mx-auto mb-12 px-4">
+            <div className="flex items-center justify-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-4">
+              <span className="h-[1.5px] w-8 bg-gold/50" />
+              <span>Why Choose Us</span>
+              <span className="h-[1.5px] w-8 bg-gold/50" />
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl mb-5 leading-tight tracking-wider text-gradient-gold">
+              The Tirumala Advantage
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+              If You Are a Experienced Trader, Come join us For the new experience.
+            </p>
+          </div>
         </ScrollReveal>
+
+        {/* 4×2 card grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {usps.map(({ i: Icon, t }, index) => {
+          {usps.map(({ i: Icon, t, img }, index) => {
             const col = index % 4;
+            const row = Math.floor(index / 4);
             const direction = col < 2 ? "left" : "right";
-            const delay = (col % 2) * 0.1;
+            const delay = (col % 2) * 0.1 + row * 0.05;
             return (
-              <ScrollReveal
-                key={t}
-                direction={direction}
-                delay={delay}
-                className="h-full"
-              >
-                <MouseGlowTracker className="rounded-xl h-full">
-                  <div className="glass-card rounded-xl p-4 sm:p-6 text-center hover:border-gold/40 transition-all h-full flex flex-col items-center justify-center">
-                    <div className="mx-auto size-10 sm:size-14 rounded-full border border-gold/40 grid place-items-center mb-3 sm:mb-4 shrink-0">
-                      <Icon className="size-5 sm:size-6 text-gold" />
+              <ScrollReveal key={t} direction={direction} delay={delay} className="h-full">
+                <MouseGlowTracker className="rounded-2xl h-full">
+                  <div className="glass-card rounded-2xl overflow-hidden hover:border-gold/40 transition-all duration-300 h-full flex flex-col relative group" style={{ minHeight: '220px' }}>
+                    {/* 3D image — top-right, large */}
+                    <div className="relative flex-1 overflow-hidden">
+                      <img
+                        src={img}
+                        alt={t}
+                        className="absolute right-0 top-0 h-full w-full object-contain object-right-top scale-90 group-hover:scale-95 transition-transform duration-500 pointer-events-none drop-shadow-[0_8px_24px_rgba(212,175,55,0.15)]"
+                      />
                     </div>
-                    <div className="font-serif text-xs sm:text-base leading-tight">{t}</div>
+
+                    {/* Bottom area with icon + title + gold underline */}
+                    <div className="px-4 pb-5 pt-3 flex flex-col gap-2.5 relative z-10">
+                      <div className="size-8 sm:size-9 rounded-full border border-gold/50 bg-background/60 backdrop-blur-sm flex items-center justify-center shrink-0">
+                        <Icon className="size-3.5 sm:size-4 text-gold" />
+                      </div>
+                      <h3 className="font-serif text-sm sm:text-base text-foreground/95 leading-snug tracking-wide capitalize">
+                        {t}
+                      </h3>
+                      <div className="w-8 h-[2px] bg-gold/70 rounded-full" />
+                    </div>
                   </div>
                 </MouseGlowTracker>
               </ScrollReveal>
