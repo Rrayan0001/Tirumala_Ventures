@@ -905,7 +905,7 @@ function Services() {
                     <img
                       src={img}
                       alt={t}
-                      className="absolute right-1 top-1 h-20 sm:h-32 w-auto object-contain drop-shadow-[0_4px_12px_rgba(212,175,55,0.15)] group-hover:scale-105 group-hover:rotate-2 transition-transform duration-500 pointer-events-none z-0 opacity-45 sm:opacity-85 group-hover:opacity-100"
+                      className="absolute right-2 top-2 h-28 sm:h-40 w-auto object-contain drop-shadow-[0_4px_12px_rgba(212,175,55,0.15)] group-hover:scale-105 group-hover:rotate-2 transition-transform duration-500 pointer-events-none z-0 opacity-60 sm:opacity-85 group-hover:opacity-100"
                     />
                     
                     {/* Main content layer on top of the image */}
