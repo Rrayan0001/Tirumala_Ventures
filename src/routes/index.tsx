@@ -1004,7 +1004,7 @@ function USP() {
                       <img
                         src={img}
                         alt={t}
-                        className="w-auto h-full max-h-[115%] object-contain scale-120 group-hover:scale-125 transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.55)] opacity-90 group-hover:opacity-100"
+                        className="w-auto h-full max-h-[105%] object-contain scale-110 group-hover:scale-115 transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.55)] opacity-90 group-hover:opacity-100"
                       />
                     </div>
 
