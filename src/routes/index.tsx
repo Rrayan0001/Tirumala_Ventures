@@ -961,7 +961,7 @@ function USP() {
     { i: Activity,      t: "Live Market Exposure",          img: wcuBox1 },
     { i: Building2,     t: "Corporate Trading Ambience",    img: wcuBox2 },
     { i: Users,         t: "Experienced Mentors",           img: wcuBox3 },
-    { i: BookOpen,      t: "Practical Learning",            img: wcuBox4 },
+    { i: Sparkles,      t: "Practical Learning",            img: wcuBox4 },
     { i: MessageSquare, t: "Real-Time Trade Discussions",   img: wcuBox5 },
     { i: Monitor,       t: "Professional Trading Floor",   img: wcuBox6 },
     { i: Network,       t: "Networking Opportunities",      img: wcuBox7 },
@@ -998,25 +998,29 @@ function USP() {
             return (
               <ScrollReveal key={t} direction={direction} delay={delay} className="h-full">
                 <MouseGlowTracker className="rounded-2xl h-full">
-                  <div className="glass-card rounded-2xl overflow-hidden hover:border-gold/40 transition-all duration-300 h-full flex flex-col relative group" style={{ minHeight: '220px' }}>
-                    {/* 3D image — top-right, large */}
-                    <div className="relative flex-1 overflow-hidden">
+                  <div className="glass-card rounded-2xl overflow-hidden hover:border-gold/40 transition-all duration-300 h-full flex flex-col justify-between relative group min-h-[290px] sm:min-h-[360px]">
+                    {/* 3D image — centered, large */}
+                    <div className="relative w-full h-40 sm:h-48 md:h-52 flex items-center justify-center pt-6 px-6 shrink-0">
                       <img
                         src={img}
                         alt={t}
-                        className="absolute right-0 top-0 h-full w-full object-contain object-right-top scale-90 group-hover:scale-95 transition-transform duration-500 pointer-events-none drop-shadow-[0_8px_24px_rgba(212,175,55,0.15)]"
+                        className="w-auto h-full max-h-full object-contain scale-100 group-hover:scale-105 transition-transform duration-500 pointer-events-none drop-shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
                       />
                     </div>
 
                     {/* Bottom area with icon + title + gold underline */}
-                    <div className="px-4 pb-5 pt-3 flex flex-col gap-2.5 relative z-10">
-                      <div className="size-8 sm:size-9 rounded-full border border-gold/50 bg-background/60 backdrop-blur-sm flex items-center justify-center shrink-0">
-                        <Icon className="size-3.5 sm:size-4 text-gold" />
+                    <div className="px-5 pb-6 pt-3 flex flex-col gap-3 relative z-10">
+                      <div className="flex items-start gap-3">
+                        <div className="size-8 sm:size-9 rounded-full border border-gold/50 bg-background/60 backdrop-blur-sm flex items-center justify-center shrink-0 mt-0.5">
+                          <Icon className="size-3.5 sm:size-4 text-gold" />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <h3 className="font-serif text-sm sm:text-base md:text-lg font-semibold tracking-wider text-foreground/95 uppercase leading-tight">
+                            {t}
+                          </h3>
+                          <div className="w-8 h-[2px] bg-gold/70 rounded-full mt-1" />
+                        </div>
                       </div>
-                      <h3 className="font-serif text-sm sm:text-base text-foreground/95 leading-snug tracking-wide capitalize">
-                        {t}
-                      </h3>
-                      <div className="w-8 h-[2px] bg-gold/70 rounded-full" />
                     </div>
                   </div>
                 </MouseGlowTracker>
