@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import type React from "react";
 import {
   GraduationCap, Calendar, Download, BookOpen, Users, TrendingUp,
   Briefcase, Activity, Wallet, ShieldCheck, Sparkles, Building2,
   Network, Layers, Monitor, Wifi, MessageSquare, Trophy, Phone,
-  Mail, MapPin, ArrowRight, CheckCircle2, Clock, ArrowUpRight, ArrowDownRight, LineChart, X,
+  Mail, MapPin, ArrowRight, ArrowLeft, CheckCircle2, Clock, ArrowUpRight, ArrowDownRight, LineChart, X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,10 +23,23 @@ import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import logoAsset from "@/assets/logo.png";
+import box1 from "@/assets/box1.png";
+import box2 from "@/assets/box2.png";
+import box3 from "@/assets/box3.png";
+import box4 from "@/assets/box4.png";
+import aboutUsImg from "@/assets/aboutus.png";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-
+import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import { TextReveal } from "@/components/ui/cascade-text";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -46,11 +60,112 @@ const NAV = [
   { label: "Live Market", href: "#live-market" },
   { label: "Workspace", href: "#workspace", soon: true },
   { label: "Gallery", href: "#gallery" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact Us", href: "#contact" },
 ];
 
+function ScrollReveal({
+  children,
+  className = "",
+  direction = "up",
+  delay = 0,
+  duration = 0.7,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  direction?: "up" | "down" | "left" | "right" | "none";
+  delay?: number;
+  duration?: number;
+}) {
+  const getInitial = () => {
+    switch (direction) {
+      case "up": return { opacity: 0, y: 35 };
+      case "down": return { opacity: 0, y: -35 };
+      case "left": return { opacity: 0, x: -45 };
+      case "right": return { opacity: 0, x: 45 };
+      case "none": return { opacity: 0 };
+    }
+  };
+
+  const getAnimate = () => {
+    switch (direction) {
+      case "up":
+      case "down":
+        return { opacity: 1, y: 0 };
+      case "left":
+      case "right":
+        return { opacity: 1, x: 0 };
+      case "none":
+        return { opacity: 1 };
+    }
+  };
+
+  return (
+    <motion.div
+      initial={getInitial()}
+      whileInView={getAnimate()}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration, delay, ease: [0.215, 0.61, 0.355, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.215, 0.61, 0.355, 1],
+    },
+  },
+};
+
+function AnimatedCounter({ value, suffix = "", prefix = "", decimals = 0 }: { value: number; suffix?: string; prefix?: string; decimals?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (!inView) return;
+
+    const controls = animate(0, value, {
+      duration: 1.8,
+      ease: "easeOut",
+      onUpdate(v) {
+        if (ref.current) {
+          ref.current.textContent = prefix + v.toFixed(decimals) + suffix;
+        }
+      },
+    });
+
+    return () => controls.stop();
+  }, [value, inView, prefix, suffix, decimals]);
+
+  return <span ref={ref}>{prefix}0{suffix}</span>;
+}
+
 function Index() {
   const [showSplash, setShowSplash] = useState(true);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     if (showSplash) {
@@ -62,6 +177,14 @@ function Index() {
       document.body.style.overflow = "";
     };
   }, [showSplash]);
+
+  useEffect(() => {
+    // Prevent browser from restoring scroll position on refresh and force top scroll
+    if (typeof window !== "undefined") {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   useEffect(() => {
     // Fallback for browsers that don't support native CSS scroll-driven animations
@@ -89,6 +212,10 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold/60 via-gold to-gold/60 origin-left z-[60]"
+        style={{ scaleX }}
+      />
       {showSplash && <WelcomeSplash onComplete={() => setShowSplash(false)} />}
       <Toaster />
       <Nav />
@@ -103,14 +230,15 @@ function Index() {
       <section id="workspace"><Workspace /></section>
       <Courses />
       <Gallery />
+      <Testimonials />
       <Contact />
       <Footer />
     </div>
   );
 }
 
-const LOGO_PHASE_MS = 1600;
-const CURTAIN_PHASE_MS = 900;
+const LOGO_PHASE_MS = 1200;
+const CURTAIN_PHASE_MS = 800;
 
 function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   const [phase, setPhase] = useState<"logo" | "reveal" | "done">("logo");
@@ -167,14 +295,14 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          animation: logoPop 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: logoPop 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .intro-logo {
           position: relative;
           z-index: 1;
           opacity: 0;
           transform: scale(0.94);
-          animation: logoFade 1.1s ease-out forwards 0.1s;
+          animation: logoFade 0.8s ease-out forwards 0.05s;
         }
         @keyframes logoPop {
           0% { transform: scale(0.82); opacity: 0; }
@@ -206,16 +334,16 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           border-color: rgba(212, 175, 55, 0.85);
         }
         .curtain-open .panel-1 {
-          animation: liftPanel 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.14s;
+          animation: liftPanel 0.64s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.1s;
         }
         .curtain-open .panel-2 {
-          animation: liftPanel 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards 0s;
+          animation: liftPanel 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards 0s;
         }
         .curtain-open .panel-3 {
-          animation: liftPanel 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.04s;
+          animation: liftPanel 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.04s;
         }
         .curtain-open .panel-4 {
-          animation: liftPanel 0.68s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.18s;
+          animation: liftPanel 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.14s;
         }
         @keyframes liftPanel {
           from { transform: translateY(0); }
@@ -317,7 +445,7 @@ function Nav() {
           <nav className="hidden lg:flex items-center gap-8">
             {NAV.map(n => (
               <a key={n.href} href={n.href} className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5">
-                {n.label}
+                <TextReveal text={n.label} className="hover:text-gold" />
                 {n.soon && <span className="text-[9px] tracking-[0.2em] uppercase px-1.5 py-0.5 rounded-full border border-gold/50 text-gold">Soon</span>}
               </a>
             ))}
@@ -386,104 +514,189 @@ function Nav() {
 }
 
 function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  // Mouse-position motion values for perspective tilt
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), { stiffness: 60, damping: 18 });
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), { stiffness: 60, damping: 18 });
+
+  // Parallax layer offsets (different depths)
+  const layerFarX  = useSpring(useTransform(rawX, [-0.5, 0.5], [-18, 18]), { stiffness: 50, damping: 20 });
+  const layerFarY  = useSpring(useTransform(rawY, [-0.5, 0.5], [-10, 10]), { stiffness: 50, damping: 20 });
+  const layerMidX  = useSpring(useTransform(rawX, [-0.5, 0.5], [-10, 10]), { stiffness: 55, damping: 20 });
+  const layerMidY  = useSpring(useTransform(rawY, [-0.5, 0.5], [-6, 6]),  { stiffness: 55, damping: 20 });
+  const layerFgX   = useSpring(useTransform(rawX, [-0.5, 0.5], [-5, 5]),  { stiffness: 60, damping: 22 });
+  const layerFgY   = useSpring(useTransform(rawY, [-0.5, 0.5], [-3, 3]),  { stiffness: 60, damping: 22 });
+  const layerCardX = useSpring(useTransform(rawX, [-0.5, 0.5], [8, -8]),  { stiffness: 55, damping: 20 });
+  const layerCardY = useSpring(useTransform(rawY, [-0.5, 0.5], [5, -5]),  { stiffness: 55, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    rawX.set((e.clientX - rect.left) / rect.width - 0.5);
+    rawY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const handleMouseLeave = () => { rawX.set(0); rawY.set(0); };
+
   return (
-    <section id="home" className="relative pt-28 pb-8 sm:pb-12 overflow-hidden parallax-container">
-      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 parallax-bg" width={1920} height={1280} />
+    <motion.section
+      id="home"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative pt-28 pb-8 sm:pb-12 overflow-hidden parallax-container"
+      style={{ perspective: "1200px" }}
+    >
+      {/* ── DEPTH LAYER 0: Farthest — hero background image ── */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{ x: layerFarX, y: layerFarY, scale: 1.08 }}
+      >
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" width={1920} height={1280} />
+      </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
-      
-      {/* Dynamic drifting stock candlesticks background chart */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden parallax-bg select-none opacity-20">
+
+      {/* ── DEPTH LAYER 1: Mid-far — candlestick chart ── */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none overflow-hidden select-none opacity-20"
+        style={{ x: layerMidX, y: layerMidY, scale: 1.06 }}
+      >
         <CandlestickBackground />
-      </div>
+      </motion.div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-2 pb-8 lg:pt-4 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center">
-        <div className="lg:col-span-7 animate-float-up parallax-fg">
-          <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
-            <span className="h-px w-10 bg-gold" /> Tirumala Ventures
-          </div>
-          <h1 className="font-serif leading-[1.08] mb-6 tracking-tight">
-            {/* Line 1 — light cream, regular weight */}
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-light text-foreground/80">
-              Master the
-            </span>
-            {/* Line 2 — bold gold gradient, italic, slightly larger */}
-            <span className="block text-5xl sm:text-7xl lg:text-8xl font-bold italic text-gradient-gold leading-[1.0]">
-              Markets
-            </span>
-            {/* Line 3 — muted italic, smaller, offbeat weight */}
-            <span className="block text-3xl sm:text-4xl lg:text-5xl font-medium italic text-muted-foreground/70 mt-1">
-              with Confidence.
-            </span>
-          </h1>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10">
-            Learn professional trading inside a corporate-grade live trading floor.
-            Mentorship, real-time market exposure and a community of disciplined traders.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8 max-w-4xl">
-            <a href="#contact" className="w-full"><Button variant="hero" size="lg" className="w-full"><GraduationCap /> Enroll Now</Button></a>
-            <a href="#contact" className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Calendar /> Book a Visit</Button></a>
-            <a href="/brochure.pdf" download className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><Download /> Download Brochure</Button></a>
-            <a href="#courses" className="w-full"><Button variant="heroOutline" size="lg" className="w-full"><BookOpen /> Courses</Button></a>
-          </div>
-          <a href="#floor" className="inline-flex items-center gap-2 text-sm text-gold/90 hover:text-gold">
-            <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
-            Live Trading Corporate Ambience · Trading Floor <ArrowRight className="size-4" />
-          </a>
-        </div>
-        <div className="lg:col-span-5">
-          <MouseGlowTracker className="rounded-3xl">
-            <div className="relative glass-card glowing-border p-5 sm:p-8 shadow-gold">
-              <div className="absolute -inset-px rounded-2xl animate-shimmer pointer-events-none" />
-              <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
-                {[
-                  { v: "12K+", l: "Active Traders" },
-                  { v: "₹240Cr", l: "Tracked Capital" },
-                  { v: "4.9★", l: "Mentor Rating" },
-                ].map(s => (
-                  <div key={s.l}>
-                    <div className="font-serif text-lg sm:text-2xl text-gold">{s.v}</div>
-                    <div className="text-[9px] sm:text-[10px] tracking-widest uppercase text-muted-foreground mt-1 leading-tight">{s.l}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8 border-t border-gold/15 pt-6 space-y-3 text-xs sm:text-sm">
-                {[
-                  ["NIFTY 50", "24,812.45", "+0.84%"],
-                  ["BANK NIFTY", "53,204.10", "+1.12%"],
-                  ["SENSEX", "81,402.30", "+0.67%"],
-                  ["GOLD", "₹74,210", "+0.31%"],
-                ].map(([k, v, c]) => (
-                  <div key={k} className="grid grid-cols-3 items-center">
-                    <span className="text-muted-foreground tracking-wide text-left">{k}</span>
-                    <span className="text-foreground text-right font-mono pr-4 sm:pr-8">{v}</span>
-                    <span className="text-gold text-right font-mono">{c}</span>
-                  </div>
-                ))}
-              </div>
+      {/* ── MAIN CONTENT TILT WRAPPER (perspective-3d tilt) ── */}
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative mx-auto max-w-7xl px-6 pt-2 pb-8 lg:pt-4 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center"
+      >
+        {/* ── DEPTH LAYER 3: Foreground — hero text ── */}
+        <motion.div
+          className="lg:col-span-7"
+          style={{ x: layerFgX, y: layerFgY, translateZ: 30 }}
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
+          >
+            <div className="inline-flex items-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-5">
+              <span className="h-px w-10 bg-gold" /> Tirumala Ventures
             </div>
-          </MouseGlowTracker>
-        </div>
+            <h1 className="font-serif leading-[1.08] mb-6 tracking-tight">
+              {/* Line 1 — light cream, regular weight */}
+              <span className="block text-4xl sm:text-5xl lg:text-6xl font-light text-foreground/80">
+                Master the
+              </span>
+              {/* Line 2 — bold gold gradient, italic, with 3D extrusion shadow */}
+              <span
+                className="block text-5xl sm:text-7xl lg:text-8xl font-bold italic text-gradient-gold leading-[1.0]"
+                style={{
+                  textShadow: [
+                    "2px 2px 0 oklch(0.7 0.16 75 / 0.6)",
+                    "4px 4px 0 oklch(0.6 0.14 75 / 0.4)",
+                    "6px 6px 0 oklch(0.5 0.12 75 / 0.25)",
+                    "8px 8px 12px oklch(0 0 0 / 0.4)",
+                  ].join(", "),
+                }}
+              >
+                Markets
+              </span>
+              {/* Line 3 — muted italic, smaller, offbeat weight */}
+              <span className="block text-3xl sm:text-4xl lg:text-5xl font-medium italic text-muted-foreground/70 mt-1">
+                with Confidence.
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10">
+              Learn professional trading inside a corporate-grade live trading floor.
+              Mentorship, real-time market exposure and a community of disciplined traders.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-8 max-w-4xl">
+              <a href="#contact" className="w-full"><Button variant="hero" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><GraduationCap className="size-4 shrink-0" /> Enroll Now</Button></a>
+              <a href="#contact" className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><Calendar className="size-4 shrink-0" /> Book a Visit</Button></a>
+              <a href="/brochure.pdf" download className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><Download className="size-4 shrink-0" /> Download Brochure</Button></a>
+              <a href="#courses" className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><BookOpen className="size-4 shrink-0" /> Courses</Button></a>
+            </div>
+            <a href="#floor" className="inline-flex items-center gap-2 text-sm text-gold/90 hover:text-gold">
+              <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
+              Live Trading Corporate Ambience · Trading Floor <ArrowRight className="size-4" />
+            </a>
+          </motion.div>
+        </motion.div>
 
-        <div className="lg:col-span-12 mt-6 pt-6 border-t border-gold/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-float-up">
+        {/* ── DEPTH LAYER 4: Card — floats opposite direction (counter-parallax) ── */}
+        <motion.div
+          className="lg:col-span-5"
+          style={{ x: layerCardX, y: layerCardY, translateZ: 50 }}
+        >
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: 0.15 }}
+          >
+            <MouseGlowTracker className="rounded-3xl">
+              <div className="relative glass-card glowing-border p-5 sm:p-8 shadow-gold">
+                <div className="absolute -inset-px rounded-2xl animate-shimmer pointer-events-none" />
+                <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
+                  {[
+                    { val: 12, suffix: "K+", label: "Active Traders" },
+                    { val: 240, prefix: "₹", suffix: "Cr", label: "Tracked Capital" },
+                    { val: 4.9, suffix: "★", decimals: 1, label: "Mentor Rating" },
+                  ].map(s => (
+                    <div key={s.label}>
+                      <div className="font-serif text-lg sm:text-2xl text-gold">
+                        <AnimatedCounter value={s.val} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />
+                      </div>
+                      <div className="text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest uppercase text-muted-foreground mt-1 leading-tight">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8 border-t border-gold/15 pt-6 space-y-3 text-xs sm:text-sm">
+                  {[
+                    ["NIFTY 50", "24,812.45", "+0.84%"],
+                    ["BANK NIFTY", "53,204.10", "+1.12%"],
+                    ["SENSEX", "81,402.30", "+0.67%"],
+                    ["GOLD", "₹74,210", "+0.31%"],
+                  ].map(([k, v, c]) => (
+                    <div key={k} className="grid grid-cols-3 items-center">
+                      <span className="text-muted-foreground tracking-wide text-left">{k}</span>
+                      <span className="text-foreground text-right font-mono pr-2 sm:pr-8">{v}</span>
+                      <span className="text-gold text-right font-mono">{c}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </MouseGlowTracker>
+          </motion.div>
+        </motion.div>
+
+        {/* ── HIGHLIGHTS ROW — 3D floating feature cards ── */}
+        <div className="lg:col-span-12 mt-6 pt-6 border-t border-gold/15 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 animate-float-up" style={{ transformStyle: "preserve-3d" }}>
           {[
-            { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience" },
-            { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance" },
-            { i: TrendingUp, t: "Practical Learning", d: "Trade with real capital" },
-            { i: Calendar, t: "Flexible Batches", d: "Weekday & weekend classes" }
-          ].map(({ i: Icon, t, d }) => (
-            <div key={t} className="flex gap-4 items-center group">
-              <div className="size-10 rounded-xl bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:scale-105 group-hover:bg-gold/15 transition-all duration-300">
+            { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience", z: 20 },
+            { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance", z: 30 },
+            { i: TrendingUp, t: "Practical Learning", d: "Trade with real capital", z: 25 },
+            { i: Calendar, t: "Flexible Batches", d: "Weekday & weekend classes", z: 15 },
+          ].map(({ i: Icon, t, d, z }) => (
+            <motion.div
+              key={t}
+              className="flex gap-4 items-center group cursor-default"
+              style={{ translateZ: z }}
+              whileHover={{ translateZ: z + 20, scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <div className="size-10 rounded-xl bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:bg-gold/15 transition-all duration-300">
                 <Icon className="size-5 text-gold" />
               </div>
               <div>
                 <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors">{t}</div>
                 <div className="text-xs text-muted-foreground mt-1 leading-tight">{d}</div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
 
@@ -500,60 +713,232 @@ function SectionHeading({ eyebrow, title, sub }: { eyebrow: string; title: strin
 }
 
 function About() {
-  const pillars = [
-    { i: Building2, t: "Professional Environment", d: "Corporate-grade trading floor and study spaces." },
-    { i: Users, t: "Industry Mentors", d: "Decade-experienced traders guiding every session." },
-    { i: Activity, t: "Practical Learning", d: "Live charts, real capital exposure, executable plans." },
-    { i: TrendingUp, t: "Real-Time Markets", d: "Pre-market to closing — be where the action is." },
-    { i: Layers, t: "Corporate Infrastructure", d: "Multi-screen desks, high-speed data, premium ambience." },
-    { i: Network, t: "Community Driven", d: "Network of traders, investors and market enthusiasts." },
+  const leftPillars = [
+    { i: Building2, t: "Professional Environment", d: "Access our corporate-grade live trading floor and professional study environments designed for serious focus." },
+    { i: Activity, t: "Practical Learning", d: "Learn by doing with live market charts, hands-on simulation, and direct execution practice." },
+    { i: Layers, t: "Corporate Infrastructure", d: "Utilize high-speed feeds, multi-screen trading terminals, and institutional-grade workspace setups." },
   ];
+
+  const rightPillars = [
+    { i: Users, t: "Industry Mentors", d: "Get direct guidance from veteran market traders with over a decade of real-world trading experience." },
+    { i: TrendingUp, t: "Real-Time Markets", d: "Be in the middle of active market sessions, pre-market analysis, and post-market review briefs." },
+    { i: Network, t: "Community Driven", d: "Join a disciplined, active network of traders, technical analysts, and financial enthusiasts." },
+  ];
+
+  const metrics = [
+    { val: 12, suffix: "K+", label: "Active Traders", i: Users },
+    { val: 240, prefix: "₹", suffix: "Cr", label: "Tracked Capital", i: TrendingUp },
+    { val: 4.9, suffix: "★", decimals: 1, label: "Mentor Rating", i: Trophy },
+    { val: 10, suffix: "+", label: "Years Experience", i: ShieldCheck },
+  ];
+
   return (
-    <section id="about" className="pt-16 pb-16 sm:pt-20 sm:pb-24">
+    <section id="about" className="pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading
-          eyebrow="About Us"
-          title="Where discipline meets prosperity"
-          sub="A premium trading education and live trading workspace built for serious learners — from first-time traders to seasoned professionals."
-        />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {pillars.map(({ i: Icon, t, d }) => (
-            <MouseGlowTracker key={t} className="rounded-xl">
-              <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-colors h-full">
-                <div className="size-12 rounded-lg gradient-gold grid place-items-center mb-4">
-                  <Icon className="size-6 text-primary-foreground" />
-                </div>
-                <h3 className="font-serif text-xl mb-2">{t}</h3>
-                <p className="text-sm text-muted-foreground">{d}</p>
+        <ScrollReveal>
+          <div className="text-center max-w-3xl mx-auto mb-10 px-4">
+            <div className="flex items-center justify-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-4">
+              <span className="h-[1.5px] w-8 bg-gold/50" />
+              <span>About Us</span>
+              <span className="h-[1.5px] w-8 bg-gold/50" />
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl mb-4 leading-tight uppercase tracking-wider text-gradient-gold">
+              About Tirumala Ventures
+            </h2>
+            <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+              We are a results-driven trading academy and live floor workspace helping aspiring and seasoned traders grow through strategy, discipline, and performance. From foundational knowledge to advanced execution, we turn market analysis into consistent results.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch mb-12 mt-12">
+          {/* Left Column */}
+          <div className="lg:col-span-4 flex flex-col gap-6 justify-between">
+            {leftPillars.map(({ i: Icon, t, d }, index) => (
+              <ScrollReveal
+                key={t}
+                direction="left"
+                delay={index * 0.1}
+                className="flex-1"
+              >
+                <MouseGlowTracker className="rounded-xl h-full">
+                  <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-all duration-300 flex items-start gap-4 h-full">
+                    <div className="size-12 rounded-xl bg-gold border border-gold/15 flex items-center justify-center shrink-0">
+                      <Icon className="size-6 text-emerald-deep" />
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                    </div>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Center Image */}
+          <div className="lg:col-span-4 flex items-center justify-center">
+            <ScrollReveal direction="up" className="w-full h-full">
+              <div className="relative border border-gold/30 rounded-2xl overflow-hidden w-full h-full min-h-[350px] sm:min-h-[450px] group shadow-gold flex items-center justify-center">
+                <img
+                  src={aboutUsImg}
+                  alt="Tirumala Ventures Live Trading Floor"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
               </div>
-            </MouseGlowTracker>
-          ))}
+            </ScrollReveal>
+          </div>
+
+          {/* Right Column */}
+          <div className="lg:col-span-4 flex flex-col gap-6 justify-between">
+            {rightPillars.map(({ i: Icon, t, d }, index) => (
+              <ScrollReveal
+                key={t}
+                direction="right"
+                delay={index * 0.1}
+                className="flex-1"
+              >
+                <MouseGlowTracker className="rounded-xl h-full">
+                  <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-all duration-300 flex items-start gap-4 h-full">
+                    <div className="size-12 rounded-xl bg-gold border border-gold/15 flex items-center justify-center shrink-0">
+                      <Icon className="size-6 text-emerald-deep" />
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                    </div>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
+
+        {/* Metrics Bar */}
+        <ScrollReveal direction="up" delay={0.2} className="w-full mt-12">
+          <MouseGlowTracker className="rounded-2xl w-full">
+            <div className="glass-card rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-around gap-6 md:gap-4 shadow-gold">
+              {metrics.map((s, index) => {
+                const Icon = s.i;
+                return (
+                  <div key={s.label} className="flex flex-col md:flex-row items-center gap-6 w-full md:w-auto">
+                    {index > 0 && (
+                      <>
+                        <div className="hidden md:block w-px h-12 bg-gold/15" />
+                        <div className="block md:hidden w-full h-px bg-gold/10 my-2" />
+                      </>
+                    )}
+                    <div className="flex items-center gap-4 justify-center md:justify-start w-full md:w-auto">
+                      <div className="size-12 rounded-xl bg-gold/10 border border-gold/25 flex items-center justify-center shrink-0">
+                        <Icon className="size-6 text-gold" />
+                      </div>
+                      <div>
+                        <div className="font-serif text-2xl sm:text-3xl text-gold font-bold">
+                          <AnimatedCounter value={s.val} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />
+                        </div>
+                        <div className="text-[10px] sm:text-xs tracking-wider sm:tracking-widest uppercase text-muted-foreground mt-0.5 leading-tight">{s.label}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </MouseGlowTracker>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
 function Services() {
   const items = [
-    { i: Briefcase, t: "Mentorship Program", d: "One-on-one guidance, strategy development, risk management and market psychology training." },
-    { i: Calendar, t: "Weekend Classes", d: "Flexible weekend programs designed for working professionals and students." },
-    { i: Activity, t: "Live Trading", d: "Real-time trading sessions with market analysis and execution strategies." },
-    { i: Wallet, t: "Demat Support", d: "Complete assistance for opening and managing Demat & Trading accounts." },
+    {
+      i: Briefcase,
+      t: "Mentorship\nProgram",
+      d: "One-on-one guidance, strategy development, risk management and market psychology training.",
+      img: box1,
+    },
+    {
+      i: Calendar,
+      t: "Weekend\nClasses",
+      d: "Flexible weekend programs designed for working professionals and students.",
+      img: box2,
+    },
+    {
+      i: Activity,
+      t: "Live\nTrading",
+      d: "Real-time trading sessions with market analysis and execution strategies.",
+      img: box3,
+    },
+    {
+      i: Wallet,
+      t: "Demat\nSupport",
+      d: "Complete assistance for opening and managing Demat & Trading accounts.",
+      img: box4,
+    },
   ];
   return (
-    <section id="services" className="section-pad bg-card/40">
+    <section id="services" className="pt-12 pb-0 md:pt-16 md:pb-0 bg-card/40">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="Services" title="What we offer" />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="Services"
+            title="WHAT WE OFFER"
+            sub="At Tirumala Ventures, we provide a blend of expert-led trading education and real-world market support designed to help you grow your skills, confidence, and consistency."
+          />
+        </ScrollReveal>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map(({ i: Icon, t, d }) => (
-            <MouseGlowTracker key={t} className="rounded-xl">
-              <div className="glass-card rounded-xl p-6 group hover:-translate-y-1 transition-transform h-full">
-                <Icon className="size-8 text-gold mb-4" />
-                <h3 className="font-serif text-xl mb-2">{t}</h3>
-                <p className="text-sm text-muted-foreground">{d}</p>
-              </div>
-            </MouseGlowTracker>
-          ))}
+          {items.map(({ i: Icon, t, d, img }, index) => {
+            const direction = index < 2 ? "left" : "right";
+            const delay = (index % 2) * 0.12;
+            return (
+              <ScrollReveal
+                key={t}
+                direction={direction}
+                delay={delay}
+                className="h-full"
+              >
+                <MouseGlowTracker className="rounded-xl h-full">
+                  <div className="glass-card rounded-xl p-5 sm:p-6 group hover:-translate-y-1.5 transition-transform duration-300 h-full flex flex-col justify-between relative overflow-hidden">
+                    {/* Background 3D asset image positioned absolutely to overlap with text */}
+                    <img
+                      src={img}
+                      alt={t}
+                      className="absolute right-1 top-1 h-20 sm:h-32 w-auto object-contain drop-shadow-[0_4px_12px_rgba(212,175,55,0.15)] group-hover:scale-105 group-hover:rotate-2 transition-transform duration-500 pointer-events-none z-0 opacity-45 sm:opacity-85 group-hover:opacity-100"
+                    />
+                    
+                    {/* Main content layer on top of the image */}
+                    <div className="relative z-10 flex flex-col justify-between h-full w-full">
+                      <div className="size-12 rounded-lg bg-gold/5 border border-gold/15 flex items-center justify-center">
+                        <Icon className="size-6 text-gold" />
+                      </div>
+                      <div className="mt-8 flex-1 flex flex-col justify-between">
+                        <div>
+                          <h3 className="font-serif text-lg sm:text-xl text-gold mb-3 uppercase tracking-wide leading-tight whitespace-pre-line min-h-[50px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                            {t}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed font-sans mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+                            {d}
+                          </p>
+                        </div>
+                        <div className="mt-auto flex items-center gap-1.5 text-xs font-semibold tracking-wider text-[#c57d29] hover:text-gold transition-colors uppercase cursor-pointer">
+                          <span>Learn More</span>
+                          <span className="group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+        {/* Bottom stylized divider line with Tirumala Ventures logo */}
+        <div className="w-full flex items-center justify-center mt-12 mb-6 gap-6 select-none opacity-45">
+          <div className="h-px bg-gold/15 flex-1" />
+          <img src={logoAsset} alt="Tirumala Ventures" className="size-10 object-contain brightness-95" />
+          <div className="h-px bg-gold/15 flex-1" />
         </div>
       </div>
     </section>
@@ -574,18 +959,32 @@ function USP() {
   return (
     <section className="section-pad">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="Why Choose Us" title="The Tirumala advantage" sub="If You Are a Experienced Trader, Come join us For the new experience." />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {usps.map(({ i: Icon, t }) => (
-            <MouseGlowTracker key={t} className="rounded-xl">
-              <div className="glass-card rounded-xl p-6 text-center hover:border-gold/40 transition-all h-full">
-                <div className="mx-auto size-14 rounded-full border border-gold/40 grid place-items-center mb-4">
-                  <Icon className="size-6 text-gold" />
-                </div>
-                <div className="font-serif text-base">{t}</div>
-              </div>
-            </MouseGlowTracker>
-          ))}
+        <ScrollReveal>
+          <SectionHeading eyebrow="Why Choose Us" title="The Tirumala advantage" sub="If You Are a Experienced Trader, Come join us For the new experience." />
+        </ScrollReveal>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {usps.map(({ i: Icon, t }, index) => {
+            const col = index % 4;
+            const direction = col < 2 ? "left" : "right";
+            const delay = (col % 2) * 0.1;
+            return (
+              <ScrollReveal
+                key={t}
+                direction={direction}
+                delay={delay}
+                className="h-full"
+              >
+                <MouseGlowTracker className="rounded-xl h-full">
+                  <div className="glass-card rounded-xl p-4 sm:p-6 text-center hover:border-gold/40 transition-all h-full flex flex-col items-center justify-center">
+                    <div className="mx-auto size-10 sm:size-14 rounded-full border border-gold/40 grid place-items-center mb-3 sm:mb-4 shrink-0">
+                      <Icon className="size-5 sm:size-6 text-gold" />
+                    </div>
+                    <div className="font-serif text-xs sm:text-base leading-tight">{t}</div>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -625,39 +1024,41 @@ function ExperiencedTraders() {
   return (
     <section className="section-pad">
       <div className="mx-auto max-w-6xl px-6">
-        <MouseGlowTracker className="rounded-3xl">
-          <motion.div
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-              rotateY,
-              rotateX,
-              transformStyle: "preserve-3d",
-            }}
-            className="relative glass-card glowing-border p-6 sm:p-10 md:p-16 overflow-hidden cursor-default"
-          >
-            <div className="absolute -top-24 -right-24 size-72 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-            
+        <ScrollReveal direction="left">
+          <MouseGlowTracker className="rounded-3xl">
             <motion.div
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
               style={{
-                transform: "translateZ(30px)",
-                translateY: translateZContent,
+                rotateY,
+                rotateX,
+                transformStyle: "preserve-3d",
               }}
-              className="relative max-w-3xl"
+              className="relative glass-card glowing-border p-6 sm:p-10 md:p-16 overflow-hidden cursor-default"
             >
-              <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Experienced Traders</div>
-              <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6">If You Are a Experienced Trader</h2>
-              <p className="text-muted-foreground text-sm sm:text-lg mb-8 leading-relaxed">
-                Come join us For the new experience.
-              </p>
-              <a href="#contact" className="w-full sm:w-auto inline-block">
-                <Button variant="hero" size="lg" className="w-full">
-                  Join the Trading Community <ArrowRight />
-                </Button>
-              </a>
+              <div className="absolute -top-24 -right-24 size-72 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
+              
+              <motion.div
+                style={{
+                  transform: "translateZ(30px)",
+                  translateY: translateZContent,
+                }}
+                className="relative max-w-3xl"
+              >
+                <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Experienced Traders</div>
+                <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6">If You Are a Experienced Trader</h2>
+                <p className="text-muted-foreground text-sm sm:text-lg mb-8 leading-relaxed">
+                  Come join us For the new experience.
+                </p>
+                <a href="#contact" className="w-full sm:w-auto inline-block">
+                  <Button variant="hero" size="lg" className="w-full">
+                    Join the Trading Community <ArrowRight />
+                  </Button>
+                </a>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </MouseGlowTracker>
+          </MouseGlowTracker>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -673,28 +1074,40 @@ function TradingFloor() {
   return (
     <section id="floor" className="section-pad bg-card/40">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading
-          eyebrow="Trading Floor Showcase"
-          title="Live Trading Corporate Ambience"
-          sub="Step inside an institutional-grade trading floor designed for serious market participants."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="Trading Floor Showcase"
+            title="Live Trading Corporate Ambience"
+            sub="Step inside an institutional-grade trading floor designed for serious market participants."
+          />
+        </ScrollReveal>
         <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <div className="relative rounded-2xl overflow-hidden shadow-gold">
+          <ScrollReveal direction="left" className="relative rounded-2xl overflow-hidden shadow-gold">
             <img src={tradingFloor} alt="Tirumala live trading floor" width={1600} height={1067} loading="lazy" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
             <div className="absolute bottom-6 left-6 inline-flex items-center gap-2 text-gold text-sm">
               <span className="size-2 rounded-full bg-gold animate-pulse-glow" /> LIVE TRADING FLOOR
             </div>
-          </div>
-          <ul className="space-y-4">
-            {features.map(({ i: Icon, t }) => (
-              <li key={t} className="flex items-start gap-4 glass-card rounded-xl p-5">
-                <Icon className="size-6 text-gold flex-none mt-0.5" />
-                <span className="text-foreground/90">{t}</span>
-              </li>
-            ))}
-            <a href="#contact" className="inline-block pt-2"><Button variant="hero">Book a Floor Visit <Calendar /></Button></a>
-          </ul>
+          </ScrollReveal>
+          <ScrollReveal direction="right" className="w-full">
+            <motion.ul
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="space-y-4"
+            >
+              {features.map(({ i: Icon, t }) => (
+                <motion.li key={t} variants={staggerItem} className="flex items-start gap-4 glass-card rounded-xl p-5">
+                  <Icon className="size-6 text-gold flex-none mt-0.5" />
+                  <span className="text-foreground/90">{t}</span>
+                </motion.li>
+              ))}
+              <motion.div variants={staggerItem} className="inline-block pt-2">
+                <a href="#contact"><Button variant="hero">Book a Floor Visit <Calendar /></Button></a>
+              </motion.div>
+            </motion.ul>
+          </ScrollReveal>
         </div>
       </div>
     </section>
@@ -731,59 +1144,63 @@ function LiveMarket() {
   }, []);
 
   return (
-    <section id="live-market" className="section-pad bg-card/40">
+    <section id="live-market" className="pt-6 pb-12 md:pt-8 md:pb-16 bg-card/40">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading
-          eyebrow="Live Market Analysis"
-          title="Real-time stock calls & analysis"
-          sub="Mentor-curated live trade calls with entry, target and stop-loss. Updated every few seconds during market hours."
-        />
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 mb-6 px-1">
-          <div className="inline-flex items-center gap-2 text-sm text-gold">
-            <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
-            LIVE · NSE / BSE · Tick #{tick}
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="Live Market Analysis"
+            title="Real-time stock calls & analysis"
+            sub="Mentor-curated live trade calls with entry, target and stop-loss. Updated every few seconds during market hours."
+          />
+        </ScrollReveal>
+        <ScrollReveal direction="right">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 mb-6 px-1">
+            <div className="inline-flex items-center gap-2 text-sm text-gold">
+              <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
+              LIVE · NSE / BSE · Tick #{tick}
+            </div>
+            <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wider uppercase">Indicative analysis · Not investment advice</div>
           </div>
-          <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wider uppercase">Indicative analysis · Not investment advice</div>
-        </div>
-        <div className="glass-card rounded-2xl overflow-hidden">
-          <div className="grid grid-cols-12 px-3 py-3 sm:px-5 text-[9px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.2em] uppercase text-muted-foreground border-b border-gold/15">
-            <div className="col-span-4 md:col-span-3">Stock</div>
-            <div className="col-span-3 md:col-span-2 text-right">LTP</div>
-            <div className="col-span-3 md:col-span-2 text-right">Change</div>
-            <div className="hidden md:block md:col-span-2 text-right">Target</div>
-            <div className="hidden md:block md:col-span-1 text-right">SL</div>
-            <div className="col-span-2 text-right">Call</div>
+          <div className="glass-card rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-12 px-3 py-3 sm:px-5 text-[9px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.2em] uppercase text-muted-foreground border-b border-gold/15">
+              <div className="col-span-4 md:col-span-3">Stock</div>
+              <div className="col-span-2 md:col-span-2 text-right">LTP</div>
+              <div className="col-span-3 md:col-span-2 text-right">Change</div>
+              <div className="hidden md:block md:col-span-2 text-right">Target</div>
+              <div className="hidden md:block md:col-span-1 text-right">SL</div>
+              <div className="col-span-3 md:col-span-2 text-right">Call</div>
+            </div>
+            <div className="divide-y divide-gold/10">
+              {stocks.map(s => {
+                const up = s.change >= 0;
+                const callColor = s.call === "BUY" ? "text-emerald-400 border-emerald-400/40 bg-emerald-400/5"
+                  : s.call === "SELL" ? "text-red-400 border-red-400/40 bg-red-400/5"
+                  : "text-gold border-gold/40 bg-gold/5";
+                return (
+                  <div key={s.sym} className="grid grid-cols-12 px-3 py-3 sm:px-5 sm:py-4 items-center hover:bg-gold/[0.03] transition-colors">
+                    <div className="col-span-4 md:col-span-3">
+                      <div className="font-serif text-sm sm:text-base text-gold leading-tight">{s.sym}</div>
+                      <div className="text-[10px] sm:text-[11px] text-muted-foreground truncate max-w-[80px] sm:max-w-none">{s.name}</div>
+                    </div>
+                    <div className="col-span-2 md:col-span-2 text-right font-mono text-xs sm:text-sm">₹{s.price.toFixed(2)}</div>
+                    <div className={`col-span-3 md:col-span-2 text-right font-mono text-xs sm:text-sm inline-flex items-center justify-end gap-0.5 sm:gap-1 ${up ? "text-emerald-400" : "text-red-400"}`}>
+                      {up ? <ArrowUpRight className="size-3.5" /> : <ArrowDownRight className="size-3.5" />}
+                      {s.change > 0 ? "+" : ""}{s.change.toFixed(2)}%
+                    </div>
+                    <div className="hidden md:block md:col-span-2 text-right font-mono text-sm text-foreground/80">₹{s.target}</div>
+                    <div className="hidden md:block md:col-span-1 text-right font-mono text-sm text-foreground/60">₹{s.sl}</div>
+                    <div className="col-span-3 md:col-span-2 text-right">
+                      <span className={`inline-block text-[9px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border ${callColor}`}>{s.call}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="divide-y divide-gold/10">
-            {stocks.map(s => {
-              const up = s.change >= 0;
-              const callColor = s.call === "BUY" ? "text-emerald-400 border-emerald-400/40 bg-emerald-400/5"
-                : s.call === "SELL" ? "text-red-400 border-red-400/40 bg-red-400/5"
-                : "text-gold border-gold/40 bg-gold/5";
-              return (
-                <div key={s.sym} className="grid grid-cols-12 px-3 py-3 sm:px-5 sm:py-4 items-center hover:bg-gold/[0.03] transition-colors">
-                  <div className="col-span-4 md:col-span-3">
-                    <div className="font-serif text-sm sm:text-base text-gold leading-tight">{s.sym}</div>
-                    <div className="text-[10px] sm:text-[11px] text-muted-foreground truncate max-w-[80px] sm:max-w-none">{s.name}</div>
-                  </div>
-                  <div className="col-span-3 md:col-span-2 text-right font-mono text-xs sm:text-sm">₹{s.price.toFixed(2)}</div>
-                  <div className={`col-span-3 md:col-span-2 text-right font-mono text-xs sm:text-sm inline-flex items-center justify-end gap-0.5 sm:gap-1 ${up ? "text-emerald-400" : "text-red-400"}`}>
-                    {up ? <ArrowUpRight className="size-3.5" /> : <ArrowDownRight className="size-3.5" />}
-                    {s.change > 0 ? "+" : ""}{s.change.toFixed(2)}%
-                  </div>
-                  <div className="hidden md:block md:col-span-2 text-right font-mono text-sm text-foreground/80">₹{s.target}</div>
-                  <div className="hidden md:block md:col-span-1 text-right font-mono text-sm text-foreground/60">₹{s.sl}</div>
-                  <div className="col-span-2 text-right">
-                    <span className={`inline-block text-[9px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border ${callColor}`}>{s.call}</span>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="mt-6 text-center">
+            <a href="#contact" className="inline-block w-full sm:w-auto"><Button variant="hero" size="lg" className="w-full"><LineChart /> Get Daily Live Calls</Button></a>
           </div>
-        </div>
-        <div className="mt-6 text-center">
-          <a href="#contact" className="inline-block w-full sm:w-auto"><Button variant="hero" size="lg" className="w-full"><LineChart /> Get Daily Live Calls</Button></a>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -793,21 +1210,23 @@ function Workspace() {
   return (
     <section className="section-pad">
       <div className="mx-auto max-w-5xl px-6">
-        <MouseGlowTracker className="rounded-3xl">
-          <div className="relative glass-card glowing-border p-6 sm:p-12 md:p-20 text-center overflow-hidden">
-            <div className="absolute inset-0 animate-shimmer opacity-40" />
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/50 text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-pulse-glow">
-                <Sparkles className="size-3" /> Coming Soon
+        <ScrollReveal direction="right">
+          <MouseGlowTracker className="rounded-3xl">
+            <div className="relative glass-card glowing-border p-6 sm:p-12 md:p-20 text-center overflow-hidden">
+              <div className="absolute inset-0 animate-shimmer opacity-40" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/50 text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-pulse-glow">
+                  <Sparkles className="size-3" /> Coming Soon
+                </div>
+                <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Trading Workspace</h2>
+                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                  A dedicated professional workspace for traders, investors and market enthusiasts
+                  is currently under development and will be launching soon.
+                </p>
               </div>
-              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Trading Workspace</h2>
-              <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-                A dedicated professional workspace for traders, investors and market enthusiasts
-                is currently under development and will be launching soon.
-              </p>
             </div>
-          </div>
-        </MouseGlowTracker>
+          </MouseGlowTracker>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -826,22 +1245,35 @@ function Courses() {
   return (
     <section id="courses" className="section-pad bg-card/40">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="Courses" title="Programs crafted for every level" />
+        <ScrollReveal>
+          <SectionHeading eyebrow="Courses" title="Programs crafted for every level" />
+        </ScrollReveal>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {COURSES.map(c => (
-            <MouseGlowTracker key={c.t} className="rounded-xl">
-              <div className="glass-card rounded-xl p-6 flex flex-col hover:border-gold/40 transition-colors h-full">
-                <BookOpen className="size-7 text-gold mb-4" />
-                <h3 className="font-serif text-xl mb-3">{c.t}</h3>
-                <p className="text-sm text-muted-foreground mb-6 flex-1">{c.d}</p>
-                <a href="#contact"><Button variant="heroOutline" size="sm" className="w-full">Learn More <ArrowRight /></Button></a>
-              </div>
-            </MouseGlowTracker>
-          ))}
+          {COURSES.map((c, index) => {
+            const col = index % 3;
+            const direction = col === 0 ? "left" : col === 1 ? "up" : "right";
+            return (
+              <ScrollReveal
+                key={c.t}
+                direction={direction}
+                delay={index * 0.08}
+                className="h-full"
+              >
+                <MouseGlowTracker className="rounded-xl h-full">
+                  <div className="glass-card rounded-xl p-6 flex flex-col hover:border-gold/40 transition-colors h-full">
+                    <BookOpen className="size-7 text-gold mb-4" />
+                    <h3 className="font-serif text-xl mb-3">{c.t}</h3>
+                    <p className="text-sm text-muted-foreground mb-6 flex-1">{c.d}</p>
+                    <a href="#contact"><Button variant="heroOutline" size="sm" className="w-full">Learn More <ArrowRight /></Button></a>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            );
+          })}
         </div>
-        <div className="text-center mt-12">
+        <ScrollReveal className="text-center mt-12">
           <a href="/brochure.pdf" download><Button variant="hero" size="lg"><Download /> Download Brochure</Button></a>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -857,19 +1289,279 @@ const GALLERY = [
 ];
 
 function Gallery() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (activeIndex === null) return;
+    setActiveIndex((activeIndex - 1 + GALLERY.length) % GALLERY.length);
+  };
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (activeIndex === null) return;
+    setActiveIndex((activeIndex + 1) % GALLERY.length);
+  };
+
+  const handleClose = () => {
+    setActiveIndex(null);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (activeIndex === null) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+      else if (e.key === "ArrowLeft") handlePrev();
+      else if (e.key === "ArrowRight") handleNext();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeIndex]);
+
+  // Lock body scroll when lightbox is active
+  useEffect(() => {
+    if (activeIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeIndex]);
+
   return (
     <section id="gallery" className="section-pad">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="Gallery" title="Moments from our trading floor" />
+        <ScrollReveal>
+          <SectionHeading eyebrow="Gallery" title="Moments from our trading floor" />
+        </ScrollReveal>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-          {GALLERY.map((g, i) => (
-            <div key={i} className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-gold/15">
-              <img src={g.src} alt={g.label} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-              <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 text-gold font-serif text-xs sm:text-base leading-tight">{g.label}</div>
-            </div>
-          ))}
+          {GALLERY.map((g, i) => {
+            const col = i % 3;
+            const direction = col === 0 ? "left" : col === 1 ? "up" : "right";
+            return (
+              <ScrollReveal
+                key={i}
+                direction={direction}
+                delay={i * 0.08}
+                className="h-full"
+              >
+                <div
+                  className="group relative aspect-[4/3] rounded-xl overflow-hidden border border-gold/15 cursor-pointer h-full"
+                  onClick={() => setActiveIndex(i)}
+                >
+                  <img src={g.src} alt={g.label} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                  <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 text-gold font-serif text-xs sm:text-base leading-tight">{g.label}</div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
         </div>
+      </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {activeIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleClose}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4 select-none"
+          >
+            {/* Close Button */}
+            <button
+              onClick={handleClose}
+              className="absolute top-6 right-6 size-12 rounded-full border border-gold/20 text-gold flex items-center justify-center hover:bg-gold/10 hover:border-gold/50 cursor-pointer transition-colors z-10"
+              aria-label="Close lightbox"
+            >
+              <X className="size-6" />
+            </button>
+
+            {/* Prev Button */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 size-12 rounded-full border border-gold/20 text-gold flex items-center justify-center hover:bg-gold/10 hover:border-gold/50 cursor-pointer transition-colors z-10"
+              aria-label="Previous image"
+            >
+              <ArrowLeft className="size-6" />
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={handleNext}
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 size-12 rounded-full border border-gold/20 text-gold flex items-center justify-center hover:bg-gold/10 hover:border-gold/50 cursor-pointer transition-colors z-10"
+              aria-label="Next image"
+            >
+              <ArrowRight className="size-6" />
+            </button>
+
+            {/* Lightbox Content */}
+            <div className="relative max-w-[85vw] max-h-[80vh] flex flex-col items-center justify-center gap-4" onClick={(e) => e.stopPropagation()}>
+              <motion.img
+                key={activeIndex}
+                src={GALLERY[activeIndex].src}
+                alt={GALLERY[activeIndex].label}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="max-w-full max-h-[70vh] object-contain rounded-lg border border-gold/15 shadow-gold/20 shadow-2xl"
+              />
+              
+              <div className="flex flex-col items-center gap-1">
+                <div className="text-gold font-serif text-sm sm:text-lg tracking-wide text-center">
+                  {GALLERY[activeIndex].label}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {activeIndex + 1} / {GALLERY.length}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+const TESTIMONIALS = [
+  {
+    name: "Rohan Mehta",
+    role: "Professional Swing Trader",
+    text: "Tirumala Ventures completely transformed my approach to risk management. The live floor environment is unmatched, allowing me to trade alongside experts and refine my setups daily.",
+    rating: 5,
+  },
+  {
+    name: "Priya Sharma",
+    role: "IT Consultant & Part-time Trader",
+    text: "The weekend batches allowed me to learn without leaving my corporate job. The mentors are incredibly patient, translating complex options Greeks into actionable, rule-based strategies.",
+    rating: 5,
+  },
+  {
+    name: "Amit Patel",
+    role: "Full-time Intraday Trader",
+    text: "Trading beside experienced professionals on their live floor gave me the psychological discipline to scale my capital. Highly recommend their corporate trading desks.",
+    rating: 5,
+  },
+  {
+    name: "Sneha K.",
+    role: "Beginner",
+    text: "I started with zero knowledge of stock markets. The step-by-step guidance, demat support, and hands-on trading simulator made my entry into trading completely stress-free.",
+    rating: 5,
+  },
+  {
+    name: "Vikram Singh",
+    role: "Retired Defense Officer",
+    text: "A highly disciplined learning academy. Their technical analysis methodologies are structured, objective, and focus heavily on capital protection. Exceptional mentorship.",
+    rating: 5,
+  },
+];
+
+function Testimonials() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    const interval = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [api]);
+
+  return (
+    <section id="testimonials" className="section-pad bg-card/40 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/[0.02] rounded-full blur-3xl pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-6 relative">
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="Reviews"
+            title="Voices of Tirumala Traders"
+            sub="Hear how our live trading floor and mentorship programs are helping students build consistency in the markets."
+          />
+        </ScrollReveal>
+
+        <ScrollReveal direction="left">
+          <div className="relative px-4 sm:px-12">
+            <Carousel
+              opts={{ align: "start", loop: true }}
+              setApi={setApi}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {TESTIMONIALS.map((t, idx) => (
+                  <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <MouseGlowTracker className="rounded-2xl h-full">
+                      <div className="glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full hover:border-gold/30 transition-all duration-300">
+                        <div>
+                          {/* Quote mark and stars */}
+                          <div className="flex items-center justify-between mb-6">
+                            <span className="text-gold text-5xl font-serif leading-none select-none">“</span>
+                            <div className="flex gap-1">
+                              {Array.from({ length: t.rating }).map((_, i) => (
+                                <Sparkles key={i} className="size-4 fill-gold text-gold" />
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed italic mb-8">
+                            {t.text}
+                          </p>
+                        </div>
+
+                        <div>
+                          <div className="h-px w-full bg-gold/10 my-4" />
+                          <div className="font-serif text-gold text-base sm:text-lg font-semibold tracking-wide">
+                            {t.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-0.5">
+                            {t.role}
+                          </div>
+                        </div>
+                      </div>
+                    </MouseGlowTracker>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex border-gold/40 text-gold hover:bg-gold/10 hover:text-white -left-4" />
+              <CarouselNext className="hidden sm:flex border-gold/40 text-gold hover:bg-gold/10 hover:text-white -right-4" />
+            </Carousel>
+
+            {/* Custom Dot Indicators */}
+            <div className="flex justify-center gap-2 mt-8">
+              {Array.from({ length: count }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => api?.scrollTo(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    current === i ? "bg-gold w-6" : "bg-gold/25 w-2 hover:bg-gold/40"
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -889,49 +1581,53 @@ function Contact() {
   return (
     <section id="contact" className="section-pad bg-card/40">
       <div className="mx-auto max-w-6xl px-6 grid lg:grid-cols-5 gap-10">
-        <div className="lg:col-span-2">
-          <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Contact Us</div>
-          <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6 leading-tight">Let's start your trading journey</h2>
-          <p className="text-muted-foreground text-sm sm:text-base mb-8">
-            Enroll in a course, book a floor visit, or send us a general inquiry —
-            our team responds within one business day.
-          </p>
-          <div className="space-y-4 text-sm">
-            <div className="flex items-start gap-3"><MapPin className="size-5 text-gold mt-0.5" /><span>Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001</span></div>
-            <div className="flex items-start gap-3"><Phone className="size-5 text-gold mt-0.5" /><span>+91 98XXX XXXXX</span></div>
-            <div className="flex items-start gap-3"><Mail className="size-5 text-gold mt-0.5" /><span>info@tirumalaventures.com</span></div>
-            <div className="flex items-start gap-3"><Clock className="size-5 text-gold mt-0.5" /><span>Mon — Sat · 8:30 AM to 8:00 PM IST</span></div>
+        <ScrollReveal direction="left" className="lg:col-span-2">
+          <div>
+            <div className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Contact Us</div>
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-6 leading-tight">Let's start your trading journey</h2>
+            <p className="text-muted-foreground text-sm sm:text-base mb-8">
+              Enroll in a course, book a floor visit, or send us a general inquiry —
+              our team responds within one business day.
+            </p>
+            <div className="space-y-4 text-sm">
+              <div className="flex items-start gap-3"><MapPin className="size-5 text-gold mt-0.5" /><span>Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001</span></div>
+              <div className="flex items-start gap-3"><Phone className="size-5 text-gold mt-0.5" /><span>+91 98XXX XXXXX</span></div>
+              <div className="flex items-start gap-3"><Mail className="size-5 text-gold mt-0.5" /><span>info@tirumalaventures.com</span></div>
+              <div className="flex items-start gap-3"><Clock className="size-5 text-gold mt-0.5" /><span>Mon — Sat · 8:30 AM to 8:00 PM IST</span></div>
+            </div>
           </div>
-        </div>
-        <MouseGlowTracker className="lg:col-span-3 rounded-2xl">
-          <form onSubmit={onSubmit} className="glass-card glowing-border p-5 sm:p-8 space-y-5">
-            <div className="grid sm:grid-cols-2 gap-5">
-              <Field label="Full Name" name="name" required placeholder="Your full name" />
-              <Field label="Mobile Number" name="mobile" type="tel" required placeholder="+91" />
-              <Field label="Email" name="email" type="email" required placeholder="you@example.com" />
-              <Field label="City" name="city" required placeholder="City" />
-            </div>
-            <div>
-              <Label className="text-xs tracking-widest uppercase text-muted-foreground">Interested Program</Label>
-              <Select name="program">
-                <SelectTrigger className="mt-2 bg-input/40 border-gold/20"><SelectValue placeholder="Select an inquiry type / program" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="enrollment">Course Enrollment</SelectItem>
-                  <SelectItem value="floor-visit">Trading Floor Visit Booking</SelectItem>
-                  <SelectItem value="general">General Inquiry</SelectItem>
-                  {COURSES.map(c => <SelectItem key={c.t} value={c.t}>{c.t}</SelectItem>)}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="text-xs tracking-widest uppercase text-muted-foreground">Message</Label>
-              <Textarea name="message" placeholder="Tell us a bit about your goals…" rows={4} className="mt-2 bg-input/40 border-gold/20" />
-            </div>
-            <Button type="submit" variant="hero" size="lg" disabled={submitting} className="w-full">
-              {submitting ? "Sending…" : <>Send Inquiry <ArrowRight /></>}
-            </Button>
-          </form>
-        </MouseGlowTracker>
+        </ScrollReveal>
+        <ScrollReveal direction="right" className="lg:col-span-3">
+          <MouseGlowTracker className="rounded-2xl">
+            <form onSubmit={onSubmit} className="glass-card glowing-border p-5 sm:p-8 space-y-5">
+              <div className="grid sm:grid-cols-2 gap-5">
+                <Field label="Full Name" name="name" required placeholder="Your full name" />
+                <Field label="Mobile Number" name="mobile" type="tel" required placeholder="+91" />
+                <Field label="Email" name="email" type="email" required placeholder="you@example.com" />
+                <Field label="City" name="city" required placeholder="City" />
+              </div>
+              <div>
+                <Label className="text-xs tracking-widest uppercase text-muted-foreground">Interested Program</Label>
+                <Select name="program">
+                  <SelectTrigger className="mt-2 bg-input/40 border-gold/20"><SelectValue placeholder="Select an inquiry type / program" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="enrollment">Course Enrollment</SelectItem>
+                    <SelectItem value="floor-visit">Trading Floor Visit Booking</SelectItem>
+                    <SelectItem value="general">General Inquiry</SelectItem>
+                    {COURSES.map(c => <SelectItem key={c.t} value={c.t}>{c.t}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label className="text-xs tracking-widest uppercase text-muted-foreground">Message</Label>
+                <Textarea name="message" placeholder="Tell us a bit about your goals…" rows={4} className="mt-2 bg-input/40 border-gold/25" />
+              </div>
+              <Button type="submit" variant="hero" size="lg" disabled={submitting} className="w-full">
+                {submitting ? "Sending…" : <>Send Inquiry <ArrowRight /></>}
+              </Button>
+            </form>
+          </MouseGlowTracker>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -950,120 +1646,126 @@ function Leadership() {
   return (
     <section className="section-pad bg-card/10">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="Our Leadership" title="The minds behind Tirumala" />
+        <ScrollReveal>
+          <SectionHeading eyebrow="Our Leadership" title="The minds behind Tirumala" />
+        </ScrollReveal>
         <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-stretch">
           {/* Founder 1: Mr. Channu Dalawai */}
-          <MouseGlowTracker className="rounded-3xl h-full">
-            <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 h-full">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
-              <div>
-                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
-                  Founder & Managing Director
-                </div>
-                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
-                
-                <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug text-center">
-                  A Vision to Educate.<br />
-                  A Mission to Empower.
-                </h3>
-                <div className="w-16 h-0.5 bg-gold/40 mb-6 mx-auto" />
-                
-                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
-                  <p>
-                    At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
-                  </p>
-                  <p>
-                    Our vision is to make quality financial education accessible, practical, and impactful, empowering individuals to navigate the markets with confidence.
-                  </p>
-                  <p>
-                    Learning here extends beyond theory. We focus on analytical thinking, disciplined decision-making, and a long-term approach to nurture a community that participates in the markets with clarity and conviction.
-                  </p>
-                  <p>
-                    Our commitment remains steadfast: to inspire learning, create opportunities, and build a financially aware and empowered society.
-                  </p>
-                </div>
-              </div>
-              
-              <div>
-                <div className="h-px w-full bg-gold/15 my-6" />
-                <div className="flex flex-col items-center">
-                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2 text-center">
-                    Channu Dalawai
+          <ScrollReveal direction="left" className="h-full">
+            <MouseGlowTracker className="rounded-3xl h-full">
+              <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 h-full">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
+                <div>
+                  <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
+                    Founder & Managing Director
                   </div>
-                  <div className="text-center mt-2">
-                    <div className="font-serif text-sm sm:text-base text-gold font-semibold tracking-wide">
-                      Mr. Channu Dalawai
-                    </div>
-                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
-                      Founder & Managing Director
-                    </div>
-                    <div className="text-[9px] uppercase tracking-wider text-muted-foreground/80">
-                      Tirumala Ventures
-                    </div>
+                  <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
+                  
+                  <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug text-center">
+                    A Vision to Educate.<br />
+                    A Mission to Empower.
+                  </h3>
+                  <div className="w-16 h-0.5 bg-gold/40 mb-6 mx-auto" />
+                  
+                  <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
+                    <p>
+                      At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
+                    </p>
+                    <p>
+                      Our vision is to make quality financial education accessible, practical, and impactful, empowering individuals to navigate the markets with confidence.
+                    </p>
+                    <p>
+                      Learning here extends beyond theory. We focus on analytical thinking, disciplined decision-making, and a long-term approach to nurture a community that participates in the markets with clarity and conviction.
+                    </p>
+                    <p>
+                      Our commitment remains steadfast: to inspire learning, create opportunities, and build a financially aware and empowered society.
+                    </p>
                   </div>
                 </div>
+                
+                <div>
+                  <div className="h-px w-full bg-gold/15 my-6" />
+                  <div className="flex flex-col items-center">
+                    <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2 text-center">
+                      Channu Dalawai
+                    </div>
+                    <div className="text-center mt-2">
+                      <div className="font-serif text-sm sm:text-base text-gold font-semibold tracking-wide">
+                        Mr. Channu Dalawai
+                      </div>
+                      <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
+                        Founder & Managing Director
+                      </div>
+                      <div className="text-[9px] uppercase tracking-wider text-muted-foreground/80">
+                        Tirumala Ventures
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </MouseGlowTracker>
+            </MouseGlowTracker>
+          </ScrollReveal>
 
           {/* Founder 2: Mr. Sharankumar Tantri */}
-          <MouseGlowTracker className="rounded-3xl h-full">
-            <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 border-l-4 border-l-gold h-full">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
-              <div>
-                <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
-                  Founder & Chief Strategy Officer
-                </div>
-                <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
-                
-                <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight text-center">
-                  Sharankumar Tantri
-                </h3>
-                <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5 text-center">
-                  Founder & Chief Strategy Officer
-                </div>
-                
-                <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-3 mb-6 text-gold">
-                  <div className="flex items-center gap-1.5 text-xs font-medium">
-                    <GraduationCap className="size-3.5" /> Master's in Management
+          <ScrollReveal direction="right" className="h-full">
+            <MouseGlowTracker className="rounded-3xl h-full">
+              <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 border-l-4 border-l-gold h-full">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
+                <div>
+                  <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
+                    Founder & Chief Strategy Officer
                   </div>
-                  <div className="text-gold/30 text-xs hidden sm:block">|</div>
-                  <div className="flex items-center gap-1.5 text-xs font-medium">
-                    <TrendingUp className="size-3.5" /> Professional Trader
-                  </div>
-                  <div className="text-gold/30 text-xs hidden sm:block">|</div>
-                  <div className="flex items-center gap-1.5 text-xs font-medium">
-                    <Users className="size-3.5" /> Mentor
-                  </div>
-                </div>
-
-                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
-                  <p>
-                    The stock market is a powerful wealth creation avenue when approached with the right knowledge, mindset, and strategy. My mission is to make this knowledge practical and accessible to everyone.
-                  </p>
-                  <p>
-                    As Chief Strategy Officer, I personally lead our learning programs and mentor aspiring traders to help them build a strong foundation in the markets.
-                  </p>
-                  <p>
-                    Our training is built on real market experience, risk management, and emotional discipline to transform beginners into confident, independent traders.
-                  </p>
-                  <p>
-                    We design every program to educate, empower, and build a community of disciplined, knowledgeable, and financially free individuals.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <div className="h-px w-full bg-gold/15 my-6" />
-                <div className="flex flex-col items-center">
-                  <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none text-center">
+                  <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
+                  
+                  <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight text-center">
                     Sharankumar Tantri
+                  </h3>
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5 text-center">
+                    Founder & Chief Strategy Officer
                   </div>
-                  <div className="w-32 h-px bg-gold/30 mt-1" />
+                  
+                  <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-3 mb-6 text-gold">
+                    <div className="flex items-center gap-1.5 text-xs font-medium">
+                      <GraduationCap className="size-3.5" /> Master's in Management
+                    </div>
+                    <div className="text-gold/30 text-xs hidden sm:block">|</div>
+                    <div className="flex items-center gap-1.5 text-xs font-medium">
+                      <TrendingUp className="size-3.5" /> Professional Trader
+                    </div>
+                    <div className="text-gold/30 text-xs hidden sm:block">|</div>
+                    <div className="flex items-center gap-1.5 text-xs font-medium">
+                      <Users className="size-3.5" /> Mentor
+                    </div>
+                  </div>
+
+                  <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
+                    <p>
+                      The stock market is a powerful wealth creation avenue when approached with the right knowledge, mindset, and strategy. My mission is to make this knowledge practical and accessible to everyone.
+                    </p>
+                    <p>
+                      As Chief Strategy Officer, I personally lead our learning programs and mentor aspiring traders to help them build a strong foundation in the markets.
+                    </p>
+                    <p>
+                      Our training is built on real market experience, risk management, and emotional discipline to transform beginners into confident, independent traders.
+                    </p>
+                    <p>
+                      We design every program to educate, empower, and build a community of disciplined, knowledgeable, and financially free individuals.
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="h-px w-full bg-gold/15 my-6" />
+                  <div className="flex flex-col items-center">
+                    <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none text-center">
+                      Sharankumar Tantri
+                    </div>
+                    <div className="w-32 h-px bg-gold/30 mt-1" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </MouseGlowTracker>
+            </MouseGlowTracker>
+          </ScrollReveal>
         </div>
       </div>
     </section>
