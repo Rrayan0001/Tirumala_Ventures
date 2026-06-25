@@ -28,6 +28,7 @@ import box2 from "@/assets/box2.png";
 import box3 from "@/assets/box3.png";
 import box4 from "@/assets/box4.png";
 import aboutUsImg from "@/assets/aboutus.png";
+import tradingFloorSection from "@/assets/Trading_floor_section.png";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
@@ -992,51 +993,108 @@ function USP() {
 
 
 function TradingFloor() {
-  const features = [
-    { i: Monitor, t: "Professional trading desks" },
-    { i: Activity, t: "Multiple market-monitoring screens" },
-    { i: Wifi, t: "High-speed internet setup" },
-    { i: Users, t: "Collaborative trading environment" },
-    { i: Network, t: "Learning & networking space" },
+  const leftPillars = [
+    { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
+    { i: Activity, t: "Multiple Market-Monitoring Screens", d: "Track indices, futures, options and live charts simultaneously across our wall of institutional-grade multi-screen arrays." },
+    { i: Wifi, t: "High-Speed Internet Setup", d: "Experience uninterrupted trading powered by dedicated fiber lines with sub-millisecond latency and redundant failover connectivity." },
   ];
+
+  const rightPillars = [
+    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and live calls in a buzzing open-floor environment where traders learn and grow together in real time." },
+    { i: Network, t: "Learning & Networking Space", d: "Dedicated breakout zones and seminar spaces where knowledge meets opportunity — connect with mentors and fellow traders." },
+    { i: ShieldCheck, t: "Institutional-Grade Infrastructure", d: "Every workstation is equipped with professional-level data feeds, Bloomberg terminals access, and enterprise security standards." },
+  ];
+
   return (
-    <section id="floor" className="section-pad bg-card/40">
+    <section id="floor" className="pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden bg-card/40">
       <div className="mx-auto max-w-7xl px-6">
+        {/* Section Header */}
         <ScrollReveal>
-          <SectionHeading
-            eyebrow="Trading Floor Showcase"
-            title="Live Trading Corporate Ambience"
-            sub="Step inside an institutional-grade trading floor designed for serious market participants."
-          />
-        </ScrollReveal>
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <ScrollReveal direction="left" className="relative rounded-2xl overflow-hidden shadow-gold">
-            <img src={tradingFloor} alt="Tirumala live trading floor" width={1600} height={1067} loading="lazy" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-            <div className="absolute bottom-6 left-6 inline-flex items-center gap-2 text-gold text-sm">
-              <span className="size-2 rounded-full bg-gold animate-pulse-glow" /> LIVE TRADING FLOOR
+          <div className="text-center max-w-3xl mx-auto mb-10 px-4">
+            <div className="flex items-center justify-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-4">
+              <span className="h-[1.5px] w-8 bg-gold/50" />
+              <span>Trading Floor Showcase</span>
+              <span className="h-[1.5px] w-8 bg-gold/50" />
             </div>
-          </ScrollReveal>
-          <ScrollReveal direction="right" className="w-full">
-            <motion.ul
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="space-y-4"
-            >
-              {features.map(({ i: Icon, t }) => (
-                <motion.li key={t} variants={staggerItem} className="flex items-start gap-4 glass-card rounded-xl p-5">
-                  <Icon className="size-6 text-gold flex-none mt-0.5" />
-                  <span className="text-foreground/90">{t}</span>
-                </motion.li>
-              ))}
-              <motion.div variants={staggerItem} className="inline-block pt-2">
-                <a href="#contact"><Button variant="hero">Book a Floor Visit <Calendar /></Button></a>
-              </motion.div>
-            </motion.ul>
-          </ScrollReveal>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl mb-4 leading-tight uppercase tracking-wider text-gradient-gold">
+              Live Trading Corporate Ambience
+            </h2>
+            <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+              Step inside an institutional-grade trading floor meticulously designed for serious market participants. Every detail engineered for performance, focus, and professional growth.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        {/* Three-column layout */}
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch mb-12 mt-12">
+          {/* Left Column */}
+          <div className="lg:col-span-4 flex flex-col gap-6 justify-between">
+            {leftPillars.map(({ i: Icon, t, d }, index) => (
+              <ScrollReveal key={t} direction="left" delay={index * 0.1} className="flex-1">
+                <MouseGlowTracker className="rounded-xl h-full">
+                  <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-all duration-300 flex items-start gap-4 h-full">
+                    <div className="size-12 rounded-xl bg-gold border border-gold/15 flex items-center justify-center shrink-0">
+                      <Icon className="size-6 text-emerald-deep" />
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                    </div>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Center Image */}
+          <div className="lg:col-span-4 flex items-center justify-center">
+            <ScrollReveal direction="up" className="w-full h-full">
+              <div className="relative border border-gold/30 rounded-2xl overflow-hidden w-full h-full min-h-[350px] sm:min-h-[450px] group shadow-gold flex items-center justify-center">
+                <img
+                  src={tradingFloorSection}
+                  alt="Tirumala Ventures Live Trading Floor"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 text-gold text-xs sm:text-sm tracking-widest whitespace-nowrap">
+                  <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
+                  LIVE TRADING FLOOR
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          {/* Right Column */}
+          <div className="lg:col-span-4 flex flex-col gap-6 justify-between">
+            {rightPillars.map(({ i: Icon, t, d }, index) => (
+              <ScrollReveal key={t} direction="right" delay={index * 0.1} className="flex-1">
+                <MouseGlowTracker className="rounded-xl h-full">
+                  <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-all duration-300 flex items-start gap-4 h-full">
+                    <div className="size-12 rounded-xl bg-gold border border-gold/15 flex items-center justify-center shrink-0">
+                      <Icon className="size-6 text-emerald-deep" />
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                    </div>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
+
+        {/* Centered CTA Button */}
+        <ScrollReveal direction="up" delay={0.3}>
+          <div className="flex justify-center mt-4">
+            <a href="#contact">
+              <Button variant="hero" className="px-10 py-4 text-base">
+                Book a Floor Visit <Calendar className="ml-2" />
+              </Button>
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
