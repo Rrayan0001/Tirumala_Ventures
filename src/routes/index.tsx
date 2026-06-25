@@ -237,8 +237,8 @@ function Index() {
   );
 }
 
-const LOGO_PHASE_MS = 1200;
-const CURTAIN_PHASE_MS = 800;
+const LOGO_PHASE_MS = 1000;
+const CURTAIN_PHASE_MS = 1200;
 
 function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   const [phase, setPhase] = useState<"logo" | "reveal" | "done">("logo");
@@ -334,16 +334,16 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           border-color: rgba(212, 175, 55, 0.85);
         }
         .curtain-open .panel-1 {
-          animation: liftPanel 0.64s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.1s;
+          animation: liftPanel 0.96s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.15s;
         }
         .curtain-open .panel-2 {
-          animation: liftPanel 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards 0s;
+          animation: liftPanel 0.78s cubic-bezier(0.22, 1, 0.36, 1) forwards 0s;
         }
         .curtain-open .panel-3 {
-          animation: liftPanel 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.04s;
+          animation: liftPanel 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.06s;
         }
         .curtain-open .panel-4 {
-          animation: liftPanel 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.14s;
+          animation: liftPanel 0.90s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.21s;
         }
         @keyframes liftPanel {
           from { transform: translateY(0); }
@@ -384,7 +384,10 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
 
             {/* Progress line */}
             <div className="w-48 h-[2px] bg-gold/15 rounded-full overflow-hidden mt-6 mx-auto relative">
-              <div className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar" />
+              <div 
+                className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar" 
+                style={{ animationDuration: "1s" }}
+              />
             </div>
           </div>
         </div>
