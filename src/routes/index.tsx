@@ -1013,13 +1013,13 @@ function USP() {
                     <div className="flex-1" />
 
                     {/* Bottom area with icon + title + gold underline with contrast gradient */}
-                    <div className="px-5 pb-6 pt-16 flex flex-col gap-3 relative z-10 bg-gradient-to-t from-card via-card/75 to-transparent">
-                      <div className="flex items-start gap-3">
-                        <div className="size-8 sm:size-9 rounded-full border border-gold/50 bg-background/80 backdrop-blur-sm flex items-center justify-center shrink-0 mt-0.5 shadow-lg">
-                          <Icon className="size-3.5 sm:size-4 text-gold" />
+                    <div className="px-4 sm:px-5 pb-5 sm:pb-6 pt-12 sm:pt-16 flex flex-col gap-3 relative z-10 bg-gradient-to-t from-card via-card/75 to-transparent">
+                      <div className="flex flex-col sm:flex-row sm:items-start gap-2.5 sm:gap-3">
+                        <div className="size-7 sm:size-9 rounded-full border border-gold/50 bg-background/80 backdrop-blur-sm flex items-center justify-center shrink-0 mt-0.5 shadow-lg">
+                          <Icon className="size-3 sm:size-4 text-gold" />
                         </div>
-                        <div className="flex flex-col gap-2">
-                          <h3 className="font-serif text-sm sm:text-base md:text-lg font-semibold tracking-wider text-foreground/95 uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+                        <div className="flex flex-col gap-1.5 sm:gap-2">
+                          <h3 className="font-serif text-xs sm:text-sm md:text-base font-semibold tracking-wider text-foreground/95 uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
                             {t}
                           </h3>
                           <div className="w-8 h-[2px] bg-gold/70 rounded-full mt-1" />

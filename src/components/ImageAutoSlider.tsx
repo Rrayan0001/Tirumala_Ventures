@@ -22,9 +22,9 @@ export function ImageAutoSlider({
   const marqueeItems = [...images, ...images, ...images];
 
   return (
-    <div className="relative w-full overflow-hidden py-3 select-none">
+    <div className="relative w-full overflow-hidden py-2 sm:py-3 select-none">
       <div
-        className={`flex gap-4 w-max ${
+        className={`flex gap-3 sm:gap-4 w-max ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
         }`}
       >
@@ -36,7 +36,7 @@ export function ImageAutoSlider({
             <div
               key={index}
               onClick={() => onImageClick(globalIndex)}
-              className="relative w-72 sm:w-80 md:w-96 aspect-[16/10] rounded-xl overflow-hidden border border-gold/15 cursor-pointer shrink-0 group shadow-lg hover:border-gold/45 transition-all duration-300"
+              className="relative w-56 sm:w-72 md:w-80 lg:w-96 aspect-[16/10] rounded-xl overflow-hidden border border-gold/15 cursor-pointer shrink-0 group shadow-lg hover:border-gold/45 transition-all duration-300"
             >
               <img
                 src={item.src}
@@ -44,8 +44,8 @@ export function ImageAutoSlider({
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent opacity-85 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-4 left-4 text-gold font-serif text-sm sm:text-base leading-tight drop-shadow-[0_2px_5px_rgba(0,0,0,0.85)]">
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-85 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 text-gold font-serif text-xs sm:text-sm md:text-base leading-tight drop-shadow-[0_2px_5px_rgba(0,0,0,0.85)]">
                 {item.label}
               </div>
             </div>
