@@ -528,6 +528,15 @@ function Nav() {
 
 function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Mouse-position motion values for perspective tilt
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
@@ -545,12 +554,17 @@ function Hero() {
   const layerCardY = useSpring(useTransform(rawY, [-0.5, 0.5], [5, -5]), { stiffness: 55, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (isMobile) return;
     const rect = sectionRef.current?.getBoundingClientRect();
     if (!rect) return;
     rawX.set((e.clientX - rect.left) / rect.width - 0.5);
     rawY.set((e.clientY - rect.top) / rect.height - 0.5);
   };
-  const handleMouseLeave = () => { rawX.set(0); rawY.set(0); };
+  const handleMouseLeave = () => {
+    if (isMobile) return;
+    rawX.set(0);
+    rawY.set(0);
+  };
 
   return (
     <motion.section
@@ -564,7 +578,7 @@ function Hero() {
       {/* ── DEPTH LAYER 0: Farthest — hero background image ── */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
-        style={{ x: layerFarX, y: layerFarY, scale: 1.08 }}
+        style={isMobile ? { scale: 1.08 } : { x: layerFarX, y: layerFarY, scale: 1.08 }}
       >
         <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" width={1920} height={1280} suppressHydrationWarning />
       </motion.div>
@@ -573,20 +587,20 @@ function Hero() {
       {/* ── DEPTH LAYER 1: Mid-far — candlestick chart ── */}
       <motion.div
         className="absolute inset-0 pointer-events-none overflow-hidden select-none opacity-20"
-        style={{ x: layerMidX, y: layerMidY, scale: 1.06 }}
+        style={isMobile ? { scale: 1.06 } : { x: layerMidX, y: layerMidY, scale: 1.06 }}
       >
         <CandlestickBackground />
       </motion.div>
 
       {/* ── MAIN CONTENT TILT WRAPPER (perspective-3d tilt) ── */}
       <motion.div
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={isMobile ? {} : { rotateX, rotateY, transformStyle: "preserve-3d" }}
         className="relative mx-auto max-w-7xl px-6 pt-2 pb-8 lg:pt-4 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center"
       >
         {/* ── DEPTH LAYER 3: Foreground — hero text ── */}
         <motion.div
           className="lg:col-span-7"
-          style={{ x: layerFgX, y: layerFgY, translateZ: 30 }}
+          style={isMobile ? {} : { x: layerFgX, y: layerFgY, translateZ: 30 }}
         >
           <motion.div
             initial={{ opacity: 0, x: -60 }}
@@ -640,7 +654,7 @@ function Hero() {
         {/* ── DEPTH LAYER 4: Card — floats opposite direction (counter-parallax) ── */}
         <motion.div
           className="lg:col-span-5"
-          style={{ x: layerCardX, y: layerCardY, translateZ: 50 }}
+          style={isMobile ? {} : { x: layerCardX, y: layerCardY, translateZ: 50 }}
         >
           <motion.div
             initial={{ opacity: 0, x: 60 }}
