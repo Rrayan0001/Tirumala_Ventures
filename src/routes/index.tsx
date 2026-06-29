@@ -1936,50 +1936,73 @@ function Leadership() {
             </div>
           </ScrollReveal>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {founders.map((f, i) => (
-              <ScrollReveal key={f.name} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className="h-full">
-                <MouseGlowTracker className="rounded-3xl h-full">
-                  <div className="glass-card rounded-3xl overflow-hidden flex flex-col h-full hover:border-gold/40 transition-all duration-500 group">
-                    {/* Photo */}
-                    <div className="relative h-72 overflow-hidden shrink-0">
-                      <img
-                        src={f.img}
-                        alt={f.name}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#030d08]/90 via-[#030d08]/20 to-transparent" />
-                      <div className="absolute bottom-4 left-0 right-0 px-6">
-                        <div className="flex flex-wrap gap-1.5 justify-center">
-                          {f.tags.map(tag => (
-                            <span key={tag} className="text-[9px] uppercase tracking-widest bg-gold/20 border border-gold/30 text-gold px-2 py-0.5 rounded-full font-medium">
-                              {tag}
-                            </span>
-                          ))}
+          <div className="grid lg:grid-cols-3 gap-8 items-start">
+            {founders.map((f, i) => {
+              const isCEO = i === 1;
+              return (
+                <ScrollReveal key={f.name} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className="h-full">
+                  <MouseGlowTracker className="h-full rounded-3xl">
+                    <div className={`glass-card rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-500 group relative
+                      ${isCEO
+                        ? "border-2 border-gold/70 shadow-[0_0_40px_rgba(180,140,60,0.25)] hover:shadow-[0_0_60px_rgba(180,140,60,0.4)] hover:border-gold scale-[1.02] lg:scale-[1.04] z-10"
+                        : "hover:border-gold/40"
+                      }`}
+                    >
+                      {/* CEO Crown/Star Badge */}
+                      {isCEO && (
+                        <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-gold text-[#030d08] text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full shadow-lg">
+                          <svg className="size-3 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+                          CEO
                         </div>
-                      </div>
-                    </div>
+                      )}
 
-                    {/* Content */}
-                    <div className="flex flex-col flex-1 p-6 sm:p-8">
-                      <div className="text-center mb-5">
-                        <h3 className="font-serif text-xl sm:text-2xl font-semibold text-foreground mb-1">{f.name}</h3>
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium leading-relaxed">{f.title}</p>
+                      {/* Photo */}
+                      <div className={`relative overflow-hidden shrink-0 ${isCEO ? "h-80 sm:h-96" : "h-72"}`}>
+                        <img
+                          src={f.img}
+                          alt={f.name}
+                          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className={`absolute inset-0 ${isCEO
+                          ? "bg-gradient-to-t from-[#030d08] via-[#030d08]/30 to-transparent"
+                          : "bg-gradient-to-t from-[#030d08]/90 via-[#030d08]/20 to-transparent"
+                        }`} />
+                        {isCEO && (
+                          <div className="absolute inset-0 rounded-tl-3xl rounded-tr-3xl ring-inset ring-2 ring-gold/20 pointer-events-none" />
+                        )}
+                        <div className="absolute bottom-4 left-0 right-0 px-6">
+                          <div className="flex flex-wrap gap-1.5 justify-center">
+                            {f.tags.map(tag => (
+                              <span key={tag} className={`text-[9px] uppercase tracking-widest border rounded-full font-medium px-2 py-0.5
+                                ${isCEO ? "bg-gold/30 border-gold/60 text-gold" : "bg-gold/20 border-gold/30 text-gold"}`}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                      <div className="w-12 h-0.5 bg-gold/30 mx-auto mb-5" />
-                      <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
-                        {f.bio.map((p, j) => <p key={j}>{p}</p>)}
-                      </div>
-                      <div className="mt-6 pt-5 border-t border-gold/15 text-center">
-                        <div className="font-signature text-gold text-4xl sm:text-5xl tracking-wide select-none leading-none">
-                          {f.signature}
+
+                      {/* Content */}
+                      <div className={`flex flex-col flex-1 ${isCEO ? "p-7 sm:p-9" : "p-6 sm:p-8"}`}>
+                        <div className="text-center mb-5">
+                          <h3 className={`font-serif font-semibold text-foreground mb-1 ${isCEO ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"}`}>{f.name}</h3>
+                          <p className={`uppercase tracking-[0.2em] font-medium leading-relaxed ${isCEO ? "text-[11px] text-gold" : "text-[10px] text-gold/80"}`}>{f.title}</p>
+                        </div>
+                        <div className={`h-0.5 mx-auto mb-5 ${isCEO ? "w-16 bg-gold/60" : "w-12 bg-gold/30"}`} />
+                        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
+                          {f.bio.map((p, j) => <p key={j}>{p}</p>)}
+                        </div>
+                        <div className={`mt-6 pt-5 border-t text-center ${isCEO ? "border-gold/30" : "border-gold/15"}`}>
+                          <div className={`font-signature text-gold tracking-wide select-none leading-none ${isCEO ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl"}`}>
+                            {f.signature}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </MouseGlowTracker>
-              </ScrollReveal>
-            ))}
+                  </MouseGlowTracker>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -2005,8 +2028,8 @@ function Leadership() {
               <ScrollReveal key={m.name} direction="up" className="h-full" style={{ transitionDelay: `${i * 80}ms` }}>
                 <MouseGlowTracker className="rounded-2xl h-full">
                   <div className="glass-card rounded-2xl overflow-hidden flex flex-col h-full hover:border-gold/40 transition-all duration-500 group">
-                    {/* Photo or Placeholder */}
-                    <div className="relative h-56 overflow-hidden shrink-0 bg-gradient-to-br from-gold/5 to-background">
+                    {/* Photo or Aesthetic Abstract Placeholder */}
+                    <div className="relative h-56 overflow-hidden shrink-0">
                       {m.img ? (
                         <img
                           src={m.img}
@@ -2014,11 +2037,35 @@ function Leadership() {
                           className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         />
                       ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center">
-                          <div className="size-24 rounded-full border-2 border-gold/30 bg-gold/5 flex items-center justify-center mb-3">
-                            <Users className="size-10 text-gold/50" />
+                        <div className="w-full h-full relative overflow-hidden">
+                          {/* Deep market-toned base */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#0c1f12] via-[#071510] to-[#030d08]" />
+                          {/* Abstract candlestick SVG art blended in */}
+                          <svg className="absolute inset-0 w-full h-full opacity-[0.12]" viewBox="0 0 200 224" preserveAspectRatio="none">
+                            <polyline points="10,180 30,140 50,160 70,90 90,120 110,60 130,80 150,30 170,50 190,20" fill="none" stroke="#c9a84c" strokeWidth="2"/>
+                            <polyline points="10,200 40,175 70,185 100,145 130,158 160,115 190,95" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.5"/>
+                            {[20,45,70,95,120,145,170].map((x, idx) => (
+                              <g key={x}>
+                                <rect x={x - 3} y={80 + (idx % 3) * 20} width="6" height={25 + (idx % 4) * 12} fill="#c9a84c" opacity="0.18" rx="1"/>
+                                <line x1={x} y1={74 + (idx % 3) * 20} x2={x} y2={114 + (idx % 3) * 20 + (idx % 4) * 12} stroke="#c9a84c" strokeWidth="1.5" opacity="0.25"/>
+                              </g>
+                            ))}
+                          </svg>
+                          {/* Giant translucent monogram behind everything */}
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                            <span className="font-serif font-bold text-gold/[0.06] leading-none" style={{ fontSize: "10rem" }}>
+                              {m.name.charAt(0)}
+                            </span>
                           </div>
-                          <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Photo Coming Soon</span>
+                          {/* Soft radial glow */}
+                          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_60%,rgba(180,140,60,0.10)_0%,transparent_65%)]" />
+                          {/* Centered avatar initial circle */}
+                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                            <div className="size-16 rounded-full border border-gold/30 bg-gold/[0.08] flex items-center justify-center shadow-[0_0_20px_rgba(180,140,60,0.15)]">
+                              <span className="font-serif text-2xl font-semibold text-gold/70">{m.name.charAt(0)}</span>
+                            </div>
+                            <span className="text-[8px] text-gold/35 uppercase tracking-[0.35em]">Photo Coming Soon</span>
+                          </div>
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#030d08]/80 via-transparent to-transparent" />
