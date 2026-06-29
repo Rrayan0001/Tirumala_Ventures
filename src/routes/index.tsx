@@ -40,6 +40,11 @@ import wcuBox5 from "@/assets/why_choose_us/box5.webp";
 import wcuBox6 from "@/assets/why_choose_us/box6.webp";
 import wcuBox7 from "@/assets/why_choose_us/box7.webp";
 import wcuBox8 from "@/assets/why_choose_us/box8.webp";
+import staffChannu from "/staff_images/Channu_dalwai.JPEG";
+import staffManjunath from "/staff_images/Manjunath Badiger.jpeg";
+import staffSharan from "/staff_images/Sharan.PNG";
+import staffRavi from "/staff_images/RaviMudennavar.PNG";
+import staffShrikant from "/staff_images/Shrikant Kurubet.PNG";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
@@ -1686,14 +1691,19 @@ function Contact() {
             </h2>
 
             <div className="space-y-6 text-sm sm:text-base text-foreground/90">
-              <div className="flex items-start gap-4">
-                <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 mt-0.5 shadow-md">
+              <a
+                href="https://maps.app.goo.gl/Lyj9WyKDTykHPjc79"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 hover:text-gold transition-colors group text-left"
+              >
+                <div className="size-10 rounded-full border border-gold/30 bg-background/50 group-hover:border-gold/60 group-hover:bg-gold/10 flex items-center justify-center shrink-0 mt-0.5 shadow-md transition-all">
                   <MapPin className="size-5 text-gold" />
                 </div>
                 <span className="leading-relaxed">
-                  Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001
+                  Iconic Trade Center, Second Floor, Above Ramraj Showroom, Opp. Karnataka Bank, Near NTTF Stop, Hosa Yellapur, Dharwad - 580001
                 </span>
-              </div>
+              </a>
               <div className="flex items-center gap-4">
                 <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
                   <Phone className="size-5 text-gold" />
@@ -1837,132 +1847,218 @@ function Field({ label, name, type = "text", required, placeholder }: { label: s
 }
 
 function Leadership() {
+  const founders = [
+    {
+      name: "Channu Dalawai",
+      title: "Founder & Managing Director",
+      img: staffChannu,
+      tags: ["Visionary Leader", "Entrepreneur", "Strategist"],
+      bio: [
+        "At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.",
+        "Our vision is to make quality financial education accessible, practical, and impactful — empowering individuals to navigate the markets with confidence and clarity.",
+        "Our commitment remains steadfast: to inspire learning, create opportunities, and build a financially aware and empowered society.",
+      ],
+      signature: "Channu Dalawai",
+    },
+    {
+      name: "Manjunath Badiger",
+      title: "Founder & CEO | Investor | Entrepreneur | Financial Advisor",
+      img: staffManjunath,
+      tags: ["CEO", "Investor", "Financial Advisor"],
+      bio: [
+        "Manjunath Badiger is a visionary entrepreneur and seasoned investor with diversified interests across multiple sectors, with a strong focus on long-term value creation.",
+        "As Founder & CEO and a key strategist at Tirumala Ventures, he plays an instrumental role in shaping the organization's vision, driving innovation, and fostering sustainable growth.",
+        "His expertise in business strategy, investment planning, and entrepreneurial development continues to inspire aspiring entrepreneurs and investors alike.",
+      ],
+      signature: "Manjunath Badiger",
+    },
+    {
+      name: "Sharankumar Tantri",
+      title: "Founder & Chief Strategy Officer",
+      img: staffSharan,
+      tags: ["Master's in Management", "Professional Trader", "Mentor"],
+      bio: [
+        "The stock market is a powerful wealth creation avenue when approached with the right knowledge, mindset, and strategy. My mission is to make this knowledge practical and accessible to everyone.",
+        "As Chief Strategy Officer, I personally lead our learning programs and mentor aspiring traders to help them build a strong foundation in the markets.",
+        "Our training is built on real market experience, risk management, and emotional discipline — transforming beginners into confident, independent traders.",
+      ],
+      signature: "Sharankumar Tantri",
+    },
+  ];
+
+  const mentors = [
+    {
+      name: "Ravi Mudennavar",
+      title: "Senior Certified Analyst",
+      img: staffRavi,
+      tags: ["Software Engineer", "MBA", "NSE Certified", "14+ Years Exp."],
+      bio: "A Software Engineer, MBA graduate, and NSE Certified Professional with over 14 years of experience in the Indian stock market. Having conducted 150+ training programs, specializing in equity research, technical & fundamental analysis, portfolio management, and investor education.",
+      quote: "Knowledge, Discipline, and Consistency are the keys to successful investing.",
+    },
+    {
+      name: "Prem Kalal",
+      title: "Stock Market Trader | Market Analyst",
+      img: null,
+      tags: ["Options Buyer", "Technical Analyst", "Market Analyst"],
+      bio: "A passionate stock market trader and market analyst with extensive experience in option buying, technical analysis, and investment strategies. Dedicated to empowering individuals with practical market knowledge and helping them make informed financial decisions.",
+      quote: null,
+    },
+    {
+      name: "Giridarshan Pattar",
+      title: "BCA Graduate | Trader | Trainer | Analyst",
+      img: null,
+      tags: ["BCA Graduate", "Financial Market Trainer", "3+ Years Exp."],
+      bio: "With over three years of experience in the financial markets, established as a dedicated Financial Market Trader and Trainer, specializing in market analysis, trading strategies, and risk management. Passionate about mentoring aspiring traders through practical, structured, and engaging learning sessions.",
+      quote: null,
+    },
+    {
+      name: "Shrikant Kurubet",
+      title: "Trainer | Trader",
+      img: staffShrikant,
+      tags: ["Trainer", "Trader"],
+      bio: "An experienced trader and trainer dedicated to simplifying the complexities of financial markets. Shrikant brings practical, hands-on market experience to every session, helping students build the discipline and strategies needed for consistent success.",
+      quote: null,
+    },
+  ];
+
   return (
-    <section className="section-pad bg-card/10">
-      <div className="mx-auto max-w-7xl px-6">
-        <ScrollReveal>
-          <SectionHeading eyebrow="Our Leadership" title="The minds behind Tirumala" />
-        </ScrollReveal>
-        <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-stretch">
-          {/* Founder 1: Mr. Channu Dalawai */}
-          <ScrollReveal direction="left" className="h-full">
-            <MouseGlowTracker className="rounded-3xl h-full">
-              <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 h-full">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
-                <div>
-                  <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
-                    Founder & Managing Director
-                  </div>
-                  <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
-
-                  <h3 className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-3 leading-snug text-center">
-                    A Vision to Educate.<br />
-                    A Mission to Empower.
-                  </h3>
-                  <div className="w-16 h-0.5 bg-gold/40 mb-6 mx-auto" />
-
-                  <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
-                    <p>
-                      At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.
-                    </p>
-                    <p>
-                      Our vision is to make quality financial education accessible, practical, and impactful, empowering individuals to navigate the markets with confidence.
-                    </p>
-                    <p>
-                      Learning here extends beyond theory. We focus on analytical thinking, disciplined decision-making, and a long-term approach to nurture a community that participates in the markets with clarity and conviction.
-                    </p>
-                    <p>
-                      Our commitment remains steadfast: to inspire learning, create opportunities, and build a financially aware and empowered society.
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="h-px w-full bg-gold/15 my-6" />
-                  <div className="flex flex-col items-center">
-                    <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none -mb-2 text-center">
-                      Channu Dalawai
-                    </div>
-                    <div className="text-center mt-2">
-                      <div className="font-serif text-sm sm:text-base text-gold font-semibold tracking-wide">
-                        Mr. Channu Dalawai
-                      </div>
-                      <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
-                        Founder & Managing Director
-                      </div>
-                      <div className="text-[9px] uppercase tracking-wider text-muted-foreground/80">
-                        Tirumala Ventures
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </MouseGlowTracker>
+    <>
+      {/* ===== TOP FOUNDERS ===== */}
+      <section className="section-pad bg-background" id="leadership">
+        <div className="mx-auto max-w-7xl px-6">
+          <ScrollReveal>
+            <div className="text-center mb-14">
+              <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-3">Our Leadership</div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground uppercase tracking-wide">
+                Top Founders
+              </h2>
+              <div className="w-16 h-0.5 bg-gold/50 mx-auto mt-4" />
+            </div>
           </ScrollReveal>
 
-          {/* Founder 2: Mr. Sharankumar Tantri */}
-          <ScrollReveal direction="right" className="h-full">
-            <MouseGlowTracker className="rounded-3xl h-full">
-              <div className="glass-card rounded-3xl p-6 sm:p-10 shadow-gold/5 flex flex-col justify-between relative overflow-hidden group hover:border-gold/30 transition-all duration-300 border-l-4 border-l-gold h-full">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-gold/[0.02] rounded-full blur-3xl" />
-                <div>
-                  <div className="text-[10px] sm:text-xs tracking-[0.3em] text-gold uppercase font-semibold text-center">
-                    Founder & Chief Strategy Officer
-                  </div>
-                  <div className="w-8 h-0.5 bg-gold/60 mt-2 mb-4 mx-auto" />
-
-                  <h3 className="font-serif text-3xl sm:text-4xl text-foreground font-semibold mb-1 leading-tight text-center">
-                    Sharankumar Tantri
-                  </h3>
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium mb-5 text-center">
-                    Founder & Chief Strategy Officer
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-3 mb-6 text-gold">
-                    <div className="flex items-center gap-1.5 text-xs font-medium">
-                      <GraduationCap className="size-3.5" /> Master's in Management
+          <div className="grid lg:grid-cols-3 gap-8">
+            {founders.map((f, i) => (
+              <ScrollReveal key={f.name} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className="h-full">
+                <MouseGlowTracker className="rounded-3xl h-full">
+                  <div className="glass-card rounded-3xl overflow-hidden flex flex-col h-full hover:border-gold/40 transition-all duration-500 group">
+                    {/* Photo */}
+                    <div className="relative h-72 overflow-hidden shrink-0">
+                      <img
+                        src={f.img}
+                        alt={f.name}
+                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#030d08]/90 via-[#030d08]/20 to-transparent" />
+                      <div className="absolute bottom-4 left-0 right-0 px-6">
+                        <div className="flex flex-wrap gap-1.5 justify-center">
+                          {f.tags.map(tag => (
+                            <span key={tag} className="text-[9px] uppercase tracking-widest bg-gold/20 border border-gold/30 text-gold px-2 py-0.5 rounded-full font-medium">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-gold/30 text-xs hidden sm:block">|</div>
-                    <div className="flex items-center gap-1.5 text-xs font-medium">
-                      <TrendingUp className="size-3.5" /> Professional Trader
-                    </div>
-                    <div className="text-gold/30 text-xs hidden sm:block">|</div>
-                    <div className="flex items-center gap-1.5 text-xs font-medium">
-                      <Users className="size-3.5" /> Mentor
-                    </div>
-                  </div>
 
-                  <div className="text-sm sm:text-base text-muted-foreground leading-relaxed space-y-4 font-sans text-center">
-                    <p>
-                      The stock market is a powerful wealth creation avenue when approached with the right knowledge, mindset, and strategy. My mission is to make this knowledge practical and accessible to everyone.
-                    </p>
-                    <p>
-                      As Chief Strategy Officer, I personally lead our learning programs and mentor aspiring traders to help them build a strong foundation in the markets.
-                    </p>
-                    <p>
-                      Our training is built on real market experience, risk management, and emotional discipline to transform beginners into confident, independent traders.
-                    </p>
-                    <p>
-                      We design every program to educate, empower, and build a community of disciplined, knowledgeable, and financially free individuals.
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="h-px w-full bg-gold/15 my-6" />
-                  <div className="flex flex-col items-center">
-                    <div className="font-signature text-gold text-5xl sm:text-6xl tracking-wide select-none leading-none text-center">
-                      Sharankumar Tantri
+                    {/* Content */}
+                    <div className="flex flex-col flex-1 p-6 sm:p-8">
+                      <div className="text-center mb-5">
+                        <h3 className="font-serif text-xl sm:text-2xl font-semibold text-foreground mb-1">{f.name}</h3>
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-gold/80 font-medium leading-relaxed">{f.title}</p>
+                      </div>
+                      <div className="w-12 h-0.5 bg-gold/30 mx-auto mb-5" />
+                      <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
+                        {f.bio.map((p, j) => <p key={j}>{p}</p>)}
+                      </div>
+                      <div className="mt-6 pt-5 border-t border-gold/15 text-center">
+                        <div className="font-signature text-gold text-4xl sm:text-5xl tracking-wide select-none leading-none">
+                          {f.signature}
+                        </div>
+                      </div>
                     </div>
-                    <div className="w-32 h-px bg-gold/30 mt-1" />
                   </div>
-                </div>
-              </div>
-            </MouseGlowTracker>
-          </ScrollReveal>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ===== MEET OUR MENTORS ===== */}
+      <section className="section-pad bg-card/10">
+        <div className="mx-auto max-w-7xl px-6">
+          <ScrollReveal>
+            <div className="text-center mb-14">
+              <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-3">Expert Faculty</div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground uppercase tracking-wide">
+                Meet Our Mentors
+              </h2>
+              <div className="w-16 h-0.5 bg-gold/50 mx-auto mt-4" />
+              <p className="text-muted-foreground text-sm sm:text-base mt-4 max-w-xl mx-auto">
+                Industry veterans and certified professionals dedicated to transforming your trading journey.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {mentors.map((m, i) => (
+              <ScrollReveal key={m.name} direction="up" className="h-full" style={{ transitionDelay: `${i * 80}ms` }}>
+                <MouseGlowTracker className="rounded-2xl h-full">
+                  <div className="glass-card rounded-2xl overflow-hidden flex flex-col h-full hover:border-gold/40 transition-all duration-500 group">
+                    {/* Photo or Placeholder */}
+                    <div className="relative h-56 overflow-hidden shrink-0 bg-gradient-to-br from-gold/5 to-background">
+                      {m.img ? (
+                        <img
+                          src={m.img}
+                          alt={m.name}
+                          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center">
+                          <div className="size-24 rounded-full border-2 border-gold/30 bg-gold/5 flex items-center justify-center mb-3">
+                            <Users className="size-10 text-gold/50" />
+                          </div>
+                          <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Photo Coming Soon</span>
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#030d08]/80 via-transparent to-transparent" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col flex-1 p-5">
+                      <div className="mb-3">
+                        <h3 className="font-serif text-base sm:text-lg font-semibold text-foreground mb-1 text-center">{m.name}</h3>
+                        <p className="text-[9px] uppercase tracking-[0.18em] text-gold/80 font-medium text-center leading-relaxed">{m.title}</p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 justify-center mb-4">
+                        {m.tags.map(tag => (
+                          <span key={tag} className="text-[8px] uppercase tracking-wider bg-gold/10 border border-gold/20 text-gold/80 px-2 py-0.5 rounded-full">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="w-8 h-px bg-gold/30 mx-auto mb-3" />
+
+                      <p className="text-xs text-muted-foreground leading-relaxed text-center flex-1">{m.bio}</p>
+
+                      {m.quote && (
+                        <div className="mt-4 pt-4 border-t border-gold/10">
+                          <p className="text-[10px] italic text-gold/70 text-center leading-relaxed">
+                            &ldquo;{m.quote}&rdquo;
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </MouseGlowTracker>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -1992,7 +2088,16 @@ function Footer() {
         <div className="lg:col-span-2">
           <div className="text-sm font-serif text-gold mb-3">Contact</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li className="leading-relaxed">Ramraj Cotton - Dharwad, Ward num - 15, near NTTF, 15/1183, Ramnagar, opp. to Karnataka bank, Hosayellapur, Hubballi, Karnataka 580001</li>
+            <li className="leading-relaxed">
+              <a
+                href="https://maps.app.goo.gl/Lyj9WyKDTykHPjc79"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gold transition-colors"
+              >
+                Iconic Trade Center, Second Floor, Above Ramraj Showroom, Opp. Karnataka Bank, Near NTTF Stop, Hosa Yellapur, Dharwad - 580001
+              </a>
+            </li>
             <li className="pt-2"><a href="tel:+9198XXXXXXXX" className="hover:text-gold">+91 98XXX XXXXX</a></li>
             <li><a href="mailto:info@tirumalaventures.com" className="hover:text-gold">info@tirumalaventures.com</a></li>
           </ul>
@@ -2000,7 +2105,7 @@ function Footer() {
         <div className="lg:col-span-3 h-48 lg:h-auto min-h-[160px]">
           <iframe
             title="Tirumala Ventures Location Map"
-            src="https://maps.google.com/maps?q=Ramraj%20Cotton%20Dharwad%20Ward%2015%20near%20NTTF%2015%2F1183%20Ramnagar%20Karnataka%20Bank%20Hosayellapur%20Hubballi%20580001&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=Tirumala+Ventures,+Hosayellapur,+Dharwad,+Hubballi,+Karnataka+580001&t=&z=17&ie=UTF8&iwloc=&output=embed"
             className="w-full h-full rounded-xl border border-gold/15 shadow-gold/10 shadow-md filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
             allowFullScreen
             loading="lazy"
