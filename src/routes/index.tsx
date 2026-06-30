@@ -45,6 +45,8 @@ import staffManjunath from "/staff_images/Manjunath Badiger.jpeg";
 import staffSharan from "/staff_images/Sharan.PNG";
 import staffRavi from "/staff_images/RaviMudennavar.PNG";
 import staffShrikant from "/staff_images/Shrikant Kurubet.PNG";
+import staffPrem from "/staff_images/PremKalal.PNG";
+import staffGiri from "/staff_images/GiridarshanPattar.PNG";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
@@ -71,14 +73,21 @@ export const Route = createFileRoute("/")({
 
 const NAV = [
   { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Courses", href: "#courses" },
+  { label: "Services", href: "#services", hasDropdown: true },
   { label: "Live Market", href: "#live-market" },
-  { label: "Workspace", href: "#workspace", soon: true },
-  { label: "Gallery", href: "#gallery" },
   { label: "Testimonials", href: "#testimonials" },
+  { label: "Floor Life", href: "#gallery" },
+  { label: "About Us", href: "#about" },
   { label: "Contact Us", href: "#contact" },
+];
+
+const COURSES = [
+  { t: "Beginner Trading Program", d: "Stock market basics, demat setup, risk fundamentals and your first trades." },
+  { t: "Technical Analysis Masterclass", d: "Charts, indicators, patterns and price action — read markets like a pro." },
+  { t: "Options Trading Program", d: "Greeks, strategies, hedging and disciplined options execution." },
+  { t: "Intraday Trading Strategies", d: "Setups, entries, exits and risk control for active intraday traders." },
+  { t: "Swing Trading Program", d: "Multi-day strategies, position sizing and trend-following systems." },
+  { t: "Advanced Market Psychology", d: "Mindset, discipline and habits that separate consistent traders." },
 ];
 
 function ScrollReveal({
@@ -177,6 +186,7 @@ function AnimatedCounter({ value, suffix = "", prefix = "", decimals = 0 }: { va
 
 function Index() {
   const [showSplash, setShowSplash] = useState(true);
+  const [showBrochureModal, setShowBrochureModal] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -236,7 +246,7 @@ function Index() {
       {showSplash && <WelcomeSplash onComplete={() => setShowSplash(false)} />}
       <Toaster />
       <Nav />
-      <Hero />
+      <Hero onDownloadRequest={() => setShowBrochureModal(true)} />
       <About />
       <section id="leadership"><Leadership /></section>
       <Services />
@@ -244,11 +254,17 @@ function Index() {
       <USP />
       <TradingFloor />
       <section id="workspace"><Workspace /></section>
-      <Courses />
+      <Courses onDownloadRequest={() => setShowBrochureModal(true)} />
       <Gallery />
       <Testimonials />
       <Contact />
-      <Footer />
+      <Footer onDownloadRequest={() => setShowBrochureModal(true)} />
+
+      <AnimatePresence>
+        {showBrochureModal && (
+          <BrochureModal isOpen={showBrochureModal} onClose={() => setShowBrochureModal(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -436,8 +452,87 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   );
 }
 
+function NavDropdown({ label, href }: { label: string; href: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div 
+      ref={dropdownRef}
+      className="relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1 cursor-pointer py-2 focus:outline-none"
+      >
+        <span>{label}</span>
+        <svg 
+          className={`size-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute left-1/2 -translate-x-1/2 mt-1 w-80 rounded-2xl border border-gold/25 bg-[#030d08]/95 backdrop-blur-xl p-4 shadow-xl shadow-gold/10 z-50 grid gap-1"
+          >
+            <a 
+              href={href} 
+              onClick={() => setIsOpen(false)}
+              className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
+            >
+              <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Services Overview</span>
+              <span className="text-[10px] text-muted-foreground leading-normal">Explore all our tailored trading support solutions.</span>
+            </a>
+            
+            <div className="h-px bg-gold/15 my-1.5" />
+            
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gold/60 font-semibold px-2.5 mb-1">
+              Courses & Programs
+            </div>
+            
+            {COURSES.map(course => (
+              <a
+                key={course.t}
+                href="#courses"
+                onClick={() => setIsOpen(false)}
+                className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
+              >
+                <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">{course.t}</span>
+                <span className="text-[10px] text-muted-foreground line-clamp-1 leading-normal">{course.d}</span>
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function Nav() {
   const [open, setOpen] = useState(false);
+  const [servicesExpanded, setServicesExpanded] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -472,19 +567,24 @@ function Nav() {
 
         <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
           <a href="#home" className="flex items-center gap-3">
-            <img src={logoAsset} alt="Tirumala Ventures" className="size-12 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" suppressHydrationWarning />
+            <img src={logoAsset} alt="Tirumala Ventures" className="size-16 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" suppressHydrationWarning />
             <div className="leading-tight">
-              <div className="font-serif text-lg text-gold tracking-widest">TIRUMALA</div>
-              <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">ventures</div>
+              <div className="font-serif text-xl sm:text-2xl text-gold tracking-widest leading-none">TIRUMALA</div>
+              <div className="text-[11px] uppercase tracking-[0.35em] text-gold/80 mt-1">ventures</div>
             </div>
           </a>
           <nav className="hidden lg:flex items-center gap-8">
-            {NAV.map(n => (
-              <a key={n.href} href={n.href} className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5">
-                <TextReveal text={n.label} className="hover:text-gold" />
-                {n.soon && <span className="text-[9px] tracking-[0.2em] uppercase px-1.5 py-0.5 rounded-full border border-gold/50 text-gold">Soon</span>}
-              </a>
-            ))}
+            {NAV.map(n => {
+              if (n.hasDropdown) {
+                return <NavDropdown key={n.href} label={n.label} href={n.href} />;
+              }
+              return (
+                <a key={n.href} href={n.href} className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5">
+                  <TextReveal text={n.label} className="hover:text-gold" />
+                  {n.soon && <span className="text-[9px] tracking-[0.2em] uppercase px-1.5 py-0.5 rounded-full border border-gold/50 text-gold">Soon</span>}
+                </a>
+              );
+            })}
           </nav>
           <div className="flex items-center gap-3">
             <a href="#contact" className="hidden md:inline-flex"><Button variant="hero" size="sm">Enroll Now</Button></a>
@@ -504,7 +604,7 @@ function Nav() {
 
       {/* Slide-in glassmorphic drawer */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-72 bg-emerald-deep border-l border-gold/30 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
+        className={`fixed inset-y-0 right-0 z-50 w-72 bg-[#030d08]/95 border-l border-gold/30 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
           }`}
       >
         <div>
@@ -515,21 +615,72 @@ function Nav() {
             </button>
           </div>
           <nav className="flex flex-col gap-2 py-6 overflow-y-auto max-h-[60vh]">
-            {NAV.map(n => (
-              <a
-                key={n.href}
-                href={n.href}
-                onClick={() => setOpen(false)}
-                className="text-base py-3 px-4 rounded-lg text-gold hover:text-white hover:bg-gold/10 font-serif font-medium transition-all flex items-center justify-between group border border-gold/10"
-              >
-                <span className="tracking-wide">{n.label}</span>
-                {n.soon ? (
-                  <span className="text-[8px] tracking-[0.15em] uppercase px-1.5 py-0.5 rounded-full border border-gold/45 text-gold bg-gold/5">Soon</span>
-                ) : (
-                  <ArrowRight className="size-4 opacity-60 text-gold group-hover:opacity-100 group-hover:text-white transition-all" />
-                )}
-              </a>
-            ))}
+            {NAV.map(n => {
+              if (n.hasDropdown) {
+                return (
+                  <div key={n.href} className="flex flex-col gap-1">
+                    <button
+                      onClick={() => setServicesExpanded(!servicesExpanded)}
+                      className="text-base py-3 px-4 rounded-lg text-gold hover:text-white hover:bg-gold/10 font-serif font-medium transition-all flex items-center justify-between group border border-gold/10 w-full text-left cursor-pointer"
+                    >
+                      <span className="tracking-wide">{n.label}</span>
+                      <svg
+                        className={`size-4 text-gold transition-transform duration-200 ${servicesExpanded ? "rotate-180" : ""}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    
+                    <AnimatePresence>
+                      {servicesExpanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden flex flex-col pl-4 gap-1.5 border-l border-gold/20 ml-4 mt-1"
+                        >
+                          <a
+                            href={n.href}
+                            onClick={() => setOpen(false)}
+                            className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
+                          >
+                            • Services Overview
+                          </a>
+                          {COURSES.map(course => (
+                            <a
+                              key={course.t}
+                              href="#courses"
+                              onClick={() => setOpen(false)}
+                              className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
+                            >
+                              • {course.t}
+                            </a>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+              return (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  onClick={() => setOpen(false)}
+                  className="text-base py-3 px-4 rounded-lg text-gold hover:text-white hover:bg-gold/10 font-serif font-medium transition-all flex items-center justify-between group border border-gold/10"
+                >
+                  <span className="tracking-wide">{n.label}</span>
+                  {n.soon ? (
+                    <span className="text-[8px] tracking-[0.15em] uppercase px-1.5 py-0.5 rounded-full border border-gold/45 text-gold bg-gold/5">Soon</span>
+                  ) : (
+                    <ArrowRight className="size-4 opacity-60 text-gold group-hover:opacity-100 group-hover:text-white transition-all" />
+                  )}
+                </a>
+              );
+            })}
           </nav>
         </div>
         <div className="pt-6 border-t border-gold/30 space-y-4">
@@ -547,7 +698,7 @@ function Nav() {
   );
 }
 
-function Hero() {
+function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -633,12 +784,12 @@ function Hero() {
             </div>
             <h1 className="font-serif leading-[1.08] mb-6 tracking-tight">
               {/* Line 1 — light cream, regular weight */}
-              <span className="block text-4xl sm:text-5xl lg:text-6xl font-light text-foreground/80">
+              <span className="block text-3xl sm:text-4xl lg:text-5xl font-light text-foreground/80">
                 Master the
               </span>
               {/* Line 2 — bold gold gradient, italic, with 3D extrusion shadow */}
               <span
-                className="block text-5xl sm:text-7xl lg:text-8xl font-bold italic text-gradient-gold leading-[1.0]"
+                className="block text-4xl sm:text-6xl lg:text-7xl font-bold italic text-gradient-gold leading-[1.0]"
                 style={{
                   textShadow: [
                     "2px 2px 0 oklch(0.7 0.16 75 / 0.6)",
@@ -651,7 +802,7 @@ function Hero() {
                 Markets
               </span>
               {/* Line 3 — muted italic, smaller, offbeat weight */}
-              <span className="block text-3xl sm:text-4xl lg:text-5xl font-medium italic text-muted-foreground/70 mt-1">
+              <span className="block text-2xl sm:text-3xl lg:text-4xl font-medium italic text-muted-foreground/70 mt-1">
                 with Confidence.
               </span>
             </h1>
@@ -662,7 +813,7 @@ function Hero() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-8 max-w-4xl">
               <a href="#contact" className="w-full"><Button variant="hero" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><GraduationCap className="size-4 shrink-0" /> Enroll Now</Button></a>
               <a href="#contact" className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><Calendar className="size-4 shrink-0" /> Book a Visit</Button></a>
-              <a href="/brochure.pdf" download className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><Download className="size-4 shrink-0" /> Download Brochure</Button></a>
+              <Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm cursor-pointer" onClick={onDownloadRequest}><Download className="size-4 shrink-0" /> Download Brochure</Button>
               <a href="#courses" className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><BookOpen className="size-4 shrink-0" /> Courses</Button></a>
             </div>
             <a href="#floor" className="inline-flex items-center gap-2 text-sm text-gold/90 hover:text-gold">
@@ -1304,16 +1455,7 @@ function Workspace() {
   );
 }
 
-const COURSES = [
-  { t: "Beginner Trading Program", d: "Stock market basics, demat setup, risk fundamentals and your first trades." },
-  { t: "Technical Analysis Masterclass", d: "Charts, indicators, patterns and price action — read markets like a pro." },
-  { t: "Options Trading Program", d: "Greeks, strategies, hedging and disciplined options execution." },
-  { t: "Intraday Trading Strategies", d: "Setups, entries, exits and risk control for active intraday traders." },
-  { t: "Swing Trading Program", d: "Multi-day strategies, position sizing and trend-following systems." },
-  { t: "Advanced Market Psychology", d: "Mindset, discipline and habits that separate consistent traders." },
-];
-
-function Courses() {
+function Courses({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   return (
     <section id="courses" className="section-pad bg-card/40">
       <div className="mx-auto max-w-7xl px-6">
@@ -1344,7 +1486,7 @@ function Courses() {
           })}
         </div>
         <ScrollReveal className="text-center mt-12">
-          <a href="/brochure.pdf" download><Button variant="hero" size="lg"><Download /> Download Brochure</Button></a>
+          <Button variant="hero" size="lg" className="cursor-pointer" onClick={onDownloadRequest}><Download /> Download Brochure</Button>
         </ScrollReveal>
       </div>
     </section>
@@ -1358,6 +1500,12 @@ const GALLERY = [
   { src: gallery4, label: "Workshops & Events" },
   { src: tradingFloor, label: "Student Interactions" },
   { src: heroBg, label: "Success Stories" },
+  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM.jpeg", label: "Corporate Workspace" },
+  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM (1).jpeg", label: "Premium Trading Desk" },
+  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM (2).jpeg", label: "Trading Discussion Room" },
+  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.55 AM.jpeg", label: "Executive Trading Floor" },
+  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.55 AM (1).jpeg", label: "Interactive Learning Area" },
+  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.56 AM.jpeg", label: "Collaborative Workspace" },
 ];
 
 function Gallery() {
@@ -1404,8 +1552,8 @@ function Gallery() {
   }, [activeIndex]);
 
   // Split gallery images into two halves for the dual-row marquee
-  const row1Images = GALLERY.slice(0, 3);
-  const row2Images = GALLERY.slice(3, 6);
+  const row1Images = GALLERY.slice(0, 6);
+  const row2Images = GALLERY.slice(6, 12);
 
   return (
     <section id="gallery" className="section-pad overflow-hidden">
@@ -1429,7 +1577,7 @@ function Gallery() {
           <ImageAutoSlider
             images={row2Images}
             onImageClick={(idx) => setActiveIndex(idx)}
-            startIndex={3}
+            startIndex={6}
             reverse={true}
           />
         </ScrollReveal>
@@ -1898,17 +2046,17 @@ function Leadership() {
     {
       name: "Prem Kalal",
       title: "Stock Market Trader | Market Analyst",
-      img: null,
-      tags: ["Options Buyer", "Technical Analyst", "Market Analyst"],
-      bio: "A passionate stock market trader and market analyst with extensive experience in option buying, technical analysis, and investment strategies. Dedicated to empowering individuals with practical market knowledge and helping them make informed financial decisions.",
+      img: staffPrem,
+      tags: ["Option Buying", "Technical Analysis", "Market Analyst"],
+      bio: "Prem Kalal is a passionate stock market trader and market analyst with extensive experience in option buying, technical analysis, and investment strategies. He is dedicated to empowering individuals with practical market knowledge and helping them make informed financial decisions. With a disciplined, research-driven approach, Prem specializes in identifying high-probability trading opportunities through technical analysis, price action, market trends, and risk management. His mission is to simplify the complexities of the stock market and guide traders and investors toward consistent growth and long-term financial success.",
       quote: null,
     },
     {
       name: "Giridarshan Pattar",
-      title: "BCA Graduate | Trader | Trainer | Analyst",
-      img: null,
-      tags: ["BCA Graduate", "Financial Market Trainer", "3+ Years Exp."],
-      bio: "With over three years of experience in the financial markets, established as a dedicated Financial Market Trader and Trainer, specializing in market analysis, trading strategies, and risk management. Passionate about mentoring aspiring traders through practical, structured, and engaging learning sessions.",
+      title: "BCA Graduate (Coder) | Trader | Trainer | Analyst",
+      img: staffGiri,
+      tags: ["BCA Graduate", "Coder", "Trader", "Trainer"],
+      bio: "With over three years of experience in the financial markets, he has established himself as a dedicated Financial Market Trader and Trainer, specializing in market analysis, trading strategies, and risk management. As a trainer, he is passionate about mentoring aspiring traders through practical, structured, and engaging learning sessions. His teaching approach focuses on simplifying complex market concepts into actionable insights, helping students develop the knowledge, discipline, confidence, and mindset required to make informed trading decisions and pursue long-term success in the financial markets.",
       quote: null,
     },
     {
@@ -2109,7 +2257,7 @@ function Leadership() {
   );
 }
 
-function Footer() {
+function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   return (
     <footer className="border-t border-gold/15 py-12">
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
@@ -2127,7 +2275,7 @@ function Footer() {
         <div className="lg:col-span-2">
           <div className="text-sm font-serif text-gold mb-3">Resources</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="/brochure.pdf" download className="hover:text-gold inline-flex items-center gap-2"><Download className="size-4" /> Download Brochure</a></li>
+            <li><button onClick={onDownloadRequest} className="hover:text-gold inline-flex items-center gap-2 cursor-pointer bg-transparent border-none text-left p-0 focus:outline-none"><Download className="size-4" /> Download Brochure</button></li>
             <li><a href="#contact" className="hover:text-gold">Book Floor Visit</a></li>
             <li><a href="#courses" className="hover:text-gold">All Courses</a></li>
           </ul>
@@ -2165,5 +2313,127 @@ function Footer() {
         <span>Crafted with discipline.</span>
       </div>
     </footer>
+  );
+}
+
+function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !email || !whatsapp) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    setLoading(true);
+
+    // 1. Download brochure PDF
+    const link = document.createElement("a");
+    link.href = "/brochure.pdf";
+    link.download = "Tirumala_Ventures_Brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // 2. Redirect to WhatsApp
+    const message = `Hi Tirumala Ventures, I am ${name} (${email}). I've just requested the brochure. Please send the PDF brochure on my WhatsApp: ${whatsapp}.`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/919876543210?text=${encodedMessage}`; // Prefilled redirect
+
+    // Wait a brief moment to allow browser download to start before redirecting
+    setTimeout(() => {
+      window.open(whatsappUrl, "_blank");
+      setLoading(false);
+      toast.success("Brochure download started! Redirecting to WhatsApp...");
+      onClose();
+    }, 1000);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
+      
+      {/* Modal Content */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="relative w-full max-w-md overflow-hidden rounded-3xl border border-gold/30 bg-[#06120b]/90 p-6 sm:p-8 shadow-gold shadow-2xl backdrop-blur-2xl"
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gold/70 hover:text-gold transition-colors cursor-pointer"
+          aria-label="Close modal"
+        >
+          <X className="size-5" />
+        </button>
+
+        <div className="text-center mb-6">
+          <div className="size-12 rounded-full border border-gold/30 bg-gold/10 flex items-center justify-center mx-auto mb-4">
+            <Download className="size-6 text-gold animate-bounce" />
+          </div>
+          <h3 className="font-serif text-xl sm:text-2xl text-gold mb-2 uppercase tracking-wide">Request Brochure</h3>
+          <p className="text-xs sm:text-sm text-muted-foreground leading-normal">
+            Enter your details below to instantly download the brochure and receive a copy on your WhatsApp.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label htmlFor="brochure-name" className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Your Name</Label>
+            <Input
+              id="brochure-name"
+              type="text"
+              required
+              placeholder="e.g. Rohan Mehta"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="brochure-email" className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Email Address</Label>
+            <Input
+              id="brochure-email"
+              type="email"
+              required
+              placeholder="e.g. rohan@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="brochure-whatsapp" className="text-xs tracking-widest uppercase text-muted-foreground font-medium">WhatsApp Number</Label>
+            <Input
+              id="brochure-whatsapp"
+              type="tel"
+              required
+              placeholder="e.g. +91 98765 43210"
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+              className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl font-mono"
+            />
+          </div>
+
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-gold via-gold/90 to-gold-soft text-[#030d08] hover:brightness-[1.08] active:scale-[0.99] font-serif tracking-wider text-xs sm:text-sm uppercase py-6 rounded-xl transition-all duration-300 font-semibold shadow-gold/20 shadow-lg cursor-pointer mt-2"
+          >
+            {loading ? "Sending..." : "Submit & Download"}
+          </Button>
+        </form>
+      </motion.div>
+    </div>
   );
 }
