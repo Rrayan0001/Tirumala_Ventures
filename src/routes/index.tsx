@@ -2195,6 +2195,7 @@ function Leadership() {
       name: "Channu Dalawai",
       title: "Founder & Managing Director",
       img: staffChannu,
+      badge: "FOUNDER & MD",
       tags: ["Visionary Leader", "Entrepreneur", "Strategist"],
       bio: [
         "At Tirumala Ventures, we believe that true growth begins with knowledge, discipline, and the courage to embrace opportunities.",
@@ -2207,6 +2208,7 @@ function Leadership() {
       name: "Manjunath Badiger",
       title: "Founder & CEO | Investor | Entrepreneur | Financial Advisor",
       img: staffManjunath,
+      badge: "FOUNDER & CEO",
       tags: ["CEO", "Investor", "Financial Advisor"],
       bio: [
         "Manjunath Badiger is a visionary entrepreneur and seasoned investor with diversified interests across multiple sectors, with a strong focus on long-term value creation.",
@@ -2219,6 +2221,7 @@ function Leadership() {
       name: "Sharankumar Tantri",
       title: "Founder & Chief Strategy Officer",
       img: staffSharan,
+      badge: "FOUNDER & CSO",
       tags: ["Master's in Management", "Professional Trader", "Mentor"],
       bio: [
         "The stock market is a powerful wealth creation avenue when approached with the right knowledge, mindset, and strategy. My mission is to make this knowledge practical and accessible to everyone.",
@@ -2234,6 +2237,7 @@ function Leadership() {
       name: "Ravi Mudennavar",
       title: "Senior Certified Analyst",
       img: staffRavi,
+      badge: "ANALYST",
       tags: ["Software Engineer", "MBA", "NSE Certified", "14+ Years Exp."],
       bio: "A Software Engineer, MBA graduate, and NSE Certified Professional with over 14 years of experience in the Indian stock market. Having conducted 150+ training programs, specializing in equity research, technical & fundamental analysis, portfolio management, and investor education.",
       quote: "Knowledge, Discipline, and Consistency are the keys to successful investing.",
@@ -2242,6 +2246,7 @@ function Leadership() {
       name: "Prem Kalal",
       title: "Stock Market Trader | Market Analyst",
       img: staffPrem,
+      badge: "ANALYST",
       tags: ["Option Buying", "Technical Analysis", "Market Analyst"],
       bio: "Prem Kalal is a passionate stock market trader and market analyst with extensive experience in option buying, technical analysis, and investment strategies. He is dedicated to empowering individuals with practical market knowledge and helping them make informed financial decisions. With a disciplined, research-driven approach, Prem specializes in identifying high-probability trading opportunities through technical analysis, price action, market trends, and risk management. His mission is to simplify the complexities of the stock market and guide traders and investors toward consistent growth and long-term financial success.",
       quote: null,
@@ -2250,6 +2255,7 @@ function Leadership() {
       name: "Giridarshan Pattar",
       title: "BCA Graduate (Coder) | Trader | Trainer | Analyst",
       img: staffGiri,
+      badge: "TRAINER",
       tags: ["BCA Graduate", "Coder", "Trader", "Trainer"],
       bio: "With over three years of experience in the financial markets, he has established himself as a dedicated Financial Market Trader and Trainer, specializing in market analysis, trading strategies, and risk management. As a trainer, he is passionate about mentoring aspiring traders through practical, structured, and engaging learning sessions. His teaching approach focuses on simplifying complex market concepts into actionable insights, helping students develop the knowledge, discipline, confidence, and mindset required to make informed trading decisions and pursue long-term success in the financial markets.",
       quote: null,
@@ -2258,6 +2264,7 @@ function Leadership() {
       name: "Shrikant Kurubet",
       title: "Trainer | Trader",
       img: staffShrikant,
+      badge: "TRAINER",
       tags: ["Trainer", "Trader"],
       bio: "An experienced trader and trainer dedicated to simplifying the complexities of financial markets. Shrikant brings practical, hands-on market experience to every session, helping students build the discipline and strategies needed for consistent success.",
       quote: null,
@@ -2291,13 +2298,13 @@ function Leadership() {
                         : "hover:border-gold/40"
                       }`}
                     >
-                      {/* CEO Crown/Star Badge */}
-                      {isCEO && (
-                        <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-gold text-[#030d08] text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full shadow-lg">
+                      {/* Badge Tag */}
+                      <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-gold text-[#030d08] text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full shadow-lg">
+                        {f.badge.includes("CEO") && (
                           <svg className="size-3 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-                          CEO
-                        </div>
-                      )}
+                        )}
+                        {f.badge}
+                      </div>
 
                       {/* Photo */}
                       <div className={`relative overflow-hidden shrink-0 ${isCEO ? "h-80 sm:h-96" : "h-72"}`}>
@@ -2412,6 +2419,11 @@ function Leadership() {
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#030d08]/80 via-transparent to-transparent" />
+                      
+                      {/* Badge Tag */}
+                      <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-gold text-[#030d08] text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full shadow-lg">
+                        {m.badge}
+                      </div>
                     </div>
 
                     {/* Content */}
