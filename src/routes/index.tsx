@@ -75,7 +75,7 @@ export const NAV = [
   { label: "Home", href: "/" },
   { label: "Live Markets", href: "/#live-market" },
   { label: "Services", href: "/#services", hasDropdown: true },
-  { label: "Discover", href: "/gallery", hasDropdown: true, isGallery: true },
+  { label: "Discover", href: "/gallery" },
   { label: "About Us", href: "/#about" },
   { label: "Career", href: "/#career" },
   { label: "Contact Us", href: "/#contact" },
