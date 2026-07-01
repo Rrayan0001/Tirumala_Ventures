@@ -2289,8 +2289,9 @@ function Leadership() {
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             {founders.map((f, i) => {
               const isCEO = i === 1;
+              const orderClass = i === 0 ? "order-2 lg:order-1" : i === 1 ? "order-1 lg:order-2" : "order-3";
               return (
-                <ScrollReveal key={f.name} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className="h-full">
+                <ScrollReveal key={f.name} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className={`h-full ${orderClass}`}>
                   <MouseGlowTracker className="h-full rounded-3xl">
                     <div className={`glass-card rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-500 group relative
                       ${isCEO
@@ -2487,7 +2488,7 @@ export function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }
             <li><a href="#courses" className="hover:text-gold">All Courses</a></li>
           </ul>
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <div className="text-sm font-serif text-gold mb-3">Contact</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="leading-relaxed">
@@ -2501,10 +2502,10 @@ export function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }
               </a>
             </li>
             <li className="pt-2"><a href="tel:+919980196665" className="hover:text-gold">+91 99801 96665</a></li>
-            <li><a href="mailto:cmpsgroup@tirumalaventures.in" className="hover:text-gold">cmpsgroup@tirumalaventures.in</a></li>
+            <li><a href="mailto:cmpsgroup@tirumalaventures.in" className="hover:text-gold break-all">cmpsgroup@tirumalaventures.in</a></li>
           </ul>
         </div>
-        <div className="lg:col-span-3 h-48 lg:h-auto min-h-[160px]">
+        <div className="lg:col-span-2 h-48 lg:h-auto min-h-[160px]">
           <iframe
             title="Tirumala Ventures Location Map"
             src="https://maps.google.com/maps?q=Tirumala+Ventures,+Hosayellapur,+Dharwad,+Hubballi,+Karnataka+580001&t=&z=17&ie=UTF8&iwloc=&output=embed"
