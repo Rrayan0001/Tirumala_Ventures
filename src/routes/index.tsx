@@ -76,7 +76,7 @@ const NAV = [
   { label: "Home", href: "#home" },
   { label: "Live Markets", href: "#live-market" },
   { label: "Services", href: "#services", hasDropdown: true },
-  { label: "Discover", href: "#gallery" },
+  { label: "Gallery", href: "#gallery", hasDropdown: true, isGallery: true },
   { label: "About Us", href: "#about" },
   { label: "Career", href: "#career" },
   { label: "Contact Us", href: "#contact" },
@@ -456,7 +456,7 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   );
 }
 
-function NavDropdown({ label, href }: { label: string; href: string }) {
+function NavDropdown({ label, href, isGallery }: { label: string; href: string; isGallery?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -501,32 +501,64 @@ function NavDropdown({ label, href }: { label: string; href: string }) {
             transition={{ duration: 0.2 }}
             className="absolute left-1/2 -translate-x-1/2 mt-1 w-80 rounded-2xl border border-gold/25 bg-[#030d08]/95 backdrop-blur-xl p-4 shadow-xl shadow-gold/10 z-50 grid gap-1"
           >
-            <a 
-              href={href} 
-              onClick={() => setIsOpen(false)}
-              className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
-            >
-              <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Services Overview</span>
-              <span className="text-[10px] text-muted-foreground leading-normal">Explore all our tailored trading support solutions.</span>
-            </a>
-            
-            <div className="h-px bg-gold/15 my-1.5" />
-            
-            <div className="text-[9px] uppercase tracking-[0.2em] text-gold/60 font-semibold px-2.5 mb-1">
-              Courses & Programs
-            </div>
-            
-            {COURSES.map(course => (
-              <a
-                key={course.t}
-                href="#courses"
-                onClick={() => setIsOpen(false)}
-                className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
-              >
-                <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">{course.t}</span>
-                <span className="text-[10px] text-muted-foreground line-clamp-1 leading-normal">{course.d}</span>
-              </a>
-            ))}
+            {isGallery ? (
+              <>
+                <a 
+                  href="#gallery" 
+                  onClick={() => setIsOpen(false)}
+                  className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
+                >
+                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Gallery Overview</span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">Take a tour of our floor and community activities.</span>
+                </a>
+                <div className="h-px bg-gold/15 my-1.5" />
+                <a
+                  href="#gallery-student"
+                  onClick={() => setIsOpen(false)}
+                  className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
+                >
+                  <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">Student Moments</span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">Classroom coaching, workshops, and student interactions.</span>
+                </a>
+                <a
+                  href="#gallery-office"
+                  onClick={() => setIsOpen(false)}
+                  className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
+                >
+                  <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">Office Infrastructure</span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">Our corporate trading floor, workspace, and premium setups.</span>
+                </a>
+              </>
+            ) : (
+              <>
+                <a 
+                  href={href} 
+                  onClick={() => setIsOpen(false)}
+                  className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
+                >
+                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Services Overview</span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">Explore all our tailored trading support solutions.</span>
+                </a>
+                
+                <div className="h-px bg-gold/15 my-1.5" />
+                
+                <div className="text-[9px] uppercase tracking-[0.2em] text-gold/60 font-semibold px-2.5 mb-1">
+                  Courses & Programs
+                </div>
+                
+                {COURSES.map(course => (
+                  <a
+                    key={course.t}
+                    href="#courses"
+                    onClick={() => setIsOpen(false)}
+                    className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
+                  >
+                    <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">{course.t}</span>
+                    <span className="text-[10px] text-muted-foreground line-clamp-1 leading-normal">{course.d}</span>
+                  </a>
+                ))}
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -537,6 +569,7 @@ function NavDropdown({ label, href }: { label: string; href: string }) {
 function Nav() {
   const [open, setOpen] = useState(false);
   const [servicesExpanded, setServicesExpanded] = useState(false);
+  const [galleryExpanded, setGalleryExpanded] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -580,7 +613,7 @@ function Nav() {
           <nav className="hidden lg:flex items-center gap-8">
             {NAV.map(n => {
               if (n.hasDropdown) {
-                return <NavDropdown key={n.href} label={n.label} href={n.href} />;
+                return <NavDropdown key={n.href} label={n.label} href={n.href} isGallery={n.isGallery} />;
               }
               return (
                 <a key={n.href} href={n.href} className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5">
@@ -621,15 +654,18 @@ function Nav() {
           <nav className="flex flex-col gap-2 py-6 overflow-y-auto max-h-[60vh]">
             {NAV.map(n => {
               if (n.hasDropdown) {
+                const isGal = n.isGallery;
+                const expanded = isGal ? galleryExpanded : servicesExpanded;
+                const setExpanded = isGal ? setGalleryExpanded : setServicesExpanded;
                 return (
                   <div key={n.href} className="flex flex-col gap-1">
                     <button
-                      onClick={() => setServicesExpanded(!servicesExpanded)}
+                      onClick={() => setExpanded(!expanded)}
                       className="text-base py-3 px-4 rounded-lg text-gold hover:text-white hover:bg-gold/10 font-serif font-medium transition-all flex items-center justify-between group border border-gold/10 w-full text-left cursor-pointer"
                     >
                       <span className="tracking-wide">{n.label}</span>
                       <svg
-                        className={`size-4 text-gold transition-transform duration-200 ${servicesExpanded ? "rotate-180" : ""}`}
+                        className={`size-4 text-gold transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -639,30 +675,58 @@ function Nav() {
                     </button>
                     
                     <AnimatePresence>
-                      {servicesExpanded && (
+                      {expanded && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           className="overflow-hidden flex flex-col pl-4 gap-1.5 border-l border-gold/20 ml-4 mt-1"
                         >
-                          <a
-                            href={n.href}
-                            onClick={() => setOpen(false)}
-                            className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
-                          >
-                            • Services Overview
-                          </a>
-                          {COURSES.map(course => (
-                            <a
-                              key={course.t}
-                              href="#courses"
-                              onClick={() => setOpen(false)}
-                              className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
-                            >
-                              • {course.t}
-                            </a>
-                          ))}
+                          {isGal ? (
+                            <>
+                              <a
+                                href="#gallery"
+                                onClick={() => setOpen(false)}
+                                className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
+                              >
+                                • Gallery Overview
+                              </a>
+                              <a
+                                href="#gallery-student"
+                                onClick={() => setOpen(false)}
+                                className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
+                              >
+                                • Student Moments
+                              </a>
+                              <a
+                                href="#gallery-office"
+                                onClick={() => setOpen(false)}
+                                className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
+                              >
+                                • Office Infrastructure
+                              </a>
+                            </>
+                          ) : (
+                            <>
+                              <a
+                                href={n.href}
+                                onClick={() => setOpen(false)}
+                                className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
+                              >
+                                • Services Overview
+                              </a>
+                              {COURSES.map(course => (
+                                <a
+                                  key={course.t}
+                                  href="#courses"
+                                  onClick={() => setOpen(false)}
+                                  className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
+                                >
+                                  • {course.t}
+                                </a>
+                              ))}
+                            </>
+                          )}
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -810,7 +874,7 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                 with Confidence.
               </span>
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 text-justify">
               Learn professional trading inside a corporate-grade live trading floor.
               Mentorship, real-time market exposure and a community of disciplined traders.
             </p>
@@ -949,7 +1013,7 @@ function About() {
               About Tirumala Ventures
             </h2>
             <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
-            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-justify">
               We are a results-driven trading academy and live floor workspace helping aspiring and seasoned traders grow through strategy, discipline, and performance. From foundational knowledge to advanced execution, we turn market analysis into consistent results.
             </p>
           </div>
@@ -1446,7 +1510,7 @@ function Workspace() {
                   <Sparkles className="size-3" /> Coming Soon
                 </div>
                 <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Trading Workspace</h2>
-                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-justify">
                   A dedicated professional workspace for traders, investors and market enthusiasts
                   is currently under development and will be launching soon.
                 </p>
@@ -1472,7 +1536,7 @@ function TradersCafe() {
                   <Coffee className="size-3.5" /> Coming Soon
                 </div>
                 <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Traders Cafe</h2>
-                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-justify">
                   A premium networking lounge designed for community members to unwind, discuss market setups, 
                   share trade logs, and collaborate over coffee. A true social hub for disciplined minds.
                 </p>
@@ -1512,7 +1576,7 @@ function UpcomingProjects() {
                     <p.icon className="size-5" />
                   </div>
                   <h3 className="font-serif text-lg sm:text-xl text-gold mb-3 uppercase tracking-wide">{p.title}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-justify">{p.desc}</p>
                 </div>
               </MouseGlowTracker>
             </ScrollReveal>
@@ -1634,7 +1698,7 @@ function Gallery() {
 
       <div className="space-y-12">
         {/* Subsection 1: Student Moments */}
-        <div>
+        <div id="gallery-student" className="scroll-mt-24">
           <ScrollReveal className="mx-auto max-w-7xl px-6 mb-4">
             <h3 className="font-serif text-lg sm:text-xl text-gold uppercase tracking-wider">
               Student Moments & Training Sessions
@@ -1653,7 +1717,7 @@ function Gallery() {
         </div>
 
         {/* Subsection 2: Office Infrastructure */}
-        <div>
+        <div id="gallery-office" className="scroll-mt-24">
           <ScrollReveal className="mx-auto max-w-7xl px-6 mb-4">
             <h3 className="font-serif text-lg sm:text-xl text-gold uppercase tracking-wider">
               Our Office Infrastructure & Ambience
@@ -1891,7 +1955,7 @@ function Careers() {
         <ScrollReveal direction="up" delay={0.1}>
           <div className="max-w-3xl mx-auto glass-card rounded-3xl p-8 sm:p-12 text-center border border-gold/20">
             <h3 className="font-serif text-xl sm:text-2xl text-gold mb-4 uppercase tracking-wide">Grow Your Career in Finance</h3>
-            <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto text-justify">
               If you have a disciplined approach to the markets, experience in mentoring, or strong analytical skills, we want to hear from you.
             </p>
             
@@ -2269,7 +2333,7 @@ function Leadership() {
                         </div>
                         <div className={`h-0.5 mx-auto mb-5 ${isCEO ? "w-16 bg-gold/60" : "w-12 bg-gold/30"}`} />
                         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
-                          {f.bio.map((p, j) => <p key={j}>{p}</p>)}
+                          {f.bio.map((p, j) => <p key={j} className="text-justify">{p}</p>)}
                         </div>
                         <div className={`mt-6 pt-5 border-t text-center ${isCEO ? "border-gold/30" : "border-gold/15"}`}>
                           <div className={`font-signature text-gold tracking-wide select-none leading-none ${isCEO ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl"}`}>
@@ -2367,7 +2431,7 @@ function Leadership() {
 
                       <div className="w-8 h-px bg-gold/30 mx-auto mb-3" />
 
-                      <p className="text-xs text-muted-foreground leading-relaxed text-center flex-1">{m.bio}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed text-justify flex-1">{m.bio}</p>
 
                       {m.quote && (
                         <div className="mt-4 pt-4 border-t border-gold/10">
