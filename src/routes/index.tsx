@@ -967,12 +967,12 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
           ].map(({ i: Icon, t, d, z }) => (
             <motion.div
               key={t}
-              className="flex gap-4 items-center group cursor-default"
+              className="flex gap-4 items-start group cursor-default"
               style={{ translateZ: z }}
               whileHover={{ translateZ: z + 20, scale: 1.04 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <div className="size-10 rounded-xl bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:bg-gold/15 transition-all duration-300">
+              <div className="size-10 rounded-xl bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:bg-gold/15 transition-all duration-300 mt-0.5">
                 <Icon className="size-5 text-gold" />
               </div>
               <div>
