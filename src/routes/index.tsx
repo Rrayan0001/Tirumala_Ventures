@@ -1305,7 +1305,7 @@ function TradingFloor() {
   ];
 
   const rightPillars = [
-    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and real time stock analysis in a buzzing open-floor environment where traders learn and grow together in real time." },
+    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and live market Analysis in a buzzing open-floor environment where traders learn and grow together in real time." },
     { i: Network, t: "Learning & Networking Space", d: "Dedicated breakout zones and seminar spaces where knowledge meets opportunity — connect with mentors and fellow traders." },
     { i: ShieldCheck, t: "Institutional-Grade Infrastructure", d: "Every workstation is equipped with professional-level data feeds, Bloomberg terminals access, and enterprise security standards." },
   ];
