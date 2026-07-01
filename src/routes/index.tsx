@@ -46,7 +46,7 @@ import staffSharan from "/staff_images/Sharan.PNG";
 import staffRavi from "/staff_images/RaviMudennavar.PNG";
 import staffShrikant from "/staff_images/Shrikant Kurubet.PNG";
 import staffPrem from "/staff_images/PremKalal.png";
-import staffGiri from "/staff_images/GiridarshanPattar.PNG";
+import staffGiri from "/staff_images/GiridarshanPattar.png";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
@@ -1645,7 +1645,7 @@ function Courses({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   );
 }
 
-const GALLERY = [
+export const GALLERY = [
   { src: gallery1, label: "Classroom Training" },
   { src: gallery2, label: "Live Trading Sessions" },
   { src: gallery3, label: "Trading Floor Environment" },
