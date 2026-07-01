@@ -604,7 +604,7 @@ export function Nav() {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-3">
+          <a href="/" className="flex items-center gap-3">
             <img src={logoAsset} alt="Tirumala Ventures" className="size-16 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" suppressHydrationWarning />
             <div className="leading-tight">
               <div className="font-serif text-xl sm:text-2xl text-gold tracking-widest leading-none">TIRUMALA</div>
