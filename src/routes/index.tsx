@@ -197,12 +197,25 @@ function Index() {
   }, []);
 
   const [showBrochureModal, setShowBrochureModal] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
+
+  useEffect(() => {
+    const handleScrollVisibility = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    window.addEventListener("scroll", handleScrollVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollVisibility);
+  }, []);
 
   useEffect(() => {
     if (showSplash) {
@@ -284,6 +297,42 @@ function Index() {
       <AnimatePresence>
         {showBrochureModal && (
           <BrochureModal isOpen={showBrochureModal} onClose={() => setShowBrochureModal(false)} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 20 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-6 right-6 z-50 p-3.5 bg-gradient-to-br from-[#0e261c]/90 to-[#030d08]/95 hover:from-gold hover:to-gold-soft border border-gold/40 hover:border-gold text-gold hover:text-[#030d08] rounded-full shadow-lg shadow-gold/10 hover:shadow-gold/30 transition-all duration-300 group cursor-pointer"
+            aria-label="Scroll to top"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="size-5 transition-transform duration-300 group-hover:-translate-y-0.5"
+            >
+              {/* Left Candle in the background (faded) */}
+              <path d="M5 17V12" className="opacity-40" />
+              <rect x="3" y="13.5" width="4" height="2.5" rx="0.25" className="opacity-40" fill="currentColor" />
+
+              {/* Middle Candle in the background (faded) */}
+              <path d="M11 15V8" className="opacity-60" />
+              <rect x="9" y="10" width="4" height="3.5" rx="0.25" className="opacity-60" fill="currentColor" />
+
+              {/* Right Candle (Breakout Arrow) */}
+              <rect x="15" y="7" width="4" height="4.5" rx="0.25" fill="currentColor" />
+              <path d="M17 14V3" />
+              <path d="M14 6l3-3 3 3" />
+            </svg>
+          </motion.button>
         )}
       </AnimatePresence>
     </div>
