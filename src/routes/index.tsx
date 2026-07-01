@@ -47,7 +47,6 @@ import staffRavi from "/staff_images/RaviMudennavar.PNG";
 import staffShrikant from "/staff_images/Shrikant Kurubet.PNG";
 import staffPrem from "/staff_images/PremKalal.PNG";
 import staffGiri from "/staff_images/GiridarshanPattar.PNG";
-import gallery7 from "/gallery7.PNG";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
@@ -76,7 +75,7 @@ export const NAV = [
   { label: "Home", href: "/" },
   { label: "Live Markets", href: "/#live-market" },
   { label: "Services", href: "/#services", hasDropdown: true },
-  { label: "Gallery", href: "/gallery", hasDropdown: true, isGallery: true },
+  { label: "Discover", href: "/gallery", hasDropdown: true, isGallery: true },
   { label: "About Us", href: "/#about" },
   { label: "Career", href: "/#career" },
   { label: "Contact Us", href: "/#contact" },
@@ -507,7 +506,7 @@ export function NavDropdown({ label, href, isGallery }: { label: string; href: s
                   onClick={() => setIsOpen(false)}
                   className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
                 >
-                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Gallery Overview</span>
+                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Discover Overview</span>
                   <span className="text-[10px] text-muted-foreground leading-normal">Take a tour of our floor and community activities.</span>
                 </a>
                 <div className="h-px bg-gold/15 my-1.5" />
@@ -688,7 +687,7 @@ export function Nav() {
                                 onClick={() => setOpen(false)}
                                 className="text-sm py-2 px-3 text-gold/80 hover:text-white transition-colors"
                               >
-                                • Gallery Overview
+                                • Discover Overview
                               </a>
                               <a
                                 href="#gallery-student"
@@ -752,11 +751,11 @@ export function Nav() {
         </div>
         <div className="pt-6 border-t border-gold/30 space-y-4">
           <div className="text-xs text-gold/80 flex flex-col gap-2">
-            <a href="mailto:info@tirumalaventures.com" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
-              <Mail className="size-4 text-gold" /> info@tirumalaventures.com
+            <a href="mailto:cmpsgroup@tirumalaventures.in" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
+              <Mail className="size-4 text-gold" /> cmpsgroup@tirumalaventures.in
             </a>
-            <a href="tel:+9198XXXXXXXX" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
-              <Phone className="size-4 text-gold" /> +91 98XXX XXXXX
+            <a href="tel:+919980196665" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
+              <Phone className="size-4 text-gold" /> +91 99801 96665
             </a>
           </div>
         </div>
@@ -1629,7 +1628,6 @@ const GALLERY = [
   { src: gallery2, label: "Live Trading Sessions" },
   { src: gallery3, label: "Trading Floor Environment" },
   { src: gallery4, label: "Workshops & Events" },
-  { src: gallery7, label: "Trading Floor Analytics" },
   { src: tradingFloor, label: "Student Interactions" },
   { src: heroBg, label: "Success Stories" },
   { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM.jpeg", label: "Corporate Workspace" },
@@ -1684,8 +1682,8 @@ export function Gallery() {
   }, [activeIndex]);
 
   // Split gallery images into two halves for the dual-row marquee
-  const row1Images = GALLERY.slice(0, 7);
-  const row2Images = GALLERY.slice(7, 13);
+  const row1Images = GALLERY.slice(0, 6);
+  const row2Images = GALLERY.slice(6, 12);
 
   return (
     <section id="gallery" className="section-pad overflow-hidden">
@@ -1728,7 +1726,7 @@ export function Gallery() {
             <ImageAutoSlider
               images={row2Images}
               onImageClick={(idx) => setActiveIndex(idx)}
-              startIndex={7}
+              startIndex={6}
               reverse={true}
             />
           </ScrollReveal>
@@ -2050,13 +2048,13 @@ function Contact() {
                 <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
                   <Phone className="size-5 text-gold" />
                 </div>
-                <span>+91 98XXX XXXXX</span>
+                <span>+91 99801 96665</span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
                   <Mail className="size-5 text-gold" />
                 </div>
-                <span>info@tirumalaventures.com</span>
+                <span>cmpsgroup@tirumalaventures.in</span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
@@ -2079,8 +2077,8 @@ function Contact() {
                   </h3>
                   <div className="mt-2 text-xs sm:text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap">
                     <span>Mail us at</span>
-                    <a href="mailto:info@tirumalaventures.com" className="text-foreground hover:text-gold transition-colors font-medium">
-                      info@tirumalaventures.com
+                    <a href="mailto:cmpsgroup@tirumalaventures.in" className="text-foreground hover:text-gold transition-colors font-medium">
+                      cmpsgroup@tirumalaventures.in
                     </a>
                   </div>
                 </div>
@@ -2487,8 +2485,8 @@ export function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }
                 Iconic Trade Center, Second Floor, Above Ramraj Showroom, Opp. Karnataka Bank, Near NTTF Stop, Hosa Yellapur, Dharwad - 580001
               </a>
             </li>
-            <li className="pt-2"><a href="tel:+9198XXXXXXXX" className="hover:text-gold">+91 98XXX XXXXX</a></li>
-            <li><a href="mailto:info@tirumalaventures.com" className="hover:text-gold">info@tirumalaventures.com</a></li>
+            <li className="pt-2"><a href="tel:+919980196665" className="hover:text-gold">+91 99801 96665</a></li>
+            <li><a href="mailto:cmpsgroup@tirumalaventures.in" className="hover:text-gold">cmpsgroup@tirumalaventures.in</a></li>
           </ul>
         </div>
         <div className="lg:col-span-3 h-48 lg:h-auto min-h-[160px]">

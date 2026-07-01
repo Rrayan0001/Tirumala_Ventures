@@ -8,7 +8,7 @@ import { Camera } from "lucide-react";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Gallery & Ambience — Tirumala Ventures" },
+      { title: "Discover & Ambience — Tirumala Ventures" },
       { name: "description", content: "Explore our corporate trading floor, live infrastructure, classroom sessions, and community events." },
     ],
   }),
