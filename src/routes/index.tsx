@@ -100,9 +100,9 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { TextReveal } from "@/components/ui/cascade-text";
-import { Resend } from "resend";
 
-const getResend = () => {
+const getResend = async () => {
+  const { Resend } = await import("resend");
   return new Resend(process.env.RESEND_API_KEY || "re_dummy");
 };
 
@@ -124,7 +124,7 @@ export const sendOtpFn = createServerFn({ method: "POST" })
         .update(`${email}:${otp}:${timestamp}`)
         .digest("hex");
 
-      const resendInstance = getResend();
+      const resendInstance = await getResend();
 
       // Send OTP email
       await resendInstance.emails.send({
