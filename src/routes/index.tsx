@@ -875,7 +875,7 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                 with Confidence.
               </span>
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 text-justify">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 text-left">
               Learn professional trading inside a corporate-grade live trading floor.
               Mentorship, real-time market exposure and a community of disciplined traders.
             </p>
@@ -1014,7 +1014,7 @@ function About() {
               About Tirumala Ventures
             </h2>
             <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
-            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-justify">
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-center max-w-2xl mx-auto">
               We are a results-driven trading academy and live floor workspace helping aspiring and seasoned traders grow through strategy, discipline, and performance. From foundational knowledge to advanced execution, we turn market analysis into consistent results.
             </p>
           </div>
@@ -1511,7 +1511,7 @@ function Workspace() {
                   <Sparkles className="size-3" /> Coming Soon
                 </div>
                 <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Trading Workspace</h2>
-                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-justify">
+                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-center">
                   A dedicated professional workspace for traders, investors and market enthusiasts
                   is currently under development and will be launching soon.
                 </p>
@@ -1537,7 +1537,7 @@ function TradersCafe() {
                   <Coffee className="size-3.5" /> Coming Soon
                 </div>
                 <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Traders Cafe</h2>
-                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-justify">
+                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-center">
                   A premium networking lounge designed for community members to unwind, discuss market setups, 
                   share trade logs, and collaborate over coffee. A true social hub for disciplined minds.
                 </p>
@@ -1577,7 +1577,7 @@ function UpcomingProjects() {
                     <p.icon className="size-5" />
                   </div>
                   <h3 className="font-serif text-lg sm:text-xl text-gold mb-3 uppercase tracking-wide">{p.title}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-justify">{p.desc}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-center">{p.desc}</p>
                 </div>
               </MouseGlowTracker>
             </ScrollReveal>
@@ -1955,7 +1955,7 @@ function Careers() {
         <ScrollReveal direction="up" delay={0.1}>
           <div className="max-w-3xl mx-auto glass-card rounded-3xl p-8 sm:p-12 text-center border border-gold/20">
             <h3 className="font-serif text-xl sm:text-2xl text-gold mb-4 uppercase tracking-wide">Grow Your Career in Finance</h3>
-            <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto text-justify">
+            <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto text-center">
               If you have a disciplined approach to the markets, experience in mentoring, or strong analytical skills, we want to hear from you.
             </p>
             
@@ -2341,7 +2341,7 @@ function Leadership() {
                         </div>
                         <div className={`h-0.5 mx-auto mb-5 ${isCEO ? "w-16 bg-gold/60" : "w-12 bg-gold/30"}`} />
                         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
-                          {f.bio.map((p, j) => <p key={j} className="text-justify">{p}</p>)}
+                          {f.bio.map((p, j) => <p key={j} className="text-left">{p}</p>)}
                         </div>
                         <div className={`mt-6 pt-5 border-t text-center ${isCEO ? "border-gold/30" : "border-gold/15"}`}>
                           <div className={`font-signature text-gold tracking-wide select-none leading-none ${isCEO ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl"}`}>
@@ -2444,7 +2444,7 @@ function Leadership() {
 
                       <div className="w-8 h-px bg-gold/30 mx-auto mb-3" />
 
-                      <p className="text-xs text-muted-foreground leading-relaxed text-justify flex-1">{m.bio}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed text-center sm:text-left flex-1">{m.bio}</p>
 
                       {m.quote && (
                         <div className="mt-4 pt-4 border-t border-gold/10">

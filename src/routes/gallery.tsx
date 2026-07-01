@@ -37,7 +37,7 @@ function GalleryPage() {
           <h1 className="font-serif text-4xl sm:text-6xl text-foreground uppercase tracking-wider mb-6 leading-tight">
             Discover Our <span className="text-gradient-gold font-bold italic">Workspace</span>
           </h1>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto leading-relaxed text-justify">
+          <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto leading-relaxed text-center">
             Step into India's premier corporate trading floor. Take a visual tour of our professional desks, 
             breakout zones, training seminars, and active community events designed to build disciplined traders.
           </p>
