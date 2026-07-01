@@ -1557,30 +1557,50 @@ function Gallery() {
 
   return (
     <section id="gallery" className="section-pad overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 mb-8">
+      <div className="mx-auto max-w-7xl px-6 mb-12">
         <ScrollReveal>
           <SectionHeading eyebrow="Gallery" title="Moments from our trading floor" />
         </ScrollReveal>
       </div>
 
-      {/* Infinite scrolling dual marquees */}
-      <div className="flex flex-col gap-2 md:gap-4 select-none">
-        <ScrollReveal direction="left" delay={0.1}>
-          <ImageAutoSlider
-            images={row1Images}
-            onImageClick={(idx) => setActiveIndex(idx)}
-            startIndex={0}
-            reverse={false}
-          />
-        </ScrollReveal>
-        <ScrollReveal direction="right" delay={0.2}>
-          <ImageAutoSlider
-            images={row2Images}
-            onImageClick={(idx) => setActiveIndex(idx)}
-            startIndex={6}
-            reverse={true}
-          />
-        </ScrollReveal>
+      <div className="space-y-12">
+        {/* Subsection 1: Student Moments */}
+        <div>
+          <ScrollReveal className="mx-auto max-w-7xl px-6 mb-4">
+            <h3 className="font-serif text-lg sm:text-xl text-gold uppercase tracking-wider">
+              Student Moments & Training Sessions
+            </h3>
+            <div className="w-12 h-0.5 bg-gold/50 mt-2" />
+          </ScrollReveal>
+          
+          <ScrollReveal direction="left" delay={0.1}>
+            <ImageAutoSlider
+              images={row1Images}
+              onImageClick={(idx) => setActiveIndex(idx)}
+              startIndex={0}
+              reverse={false}
+            />
+          </ScrollReveal>
+        </div>
+
+        {/* Subsection 2: Office Infrastructure */}
+        <div>
+          <ScrollReveal className="mx-auto max-w-7xl px-6 mb-4">
+            <h3 className="font-serif text-lg sm:text-xl text-gold uppercase tracking-wider">
+              Our Office Infrastructure & Ambience
+            </h3>
+            <div className="w-12 h-0.5 bg-gold/50 mt-2" />
+          </ScrollReveal>
+          
+          <ScrollReveal direction="right" delay={0.2}>
+            <ImageAutoSlider
+              images={row2Images}
+              onImageClick={(idx) => setActiveIndex(idx)}
+              startIndex={6}
+              reverse={true}
+            />
+          </ScrollReveal>
+        </div>
       </div>
 
       {/* Lightbox Modal */}
