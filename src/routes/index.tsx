@@ -1230,9 +1230,9 @@ function USP() {
 
 function TradingFloor() {
   const leftPillars = [
-    { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
+    { i: Wifi, t: "High-Speed Internet & Mentorship", d: "We provide high-speed internet connectivity and a dedicated mentor for live market analysis to guide you in real time." },
     { i: Activity, t: "Multiple Market-Monitoring Screens", d: "Track indices, futures, options and live charts simultaneously across our wall of institutional-grade multi-screen arrays." },
-    { i: Wifi, t: "High-Speed Internet Setup", d: "Experience uninterrupted trading powered by dedicated fiber lines with sub-millisecond latency and redundant failover connectivity." },
+    { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
   ];
 
   const rightPillars = [
