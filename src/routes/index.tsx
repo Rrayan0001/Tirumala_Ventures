@@ -2308,7 +2308,7 @@ function Leadership() {
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             {founders.map((f, i) => {
               const isCEO = i === 1;
-              const orderClass = i === 0 ? "order-2 lg:order-1" : i === 1 ? "order-1 lg:order-2" : "order-3";
+              const orderClass = i === 0 ? "order-1" : i === 1 ? "order-2" : "order-3";
               return (
                 <ScrollReveal key={f.name} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className={`h-full ${orderClass}`}>
                   <MouseGlowTracker className="h-full rounded-3xl">
