@@ -2299,7 +2299,7 @@ function Leadership() {
             <div className="text-center mb-14">
               <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-3">Our Leadership</div>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground uppercase tracking-wide">
-                Top Founders
+                Founders
               </h2>
               <div className="w-16 h-0.5 bg-gold/50 mx-auto mt-4" />
             </div>
