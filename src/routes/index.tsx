@@ -45,7 +45,7 @@ import staffManjunath from "/staff_images/Manjunath Badiger.jpeg";
 import staffSharan from "/staff_images/Sharan.PNG";
 import staffRavi from "/staff_images/RaviMudennavar.PNG";
 import staffShrikant from "/staff_images/Shrikant Kurubet.PNG";
-import staffPrem from "/staff_images/PremKalal.PNG";
+import staffPrem from "/staff_images/PremKalal.png";
 import staffGiri from "/staff_images/GiridarshanPattar.PNG";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
