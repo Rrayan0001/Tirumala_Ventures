@@ -185,7 +185,17 @@ function AnimatedCounter({ value, suffix = "", prefix = "", decimals = 0 }: { va
 }
 
 function Index() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hasSeen = sessionStorage.getItem("hasSeenSplash") === "true";
+      if (!hasSeen) {
+        setShowSplash(true);
+      }
+    }
+  }, []);
+
   const [showBrochureModal, setShowBrochureModal] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -243,7 +253,16 @@ function Index() {
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold/60 via-gold to-gold/60 origin-left z-[60]"
         style={{ scaleX }}
       />
-      {showSplash && <WelcomeSplash onComplete={() => setShowSplash(false)} />}
+      {showSplash && (
+        <WelcomeSplash
+          onComplete={() => {
+            setShowSplash(false);
+            if (typeof window !== "undefined") {
+              sessionStorage.setItem("hasSeenSplash", "true");
+            }
+          }}
+        />
+      )}
       <Toaster />
       <Nav />
       <Hero onDownloadRequest={() => setShowBrochureModal(true)} />
