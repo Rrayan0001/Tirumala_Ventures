@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import {
@@ -99,6 +100,99 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { TextReveal } from "@/components/ui/cascade-text";
+import { Resend } from "resend";
+
+const getResend = () => {
+  return new Resend(process.env.RESEND_API_KEY || "re_dummy");
+};
+
+const OTP_SECRET =
+  process.env.OTP_SECRET || "tirumala-ventures-otp-secret-key-2026";
+const SENDER_EMAIL = process.env.RESEND_SENDER_EMAIL || "onboarding@resend.dev";
+
+export const sendOtpFn = createServerFn({ method: "POST" })
+  .validator((d: { email: string; name: string }) => d)
+  .handler(async ({ data: { email, name } }) => {
+    try {
+      const crypto = await import("crypto");
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const timestamp = Date.now().toString();
+
+      // Create secure hash: sha256(email + otp + timestamp + SECRET)
+      const hash = crypto
+        .createHmac("sha256", OTP_SECRET)
+        .update(`${email}:${otp}:${timestamp}`)
+        .digest("hex");
+
+      const resendInstance = getResend();
+
+      // Send OTP email
+      await resendInstance.emails.send({
+        from: `Tirumala Ventures <${SENDER_EMAIL}>`,
+        to: [email],
+        subject: "Your Verification Code - Tirumala Ventures",
+        html: `
+          <div style="font-family: sans-serif; max-width: 500px; margin: 0 auto; border: 1px solid rgba(180, 140, 60, 0.2); padding: 30px; border-radius: 12px; background-color: #030d08; color: #ffffff;">
+            <h2 style="color: #b48c3c; font-family: serif; text-align: center; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px;">Tirumala Ventures</h2>
+            <p>Dear ${name},</p>
+            <p>Thank you for your interest in Tirumala Ventures. Please use the verification code below to verify your email and download our corporate brochure:</p>
+            <div style="text-align: center; margin: 30px 0;">
+              <span style="font-size: 36px; font-weight: bold; color: #b48c3c; letter-spacing: 6px; border: 2px solid #b48c3c; padding: 10px 30px; border-radius: 8px; background-color: #0c2016; display: inline-block;">${otp}</span>
+            </div>
+            <p style="color: #a3a3a3; font-size: 13px; text-align: center;">This verification code is valid for 5 minutes.</p>
+            <hr style="border: 0; border-top: 1px solid rgba(180, 140, 60, 0.1); margin: 20px 0;" />
+            <p style="color: #888888; font-size: 11px; text-align: center;">If you did not request this, you can safely ignore this email.</p>
+          </div>
+        `,
+      });
+
+      return { success: true, hash, timestamp };
+    } catch (error) {
+      console.error("Error sending OTP email:", error);
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : "Failed to send verification code.",
+      );
+    }
+  });
+
+export const verifyOtpFn = createServerFn({ method: "POST" })
+  .validator(
+    (d: { email: string; otp: string; hash: string; timestamp: string }) => d,
+  )
+  .handler(async ({ data: { email, otp, hash, timestamp } }) => {
+    try {
+      // 1. Expiration check (5 minutes)
+      const limit = 5 * 60 * 1000;
+      if (Date.now() - Number(timestamp) > limit) {
+        return {
+          success: false,
+          error: "Verification code has expired. Please request a new one.",
+        };
+      }
+
+      // 2. Hash check
+      const crypto = await import("crypto");
+      const expectedHash = crypto
+        .createHmac("sha256", OTP_SECRET)
+        .update(`${email}:${otp}:${timestamp}`)
+        .digest("hex");
+
+      if (hash !== expectedHash) {
+        return {
+          success: false,
+          error: "Invalid verification code. Please try again.",
+        };
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
+      return { success: false, error: "Verification failed." };
+    }
+  });
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -3512,11 +3606,35 @@ export function BrochureModal({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [step, setStep] = useState<"form" | "otp">("form");
+  const [otp, setOtp] = useState("");
+  const [otpHash, setOtpHash] = useState("");
+  const [otpTimestamp, setOtpTimestamp] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const timer = setInterval(() => {
+      setResendCooldown((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [resendCooldown]);
+
+  // Reset steps and form when modal is closed/opened
+  useEffect(() => {
+    if (!isOpen) {
+      setStep("form");
+      setOtp("");
+      setOtpHash("");
+      setOtpTimestamp("");
+      setLoading(false);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !whatsapp) {
       toast.error("Please fill in all fields");
@@ -3524,27 +3642,97 @@ export function BrochureModal({
     }
 
     setLoading(true);
-
-    // 1. Download brochure PDF
-    const link = document.createElement("a");
-    link.href = "/brochure.pdf";
-    link.download = "Tirumala_Ventures_Brochure.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // 2. Redirect to WhatsApp
-    const message = `Hi Tirumala Ventures, I am ${name} (${email}). I've just requested the brochure. Please send the PDF brochure on my WhatsApp: ${whatsapp}.`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodedMessage}`; // Prefilled redirect
-
-    // Wait a brief moment to allow browser download to start before redirecting
-    setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
+    try {
+      const res = await sendOtpFn({ data: { email, name } });
+      if (res.success && res.hash && res.timestamp) {
+        setOtpHash(res.hash);
+        setOtpTimestamp(res.timestamp);
+        setStep("otp");
+        setResendCooldown(30); // 30 seconds cooldown
+        toast.success("Verification code sent to your email!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to send verification code. Please check your email.",
+      );
+    } finally {
       setLoading(false);
-      toast.success("Brochure download started! Redirecting to WhatsApp...");
-      onClose();
-    }, 1000);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (resendCooldown > 0) return;
+    setLoading(true);
+    try {
+      const res = await sendOtpFn({ data: { email, name } });
+      if (res.success && res.hash && res.timestamp) {
+        setOtpHash(res.hash);
+        setOtpTimestamp(res.timestamp);
+        setOtp("");
+        setResendCooldown(30);
+        toast.success("A new verification code has been sent!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to resend code.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyAndDownload = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!otp || otp.length !== 6) {
+      toast.error("Please enter a valid 6-digit verification code.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await verifyOtpFn({
+        data: {
+          email,
+          otp,
+          hash: otpHash,
+          timestamp: otpTimestamp,
+        },
+      });
+
+      if (res.success) {
+        // 1. Download brochure PDF
+        const link = document.createElement("a");
+        link.href = "/brochure.pdf";
+        link.download = "Tirumala_Ventures_Brochure.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // 2. Redirect to WhatsApp
+        const message = `Hi Tirumala Ventures, I am ${name} (${email}). I've just verified my email and requested the brochure. Please send the PDF brochure on my WhatsApp: ${whatsapp}.`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/919876543210?text=${encodedMessage}`; // Prefilled redirect
+
+        // Wait a brief moment to allow browser download to start before redirecting
+        setTimeout(() => {
+          window.open(whatsappUrl, "_blank");
+          setLoading(false);
+          toast.success(
+            "Brochure download started! Redirecting to WhatsApp...",
+          );
+          onClose();
+        }, 1000);
+      } else {
+        toast.error(res.error || "Verification failed.");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Verification failed. Please try again.");
+      setLoading(false);
+    }
   };
 
   return (
@@ -3578,74 +3766,135 @@ export function BrochureModal({
             Request Brochure
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-normal">
-            Enter your details below to instantly download the brochure and
-            receive a copy on your WhatsApp.
+            {step === "form"
+              ? "Enter your details below to request a verification code and download the brochure."
+              : `Enter the 6-digit code sent to ${email} to complete verification.`}
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label
-              htmlFor="brochure-name"
-              className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
-            >
-              Your Name
-            </Label>
-            <Input
-              id="brochure-name"
-              type="text"
-              required
-              placeholder="e.g. Rohan Mehta"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl"
-            />
-          </div>
+        {step === "form" ? (
+          <form onSubmit={handleSendOtp} className="space-y-4">
+            <div>
+              <Label
+                htmlFor="brochure-name"
+                className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
+              >
+                Your Name
+              </Label>
+              <Input
+                id="brochure-name"
+                type="text"
+                required
+                placeholder="e.g. Rohan Mehta"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl"
+              />
+            </div>
 
-          <div>
-            <Label
-              htmlFor="brochure-email"
-              className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
-            >
-              Email Address
-            </Label>
-            <Input
-              id="brochure-email"
-              type="email"
-              required
-              placeholder="e.g. rohan@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl"
-            />
-          </div>
+            <div>
+              <Label
+                htmlFor="brochure-email"
+                className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
+              >
+                Email Address
+              </Label>
+              <Input
+                id="brochure-email"
+                type="email"
+                required
+                placeholder="e.g. rohan@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl"
+              />
+            </div>
 
-          <div>
-            <Label
-              htmlFor="brochure-whatsapp"
-              className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
-            >
-              WhatsApp Number
-            </Label>
-            <Input
-              id="brochure-whatsapp"
-              type="tel"
-              required
-              placeholder="e.g. +91 98765 43210"
-              value={whatsapp}
-              onChange={(e) => setWhatsapp(e.target.value)}
-              className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl font-mono"
-            />
-          </div>
+            <div>
+              <Label
+                htmlFor="brochure-whatsapp"
+                className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
+              >
+                WhatsApp Number
+              </Label>
+              <Input
+                id="brochure-whatsapp"
+                type="tel"
+                required
+                placeholder="e.g. +91 98765 43210"
+                value={whatsapp}
+                onChange={(e) => setWhatsapp(e.target.value)}
+                className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl font-mono"
+              />
+            </div>
 
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-gold via-gold/90 to-gold-soft text-[#030d08] hover:brightness-[1.08] active:scale-[0.99] font-serif tracking-wider text-xs sm:text-sm uppercase py-6 rounded-xl transition-all duration-300 font-semibold shadow-gold/20 shadow-lg cursor-pointer mt-2"
-          >
-            {loading ? "Sending..." : "Submit & Download"}
-          </Button>
-        </form>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-gold via-gold/90 to-gold-soft text-[#030d08] hover:brightness-[1.08] active:scale-[0.99] font-serif tracking-wider text-xs sm:text-sm uppercase py-6 rounded-xl transition-all duration-300 font-semibold shadow-gold/20 shadow-lg cursor-pointer mt-2"
+            >
+              {loading ? "Sending..." : "Request Verification Code"}
+            </Button>
+          </form>
+        ) : (
+          <form onSubmit={handleVerifyAndDownload} className="space-y-6">
+            <div>
+              <Label
+                htmlFor="brochure-otp"
+                className="text-xs tracking-widest uppercase text-muted-foreground font-medium block text-center mb-3"
+              >
+                Verification Code
+              </Label>
+              <Input
+                id="brochure-otp"
+                type="text"
+                required
+                maxLength={6}
+                placeholder="0 0 0 0 0 0"
+                value={otp}
+                onChange={(e) =>
+                  setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))
+                }
+                className="bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl text-center text-2xl tracking-[0.5em] font-mono py-6"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2.5">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-gold via-gold/90 to-gold-soft text-[#030d08] hover:brightness-[1.08] active:scale-[0.99] font-serif tracking-wider text-xs sm:text-sm uppercase py-6 rounded-xl transition-all duration-300 font-semibold shadow-gold/20 shadow-lg cursor-pointer"
+              >
+                {loading ? "Verifying..." : "Verify & Download"}
+              </Button>
+
+              <div className="flex justify-between items-center text-xs mt-2 px-1">
+                <button
+                  type="button"
+                  onClick={() => setStep("form")}
+                  className="text-muted-foreground hover:text-gold transition-colors cursor-pointer"
+                >
+                  ← Change Details
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleResendOtp}
+                  disabled={resendCooldown > 0 || loading}
+                  className={`transition-colors cursor-pointer ${
+                    resendCooldown > 0
+                      ? "text-muted-foreground/50 cursor-not-allowed"
+                      : "text-gold hover:text-gold-soft"
+                  }`}
+                >
+                  {resendCooldown > 0
+                    ? `Resend in ${resendCooldown}s`
+                    : "Resend Code"}
+                </button>
+              </div>
+            </div>
+          </form>
+        )}
       </motion.div>
     </div>
   );
