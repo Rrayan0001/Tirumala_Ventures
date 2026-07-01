@@ -72,17 +72,17 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const NAV = [
-  { label: "Home", href: "#home" },
-  { label: "Live Markets", href: "#live-market" },
-  { label: "Services", href: "#services", hasDropdown: true },
-  { label: "Gallery", href: "#gallery", hasDropdown: true, isGallery: true },
-  { label: "About Us", href: "#about" },
-  { label: "Career", href: "#career" },
-  { label: "Contact Us", href: "#contact" },
+export const NAV = [
+  { label: "Home", href: "/" },
+  { label: "Live Markets", href: "/#live-market" },
+  { label: "Services", href: "/#services", hasDropdown: true },
+  { label: "Gallery", href: "/gallery", hasDropdown: true, isGallery: true },
+  { label: "About Us", href: "/#about" },
+  { label: "Career", href: "/#career" },
+  { label: "Contact Us", href: "/#contact" },
 ];
 
-const COURSES = [
+export const COURSES = [
   { t: "Beginner Trading Program", d: "Stock market basics, demat setup, risk fundamentals and your first trades." },
   { t: "Technical Analysis Masterclass", d: "Charts, indicators, patterns and price action — read markets like a pro." },
   { t: "Options Trading Program", d: "Greeks, strategies, hedging and disciplined options execution." },
@@ -258,7 +258,6 @@ function Index() {
       <TradersCafe />
       <UpcomingProjects />
       <Courses onDownloadRequest={() => setShowBrochureModal(true)} />
-      <Gallery />
       <Testimonials />
       <Careers />
       <Contact />
@@ -456,7 +455,7 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   );
 }
 
-function NavDropdown({ label, href, isGallery }: { label: string; href: string; isGallery?: boolean }) {
+export function NavDropdown({ label, href, isGallery }: { label: string; href: string; isGallery?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -566,7 +565,7 @@ function NavDropdown({ label, href, isGallery }: { label: string; href: string; 
   );
 }
 
-function Nav() {
+export function Nav() {
   const [open, setOpen] = useState(false);
   const [servicesExpanded, setServicesExpanded] = useState(false);
   const [galleryExpanded, setGalleryExpanded] = useState(false);
@@ -1641,7 +1640,7 @@ const GALLERY = [
   { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.56 AM.jpeg", label: "Collaborative Workspace" },
 ];
 
-function Gallery() {
+export function Gallery() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const handlePrev = (e?: React.MouseEvent) => {
@@ -2452,7 +2451,7 @@ function Leadership() {
   );
 }
 
-function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
+export function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   return (
     <footer className="border-t border-gold/15 py-12">
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
@@ -2511,7 +2510,7 @@ function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   );
 }
 
-function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
