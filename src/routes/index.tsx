@@ -1234,13 +1234,13 @@ function USP() {
 
 function TradingFloor() {
   const leftPillars = [
-    { i: Wifi, t: "High-Speed Internet & Mentorship", d: "We provide high-speed internet connectivity and a dedicated mentor for live market analysis to guide you in real time." },
+    { i: Wifi, t: "High-Speed Internet & Mentorship", d: "We Provide High speed internet and A Mentor For Market Analysis" },
     { i: Activity, t: "Multiple Market-Monitoring Screens", d: "Track indices, futures, options and live charts simultaneously across our wall of institutional-grade multi-screen arrays." },
     { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
   ];
 
   const rightPillars = [
-    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and live market analysis in a buzzing open-floor environment where traders learn and grow together in real time." },
+    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and real time stock analysis in a buzzing open-floor environment where traders learn and grow together in real time." },
     { i: Network, t: "Learning & Networking Space", d: "Dedicated breakout zones and seminar spaces where knowledge meets opportunity — connect with mentors and fellow traders." },
     { i: ShieldCheck, t: "Institutional-Grade Infrastructure", d: "Every workstation is equipped with professional-level data feeds, Bloomberg terminals access, and enterprise security standards." },
   ];
