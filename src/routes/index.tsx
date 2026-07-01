@@ -426,11 +426,14 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
             </div>
 
             {/* Tagline Highlight with Underline Progress */}
-            <div className="relative mt-3 px-4 py-1.5 overflow-hidden text-center">
-              <span className="text-xs sm:text-sm tracking-[0.2em] uppercase text-gradient-gold font-semibold leading-relaxed">
-                Master the Markets
+            <div className="relative mt-3 px-4 py-1.5 overflow-hidden text-center flex flex-col gap-1 items-center">
+              <span className="text-[11px] sm:text-xs tracking-[0.2em] uppercase text-gradient-gold font-semibold leading-relaxed">
+                If You Are an Experienced Trader
               </span>
-              <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gold to-transparent mt-2 opacity-65" />
+              <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-gold/80 font-medium leading-normal">
+                Come join us For the new experience
+              </span>
+              <div className="h-[1px] w-4/5 bg-gradient-to-r from-transparent via-gold to-transparent mt-2.5 opacity-65" />
             </div>
 
             {/* Progress line */}
