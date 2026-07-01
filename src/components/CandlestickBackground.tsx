@@ -37,7 +37,7 @@ export default function CandlestickBackground() {
       const open = prevClose;
       const close = Math.max(
         height * 0.15,
-        Math.min(height * 0.85, prevClose + change)
+        Math.min(height * 0.85, prevClose + change),
       );
       const high = Math.max(open, close) + Math.random() * 15;
       const low = Math.min(open, close) - Math.random() * 15;
@@ -107,12 +107,7 @@ export default function CandlestickBackground() {
         ctx.fillStyle = isBullish
           ? "rgba(16, 185, 129, 0.04)"
           : "rgba(239, 68, 68, 0.04)";
-        ctx.fillRect(
-          x,
-          height - volHeight,
-          candleWidth,
-          volHeight
-        );
+        ctx.fillRect(x, height - volHeight, candleWidth, volHeight);
 
         // Draw wicks (high to low)
         ctx.strokeStyle = wickColor;
@@ -159,7 +154,7 @@ export default function CandlestickBackground() {
         ctx.fillText(
           (lastCandle.close / 10).toFixed(2) + " %",
           width - 25,
-          lastCandle.close
+          lastCandle.close,
         );
       }
 

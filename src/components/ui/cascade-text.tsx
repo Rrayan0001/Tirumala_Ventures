@@ -13,7 +13,7 @@ export function TextReveal({ text, className }: TextRevealProps) {
       whileHover="hovered"
       className={cn(
         "relative inline-block overflow-hidden whitespace-nowrap cursor-pointer select-none",
-        className
+        className,
       )}
     >
       <div className="block">

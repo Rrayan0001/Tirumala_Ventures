@@ -4,12 +4,17 @@ import { Nav, Footer, BrochureModal, GALLERY } from "./index";
 import { Toaster } from "@/components/ui/sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import { Camera, X, ArrowLeft, ArrowRight } from "lucide-react";
+import { ImageAutoSlider } from "@/components/ImageAutoSlider";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
       { title: "Discover & Ambience — Tirumala Ventures" },
-      { name: "description", content: "Explore our corporate trading floor, live infrastructure, classroom sessions, and community events." },
+      {
+        name: "description",
+        content:
+          "Explore our corporate trading floor, live infrastructure, classroom sessions, and community events.",
+      },
     ],
   }),
   component: GalleryPage,
@@ -55,6 +60,21 @@ function GalleryPage() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeIndex]);
+
+  // Lock body scroll when lightbox is active
+  useEffect(() => {
+    if (activeIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeIndex]);
+
+  const officeImages = GALLERY.slice(6, 12);
+  const studentImages = GALLERY.slice(0, 6);
 
   return (
     <div className="min-h-screen bg-background text-foreground pt-36 relative">
@@ -124,50 +144,51 @@ function GalleryPage() {
             <Camera className="size-3.5" /> Floor Ambience
           </div>
           <h1 className="font-serif text-4xl sm:text-6xl text-foreground uppercase tracking-wider mb-6 leading-tight">
-            Discover Our <span className="text-gradient-gold font-bold italic">Workspace</span>
+            Discover Our{" "}
+            <span className="text-gradient-gold font-bold italic">
+              Workspace
+            </span>
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto leading-relaxed text-center">
-            Step into India's premier corporate trading floor. Take a visual tour of our professional desks, 
-            breakout zones, training seminars, and active community events designed to build disciplined traders.
+            Step into India's premier corporate trading floor. Take a visual
+            tour of our professional desks, breakout zones, training seminars,
+            and active community events designed to build disciplined traders.
           </p>
         </div>
       </section>
 
-      {/* Simple Grid Gallery Layout */}
-      <section className="pb-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {GALLERY.map((img, idx) => (
-              <div
-                key={idx}
-                onClick={() => setActiveIndex(idx)}
-                className="group relative cursor-pointer overflow-hidden rounded-2xl border border-gold/15 bg-card/25 hover:border-gold/45 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)] transition-all duration-500 hover:-translate-y-1 h-64 flex flex-col"
-              >
-                {/* Image Container */}
-                <div className="relative flex-1 overflow-hidden">
-                  <img
-                    src={img.src}
-                    alt={img.label}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#030d08]/90 via-transparent to-transparent opacity-60 group-hover:opacity-85 transition-opacity" />
-                  
-                  {/* Subtle hover icon overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="size-12 rounded-full bg-gold/10 border border-gold/45 flex items-center justify-center backdrop-blur-sm text-gold shadow-md">
-                      <Camera className="size-5" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Footer Label */}
-                <div className="p-4 border-t border-gold/10 flex items-center justify-between bg-[#040e09]/50">
-                  <span className="font-serif text-sm text-foreground/90 tracking-wide">{img.label}</span>
-                  <span className="text-[10px] tracking-wider text-gold font-semibold uppercase shrink-0">View</span>
-                </div>
-              </div>
-            ))}
+      {/* Animated Marquee Gallery Layout */}
+      <section className="pb-24 overflow-hidden space-y-16">
+        {/* Row 1: Office Infrastructure (Starting Row) */}
+        <div>
+          <div className="mx-auto max-w-7xl px-6 mb-6">
+            <h3 className="font-serif text-lg sm:text-2xl text-gold uppercase tracking-wider">
+              Our Office Infrastructure & Ambience
+            </h3>
+            <div className="w-16 h-0.5 bg-gold/50 mt-2" />
           </div>
+          <ImageAutoSlider
+            images={officeImages}
+            onImageClick={(idx) => setActiveIndex(idx)}
+            startIndex={6}
+            reverse={false}
+          />
+        </div>
+
+        {/* Row 2: Student Moments */}
+        <div>
+          <div className="mx-auto max-w-7xl px-6 mb-6">
+            <h3 className="font-serif text-lg sm:text-2xl text-gold uppercase tracking-wider">
+              Student Moments & Training Sessions
+            </h3>
+            <div className="w-16 h-0.5 bg-gold/50 mt-2" />
+          </div>
+          <ImageAutoSlider
+            images={studentImages}
+            onImageClick={(idx) => setActiveIndex(idx)}
+            startIndex={0}
+            reverse={true}
+          />
         </div>
       </section>
 
@@ -212,7 +233,10 @@ function GalleryPage() {
             </button>
 
             {/* Lightbox Content */}
-            <div className="relative max-w-[85vw] max-h-[80vh] flex flex-col items-center justify-center gap-4" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="relative max-w-[85vw] max-h-[80vh] flex flex-col items-center justify-center gap-4"
+              onClick={(e) => e.stopPropagation()}
+            >
               <motion.img
                 key={activeIndex}
                 src={GALLERY[activeIndex].src}
@@ -240,7 +264,10 @@ function GalleryPage() {
       {/* Brochure Lead Capture Modal */}
       <AnimatePresence>
         {showBrochureModal && (
-          <BrochureModal isOpen={showBrochureModal} onClose={() => setShowBrochureModal(false)} />
+          <BrochureModal
+            isOpen={showBrochureModal}
+            onClose={() => setShowBrochureModal(false)}
+          />
         )}
       </AnimatePresence>
     </div>

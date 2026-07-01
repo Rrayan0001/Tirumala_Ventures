@@ -2,18 +2,49 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import {
-  GraduationCap, Calendar, Download, BookOpen, Users, TrendingUp,
-  Briefcase, Activity, Wallet, ShieldCheck, Sparkles, Building2,
-  Network, Layers, Monitor, Wifi, MessageSquare, Trophy, Phone,
-  Mail, MapPin, ArrowRight, ArrowLeft, CheckCircle2, Clock, ArrowUpRight, ArrowDownRight, LineChart, X,
-  Facebook, Twitter, Coffee,
+  GraduationCap,
+  Calendar,
+  Download,
+  BookOpen,
+  Users,
+  TrendingUp,
+  Briefcase,
+  Activity,
+  Wallet,
+  ShieldCheck,
+  Sparkles,
+  Building2,
+  Network,
+  Layers,
+  Monitor,
+  Wifi,
+  MessageSquare,
+  Trophy,
+  Phone,
+  Mail,
+  MapPin,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle2,
+  Clock,
+  ArrowUpRight,
+  ArrowDownRight,
+  LineChart,
+  X,
+  Facebook,
+  Twitter,
+  Coffee,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
@@ -49,7 +80,16 @@ import staffPrem from "/staff_images/PremKalal.png";
 import staffGiri from "/staff_images/GiridarshanPattar.png";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
-import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useScroll,
+  animate,
+  useInView,
+  AnimatePresence,
+} from "framer-motion";
 import {
   Carousel,
   CarouselContent,
@@ -62,10 +102,21 @@ import { TextReveal } from "@/components/ui/cascade-text";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tirumala Ventures — Premium Trading Education & Live Trading Floor" },
-      { name: "description", content: "India's premier trading institute. Live trading floor, expert mentors, practical courses, corporate ambience. Enroll, visit our floor, or download the brochure." },
+      {
+        title:
+          "Tirumala Ventures — Premium Trading Education & Live Trading Floor",
+      },
+      {
+        name: "description",
+        content:
+          "India's premier trading institute. Live trading floor, expert mentors, practical courses, corporate ambience. Enroll, visit our floor, or download the brochure.",
+      },
       { property: "og:title", content: "Tirumala Ventures" },
-      { property: "og:description", content: "Premium trading education and live corporate trading floor. Mentorship, weekend classes, live trading, demat support." },
+      {
+        property: "og:description",
+        content:
+          "Premium trading education and live corporate trading floor. Mentorship, weekend classes, live trading, demat support.",
+      },
     ],
   }),
   component: Index,
@@ -82,12 +133,30 @@ export const NAV = [
 ];
 
 export const COURSES = [
-  { t: "Beginner Trading Program", d: "Stock market basics, demat setup, risk fundamentals and your first trades." },
-  { t: "Technical Analysis Masterclass", d: "Charts, indicators, patterns and price action — read markets like a pro." },
-  { t: "Options Trading Program", d: "Greeks, strategies, hedging and disciplined options execution." },
-  { t: "Intraday Trading Strategies", d: "Setups, entries, exits and risk control for active intraday traders." },
-  { t: "Swing Trading Program", d: "Multi-day strategies, position sizing and trend-following systems." },
-  { t: "Advanced Market Psychology", d: "Mindset, discipline and habits that separate consistent traders." },
+  {
+    t: "Beginner Trading Program",
+    d: "Stock market basics, demat setup, risk fundamentals and your first trades.",
+  },
+  {
+    t: "Technical Analysis Masterclass",
+    d: "Charts, indicators, patterns and price action — read markets like a pro.",
+  },
+  {
+    t: "Options Trading Program",
+    d: "Greeks, strategies, hedging and disciplined options execution.",
+  },
+  {
+    t: "Intraday Trading Strategies",
+    d: "Setups, entries, exits and risk control for active intraday traders.",
+  },
+  {
+    t: "Swing Trading Program",
+    d: "Multi-day strategies, position sizing and trend-following systems.",
+  },
+  {
+    t: "Advanced Market Psychology",
+    d: "Mindset, discipline and habits that separate consistent traders.",
+  },
 ];
 
 function ScrollReveal({
@@ -105,11 +174,16 @@ function ScrollReveal({
 }) {
   const getInitial = () => {
     switch (direction) {
-      case "up": return { opacity: 0, y: 35 };
-      case "down": return { opacity: 0, y: -35 };
-      case "left": return { opacity: 0, x: -45 };
-      case "right": return { opacity: 0, x: 45 };
-      case "none": return { opacity: 0 };
+      case "up":
+        return { opacity: 0, y: 35 };
+      case "down":
+        return { opacity: 0, y: -35 };
+      case "left":
+        return { opacity: 0, x: -45 };
+      case "right":
+        return { opacity: 0, x: 45 };
+      case "none":
+        return { opacity: 0 };
     }
   };
 
@@ -161,7 +235,17 @@ const staggerItem = {
   },
 };
 
-function AnimatedCounter({ value, suffix = "", prefix = "", decimals = 0 }: { value: number; suffix?: string; prefix?: string; decimals?: number }) {
+function AnimatedCounter({
+  value,
+  suffix = "",
+  prefix = "",
+  decimals = 0,
+}: {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  decimals?: number;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -181,7 +265,11 @@ function AnimatedCounter({ value, suffix = "", prefix = "", decimals = 0 }: { va
     return () => controls.stop();
   }, [value, inView, prefix, suffix, decimals]);
 
-  return <span ref={ref}>{prefix}0{suffix}</span>;
+  return (
+    <span ref={ref}>
+      {prefix}0{suffix}
+    </span>
+  );
 }
 
 function Index() {
@@ -202,7 +290,7 @@ function Index() {
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   useEffect(() => {
@@ -213,7 +301,9 @@ function Index() {
         setShowScrollTop(false);
       }
     };
-    window.addEventListener("scroll", handleScrollVisibility, { passive: true });
+    window.addEventListener("scroll", handleScrollVisibility, {
+      passive: true,
+    });
     return () => window.removeEventListener("scroll", handleScrollVisibility);
   }, []);
 
@@ -238,7 +328,14 @@ function Index() {
 
   useEffect(() => {
     // Fallback for browsers that don't support native CSS scroll-driven animations
-    if (typeof window !== "undefined" && (!window.CSS || !CSS.supports || !CSS.supports("(animation-timeline: view()) and (animation-range: entry)"))) {
+    if (
+      typeof window !== "undefined" &&
+      (!window.CSS ||
+        !CSS.supports ||
+        !CSS.supports(
+          "(animation-timeline: view()) and (animation-range: entry)",
+        ))
+    ) {
       const handleScroll = () => {
         const scrolled = window.scrollY;
         const bgs = document.querySelectorAll(".parallax-bg");
@@ -280,12 +377,16 @@ function Index() {
       <Nav />
       <Hero onDownloadRequest={() => setShowBrochureModal(true)} />
       <About />
-      <section id="leadership"><Leadership /></section>
+      <section id="leadership">
+        <Leadership />
+      </section>
       <Services />
       <LiveMarket />
       <USP />
       <TradingFloor />
-      <section id="workspace"><Workspace /></section>
+      <section id="workspace">
+        <Workspace />
+      </section>
       <TradersCafe />
       <UpcomingProjects />
       <Courses onDownloadRequest={() => setShowBrochureModal(true)} />
@@ -296,7 +397,10 @@ function Index() {
 
       <AnimatePresence>
         {showBrochureModal && (
-          <BrochureModal isOpen={showBrochureModal} onClose={() => setShowBrochureModal(false)} />
+          <BrochureModal
+            isOpen={showBrochureModal}
+            onClose={() => setShowBrochureModal(false)}
+          />
         )}
       </AnimatePresence>
 
@@ -321,14 +425,37 @@ function Index() {
             >
               {/* Left Candle in the background (faded) */}
               <path d="M5 17V12" className="opacity-40" />
-              <rect x="3" y="13.5" width="4" height="2.5" rx="0.25" className="opacity-40" fill="currentColor" />
+              <rect
+                x="3"
+                y="13.5"
+                width="4"
+                height="2.5"
+                rx="0.25"
+                className="opacity-40"
+                fill="currentColor"
+              />
 
               {/* Middle Candle in the background (faded) */}
               <path d="M11 15V8" className="opacity-60" />
-              <rect x="9" y="10" width="4" height="3.5" rx="0.25" className="opacity-60" fill="currentColor" />
+              <rect
+                x="9"
+                y="10"
+                width="4"
+                height="3.5"
+                rx="0.25"
+                className="opacity-60"
+                fill="currentColor"
+              />
 
               {/* Right Candle (Breakout Arrow) */}
-              <rect x="15" y="7" width="4" height="4.5" rx="0.25" fill="currentColor" />
+              <rect
+                x="15"
+                y="7"
+                width="4"
+                height="4.5"
+                rx="0.25"
+                fill="currentColor"
+              />
               <path d="M17 14V3" />
               <path d="M14 6l3-3 3 3" />
             </svg>
@@ -453,7 +580,9 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
         }
       `}</style>
 
-      <div className={`intro-overlay ${phase === "reveal" ? "reveal-phase" : ""}`}>
+      <div
+        className={`intro-overlay ${phase === "reveal" ? "reveal-phase" : ""}`}
+      >
         <AnimatePresence>
           {phase === "logo" && (
             <motion.button
@@ -470,7 +599,9 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           )}
         </AnimatePresence>
 
-        <div className={`intro-logo-stage ${phase === "logo" ? "is-active" : ""}`}>
+        <div
+          className={`intro-logo-stage ${phase === "logo" ? "is-active" : ""}`}
+        >
           <div className="intro-logo-wrap">
             {/* Glowing Logo */}
             <div className="relative mb-6 animate-pulse-glow rounded-full p-2">
@@ -514,7 +645,10 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           </div>
         </div>
 
-        <div className={`curtain-grid ${phase === "reveal" ? "curtain-open" : ""}`} aria-hidden="true">
+        <div
+          className={`curtain-grid ${phase === "reveal" ? "curtain-open" : ""}`}
+          aria-hidden="true"
+        >
           <div className="curtain-panel panel-1" />
           <div className="curtain-panel panel-2" />
           <div className="curtain-panel panel-3" />
@@ -525,13 +659,24 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   );
 }
 
-export function NavDropdown({ label, href, isGallery }: { label: string; href: string; isGallery?: boolean }) {
+export function NavDropdown({
+  label,
+  href,
+  isGallery,
+}: {
+  label: string;
+  href: string;
+  isGallery?: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     }
@@ -540,24 +685,29 @@ export function NavDropdown({ label, href, isGallery }: { label: string; href: s
   }, []);
 
   return (
-    <div 
+    <div
       ref={dropdownRef}
       className="relative"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1 cursor-pointer py-2 focus:outline-none"
       >
         <span>{label}</span>
-        <svg 
-          className={`size-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} 
-          fill="none" 
-          viewBox="0 0 24 24" 
+        <svg
+          className={`size-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -572,13 +722,17 @@ export function NavDropdown({ label, href, isGallery }: { label: string; href: s
           >
             {isGallery ? (
               <>
-                <a 
-                  href="#gallery" 
+                <a
+                  href="#gallery"
                   onClick={() => setIsOpen(false)}
                   className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
                 >
-                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Discover Overview</span>
-                  <span className="text-[10px] text-muted-foreground leading-normal">Take a tour of our floor and community activities.</span>
+                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">
+                    Discover Overview
+                  </span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">
+                    Take a tour of our floor and community activities.
+                  </span>
                 </a>
                 <div className="h-px bg-gold/15 my-1.5" />
                 <a
@@ -586,44 +740,60 @@ export function NavDropdown({ label, href, isGallery }: { label: string; href: s
                   onClick={() => setIsOpen(false)}
                   className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
                 >
-                  <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">Student Moments</span>
-                  <span className="text-[10px] text-muted-foreground leading-normal">Classroom coaching, workshops, and student interactions.</span>
+                  <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">
+                    Student Moments
+                  </span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">
+                    Classroom coaching, workshops, and student interactions.
+                  </span>
                 </a>
                 <a
                   href="#gallery-office"
                   onClick={() => setIsOpen(false)}
                   className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
                 >
-                  <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">Office Infrastructure</span>
-                  <span className="text-[10px] text-muted-foreground leading-normal">Our corporate trading floor, workspace, and premium setups.</span>
+                  <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">
+                    Office Infrastructure
+                  </span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">
+                    Our corporate trading floor, workspace, and premium setups.
+                  </span>
                 </a>
               </>
             ) : (
               <>
-                <a 
-                  href={href} 
+                <a
+                  href={href}
                   onClick={() => setIsOpen(false)}
                   className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
                 >
-                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">Services Overview</span>
-                  <span className="text-[10px] text-muted-foreground leading-normal">Explore all our tailored trading support solutions.</span>
+                  <span className="text-xs font-serif tracking-widest text-gold font-semibold uppercase">
+                    Services Overview
+                  </span>
+                  <span className="text-[10px] text-muted-foreground leading-normal">
+                    Explore all our tailored trading support solutions.
+                  </span>
                 </a>
-                
+
                 <div className="h-px bg-gold/15 my-1.5" />
-                
+
                 <div className="text-[9px] uppercase tracking-[0.2em] text-gold/60 font-semibold px-2.5 mb-1">
                   Courses & Programs
                 </div>
-                
-                {COURSES.map(course => (
+
+                {COURSES.map((course) => (
                   <a
                     key={course.t}
                     href="#courses"
                     onClick={() => setIsOpen(false)}
                     className="group flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-gold/10 transition-colors"
                   >
-                    <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">{course.t}</span>
-                    <span className="text-[10px] text-muted-foreground line-clamp-1 leading-normal">{course.d}</span>
+                    <span className="text-xs font-medium text-foreground group-hover:text-gold transition-colors">
+                      {course.t}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground line-clamp-1 leading-normal">
+                      {course.d}
+                    </span>
                   </a>
                 ))}
               </>
@@ -658,13 +828,17 @@ export function Nav() {
         <div className="w-full bg-gold/[0.04] border-b border-gold/10 py-2 overflow-hidden select-none text-[10px] sm:text-xs text-gold/90 font-medium uppercase tracking-[0.25em] relative flex items-center">
           <div className="animate-marquee whitespace-nowrap gap-12">
             <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
-            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
+            <span>
+              ✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY
+            </span>
             <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
             <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
             <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
             {/* Duplicate for seamless infinite loop */}
             <span>⚡ LIVE MARKET ROOMS: ACTIVE SETUPS IN PLAY</span>
-            <span>✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY</span>
+            <span>
+              ✦ NEW TECHNICAL ANALYSIS MASTERCLASS BATCH STARTING MONDAY
+            </span>
             <span>⚡ NIFTY 50: EXPANDING BREAKOUT RESISTANCE ZONE</span>
             <span>✦ CORPORATE FLOOR VISITS OPEN FOR WEEKEND ENROLLMENT</span>
             <span>⚡ PRE-MARKET SESSION BRIEF STARTS 9:00 AM IST WEEKDAYS</span>
@@ -673,28 +847,60 @@ export function Nav() {
 
         <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
           <a href="/" className="flex items-center gap-3">
-            <img src={logoAsset} alt="Tirumala Ventures" className="size-16 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]" suppressHydrationWarning />
+            <img
+              src={logoAsset}
+              alt="Tirumala Ventures"
+              className="size-16 object-contain drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]"
+              suppressHydrationWarning
+            />
             <div className="leading-tight">
-              <div className="font-serif text-xl sm:text-2xl text-gold tracking-widest leading-none">TIRUMALA</div>
-              <div className="text-[11px] uppercase tracking-[0.35em] text-gold/80 mt-1">ventures</div>
+              <div className="font-serif text-xl sm:text-2xl text-gold tracking-widest leading-none">
+                TIRUMALA
+              </div>
+              <div className="text-[11px] uppercase tracking-[0.35em] text-gold/80 mt-1">
+                ventures
+              </div>
             </div>
           </a>
           <nav className="hidden lg:flex items-center gap-8">
-            {NAV.map(n => {
+            {NAV.map((n) => {
               if (n.hasDropdown) {
-                return <NavDropdown key={n.href} label={n.label} href={n.href} isGallery={n.isGallery} />;
+                return (
+                  <NavDropdown
+                    key={n.href}
+                    label={n.label}
+                    href={n.href}
+                    isGallery={n.isGallery}
+                  />
+                );
               }
               return (
-                <a key={n.href} href={n.href} className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5">
+                <a
+                  key={n.href}
+                  href={n.href}
+                  className="text-sm tracking-wide text-foreground/80 hover:text-gold transition-colors inline-flex items-center gap-1.5"
+                >
                   <TextReveal text={n.label} className="hover:text-gold" />
-                  {n.soon && <span className="text-[9px] tracking-[0.2em] uppercase px-1.5 py-0.5 rounded-full border border-gold/50 text-gold">Soon</span>}
+                  {n.soon && (
+                    <span className="text-[9px] tracking-[0.2em] uppercase px-1.5 py-0.5 rounded-full border border-gold/50 text-gold">
+                      Soon
+                    </span>
+                  )}
                 </a>
               );
             })}
           </nav>
           <div className="flex items-center gap-3">
-            <a href="#contact" className="hidden md:inline-flex"><Button variant="hero" size="sm">Enroll Now</Button></a>
-            <button onClick={() => setOpen(true)} className="lg:hidden text-gold p-1.5" aria-label="Open Menu">
+            <a href="#contact" className="hidden md:inline-flex">
+              <Button variant="hero" size="sm">
+                Enroll Now
+              </Button>
+            </a>
+            <button
+              onClick={() => setOpen(true)}
+              className="lg:hidden text-gold p-1.5"
+              aria-label="Open Menu"
+            >
               <Layers className="size-6" />
             </button>
           </div>
@@ -703,29 +909,41 @@ export function Nav() {
 
       {/* Backdrop overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-md lg:hidden transition-all duration-300 ${open ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-md lg:hidden transition-all duration-300 ${
+          open ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
         onClick={() => setOpen(false)}
       />
 
       {/* Slide-in glassmorphic drawer */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-72 bg-[#030d08]/95 border-l border-gold/30 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
-          }`}
+        className={`fixed inset-y-0 right-0 z-50 w-72 bg-[#030d08]/95 border-l border-gold/30 p-6 flex flex-col justify-between shadow-gold transition-all duration-300 ease-in-out lg:hidden ${
+          open
+            ? "translate-x-0 opacity-100"
+            : "translate-x-full opacity-0 pointer-events-none"
+        }`}
       >
         <div>
           <div className="flex items-center justify-between pb-6 border-b border-gold/30">
-            <div className="font-serif text-gold tracking-widest text-sm font-semibold">MENU</div>
-            <button onClick={() => setOpen(false)} className="text-gold p-1 hover:text-white" aria-label="Close menu">
+            <div className="font-serif text-gold tracking-widest text-sm font-semibold">
+              MENU
+            </div>
+            <button
+              onClick={() => setOpen(false)}
+              className="text-gold p-1 hover:text-white"
+              aria-label="Close menu"
+            >
               <X className="size-6" />
             </button>
           </div>
           <nav className="flex flex-col gap-2 py-6 overflow-y-auto max-h-[60vh]">
-            {NAV.map(n => {
+            {NAV.map((n) => {
               if (n.hasDropdown) {
                 const isGal = n.isGallery;
                 const expanded = isGal ? galleryExpanded : servicesExpanded;
-                const setExpanded = isGal ? setGalleryExpanded : setServicesExpanded;
+                const setExpanded = isGal
+                  ? setGalleryExpanded
+                  : setServicesExpanded;
                 return (
                   <div key={n.href} className="flex flex-col gap-1">
                     <button
@@ -739,10 +957,15 @@ export function Nav() {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </button>
-                    
+
                     <AnimatePresence>
                       {expanded && (
                         <motion.div
@@ -784,7 +1007,7 @@ export function Nav() {
                               >
                                 • Services Overview
                               </a>
-                              {COURSES.map(course => (
+                              {COURSES.map((course) => (
                                 <a
                                   key={course.t}
                                   href="#courses"
@@ -811,7 +1034,9 @@ export function Nav() {
                 >
                   <span className="tracking-wide">{n.label}</span>
                   {n.soon ? (
-                    <span className="text-[8px] tracking-[0.15em] uppercase px-1.5 py-0.5 rounded-full border border-gold/45 text-gold bg-gold/5">Soon</span>
+                    <span className="text-[8px] tracking-[0.15em] uppercase px-1.5 py-0.5 rounded-full border border-gold/45 text-gold bg-gold/5">
+                      Soon
+                    </span>
                   ) : (
                     <ArrowRight className="size-4 opacity-60 text-gold group-hover:opacity-100 group-hover:text-white transition-all" />
                   )}
@@ -822,10 +1047,17 @@ export function Nav() {
         </div>
         <div className="pt-6 border-t border-gold/30 space-y-4">
           <div className="text-xs text-gold/80 flex flex-col gap-2">
-            <a href="mailto:cmpsgroup@tirumalaventures.in" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
-              <Mail className="size-4 text-gold" /> cmpsgroup@tirumalaventures.in
+            <a
+              href="mailto:cmpsgroup@tirumalaventures.in"
+              className="hover:text-white flex items-center gap-2 py-1 transition-colors"
+            >
+              <Mail className="size-4 text-gold" />{" "}
+              cmpsgroup@tirumalaventures.in
             </a>
-            <a href="tel:+919980196665" className="hover:text-white flex items-center gap-2 py-1 transition-colors">
+            <a
+              href="tel:+919980196665"
+              className="hover:text-white flex items-center gap-2 py-1 transition-colors"
+            >
               <Phone className="size-4 text-gold" /> +91 99801 96665
             </a>
           </div>
@@ -849,18 +1081,48 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   // Mouse-position motion values for perspective tilt
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
-  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), { stiffness: 60, damping: 18 });
-  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), { stiffness: 60, damping: 18 });
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), {
+    stiffness: 60,
+    damping: 18,
+  });
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), {
+    stiffness: 60,
+    damping: 18,
+  });
 
   // Parallax layer offsets (different depths)
-  const layerFarX = useSpring(useTransform(rawX, [-0.5, 0.5], [-18, 18]), { stiffness: 50, damping: 20 });
-  const layerFarY = useSpring(useTransform(rawY, [-0.5, 0.5], [-10, 10]), { stiffness: 50, damping: 20 });
-  const layerMidX = useSpring(useTransform(rawX, [-0.5, 0.5], [-10, 10]), { stiffness: 55, damping: 20 });
-  const layerMidY = useSpring(useTransform(rawY, [-0.5, 0.5], [-6, 6]), { stiffness: 55, damping: 20 });
-  const layerFgX = useSpring(useTransform(rawX, [-0.5, 0.5], [-5, 5]), { stiffness: 60, damping: 22 });
-  const layerFgY = useSpring(useTransform(rawY, [-0.5, 0.5], [-3, 3]), { stiffness: 60, damping: 22 });
-  const layerCardX = useSpring(useTransform(rawX, [-0.5, 0.5], [8, -8]), { stiffness: 55, damping: 20 });
-  const layerCardY = useSpring(useTransform(rawY, [-0.5, 0.5], [5, -5]), { stiffness: 55, damping: 20 });
+  const layerFarX = useSpring(useTransform(rawX, [-0.5, 0.5], [-18, 18]), {
+    stiffness: 50,
+    damping: 20,
+  });
+  const layerFarY = useSpring(useTransform(rawY, [-0.5, 0.5], [-10, 10]), {
+    stiffness: 50,
+    damping: 20,
+  });
+  const layerMidX = useSpring(useTransform(rawX, [-0.5, 0.5], [-10, 10]), {
+    stiffness: 55,
+    damping: 20,
+  });
+  const layerMidY = useSpring(useTransform(rawY, [-0.5, 0.5], [-6, 6]), {
+    stiffness: 55,
+    damping: 20,
+  });
+  const layerFgX = useSpring(useTransform(rawX, [-0.5, 0.5], [-5, 5]), {
+    stiffness: 60,
+    damping: 22,
+  });
+  const layerFgY = useSpring(useTransform(rawY, [-0.5, 0.5], [-3, 3]), {
+    stiffness: 60,
+    damping: 22,
+  });
+  const layerCardX = useSpring(useTransform(rawX, [-0.5, 0.5], [8, -8]), {
+    stiffness: 55,
+    damping: 20,
+  });
+  const layerCardY = useSpring(useTransform(rawY, [-0.5, 0.5], [5, -5]), {
+    stiffness: 55,
+    damping: 20,
+  });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (isMobile) return;
@@ -887,23 +1149,40 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
       {/* ── DEPTH LAYER 0: Farthest — hero background image ── */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
-        style={isMobile ? { scale: 1.08 } : { x: layerFarX, y: layerFarY, scale: 1.08 }}
+        style={
+          isMobile
+            ? { scale: 1.08 }
+            : { x: layerFarX, y: layerFarY, scale: 1.08 }
+        }
       >
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" width={1920} height={1280} suppressHydrationWarning />
+        <img
+          src={heroBg}
+          alt=""
+          className="w-full h-full object-cover opacity-40"
+          width={1920}
+          height={1280}
+          suppressHydrationWarning
+        />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
 
       {/* ── DEPTH LAYER 1: Mid-far — candlestick chart ── */}
       <motion.div
         className="absolute inset-0 pointer-events-none overflow-hidden select-none opacity-20"
-        style={isMobile ? { scale: 1.06 } : { x: layerMidX, y: layerMidY, scale: 1.06 }}
+        style={
+          isMobile
+            ? { scale: 1.06 }
+            : { x: layerMidX, y: layerMidY, scale: 1.06 }
+        }
       >
         <CandlestickBackground />
       </motion.div>
 
       {/* ── MAIN CONTENT TILT WRAPPER (perspective-3d tilt) ── */}
       <motion.div
-        style={isMobile ? {} : { rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={
+          isMobile ? {} : { rotateX, rotateY, transformStyle: "preserve-3d" }
+        }
         className="relative mx-auto max-w-7xl px-6 pt-2 pb-8 lg:pt-4 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center"
       >
         {/* ── DEPTH LAYER 3: Foreground — hero text ── */}
@@ -944,18 +1223,54 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
               </span>
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 text-left">
-              Learn professional trading inside a corporate-grade live trading floor.
-              Mentorship, real-time market exposure and a community of disciplined traders.
+              Learn professional trading inside a corporate-grade live trading
+              floor. Mentorship, real-time market exposure and a community of
+              disciplined traders.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-8 max-w-4xl">
-              <a href="#contact" className="w-full"><Button variant="hero" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><GraduationCap className="size-4 shrink-0" /> Enroll Now</Button></a>
-              <a href="#contact" className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><Calendar className="size-4 shrink-0" /> Book a Visit</Button></a>
-              <Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm cursor-pointer" onClick={onDownloadRequest}><Download className="size-4 shrink-0" /> Download Brochure</Button>
-              <a href="#courses" className="w-full"><Button variant="heroOutline" size="lg" className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"><BookOpen className="size-4 shrink-0" /> Courses</Button></a>
+              <a href="#contact" className="w-full">
+                <Button
+                  variant="hero"
+                  size="lg"
+                  className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"
+                >
+                  <GraduationCap className="size-4 shrink-0" /> Enroll Now
+                </Button>
+              </a>
+              <a href="#contact" className="w-full">
+                <Button
+                  variant="heroOutline"
+                  size="lg"
+                  className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"
+                >
+                  <Calendar className="size-4 shrink-0" /> Book a Visit
+                </Button>
+              </a>
+              <Button
+                variant="heroOutline"
+                size="lg"
+                className="w-full px-2.5 sm:px-8 text-xs sm:text-sm cursor-pointer"
+                onClick={onDownloadRequest}
+              >
+                <Download className="size-4 shrink-0" /> Download Brochure
+              </Button>
+              <a href="#courses" className="w-full">
+                <Button
+                  variant="heroOutline"
+                  size="lg"
+                  className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"
+                >
+                  <BookOpen className="size-4 shrink-0" /> Courses
+                </Button>
+              </a>
             </div>
-            <a href="#floor" className="inline-flex items-center gap-2 text-sm text-gold/90 hover:text-gold">
+            <a
+              href="#floor"
+              className="inline-flex items-center gap-2 text-sm text-gold/90 hover:text-gold"
+            >
               <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
-              Live Trading Corporate Ambience · Trading Floor <ArrowRight className="size-4" />
+              Live Trading Corporate Ambience · Trading Floor{" "}
+              <ArrowRight className="size-4" />
             </a>
           </motion.div>
         </motion.div>
@@ -963,12 +1278,18 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
         {/* ── DEPTH LAYER 4: Card — floats opposite direction (counter-parallax) ── */}
         <motion.div
           className="lg:col-span-5"
-          style={isMobile ? {} : { x: layerCardX, y: layerCardY, translateZ: 50 }}
+          style={
+            isMobile ? {} : { x: layerCardX, y: layerCardY, translateZ: 50 }
+          }
         >
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: 0.15 }}
+            transition={{
+              duration: 0.8,
+              ease: [0.215, 0.61, 0.355, 1],
+              delay: 0.15,
+            }}
           >
             <MouseGlowTracker className="rounded-3xl">
               <div className="relative glass-card glowing-border p-5 sm:p-8 shadow-gold">
@@ -976,14 +1297,31 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                 <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
                   {[
                     { val: 12, suffix: "K+", label: "Active Traders" },
-                    { val: 240, prefix: "₹", suffix: "Cr", label: "Tracked Capital" },
-                    { val: 4.9, suffix: "★", decimals: 1, label: "Mentor Rating" },
-                  ].map(s => (
+                    {
+                      val: 240,
+                      prefix: "₹",
+                      suffix: "Cr",
+                      label: "Tracked Capital",
+                    },
+                    {
+                      val: 4.9,
+                      suffix: "★",
+                      decimals: 1,
+                      label: "Mentor Rating",
+                    },
+                  ].map((s) => (
                     <div key={s.label}>
                       <div className="font-serif text-lg sm:text-2xl text-gold">
-                        <AnimatedCounter value={s.val} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />
+                        <AnimatedCounter
+                          value={s.val}
+                          prefix={s.prefix}
+                          suffix={s.suffix}
+                          decimals={s.decimals}
+                        />
                       </div>
-                      <div className="text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest uppercase text-muted-foreground mt-1 leading-tight">{s.label}</div>
+                      <div className="text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest uppercase text-muted-foreground mt-1 leading-tight">
+                        {s.label}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -995,9 +1333,15 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                     ["GOLD", "₹74,210", "+0.31%"],
                   ].map(([k, v, c]) => (
                     <div key={k} className="grid grid-cols-3 items-center">
-                      <span className="text-muted-foreground tracking-wide text-left">{k}</span>
-                      <span className="text-foreground text-right font-mono pr-2 sm:pr-8">{v}</span>
-                      <span className="text-gold text-right font-mono">{c}</span>
+                      <span className="text-muted-foreground tracking-wide text-left">
+                        {k}
+                      </span>
+                      <span className="text-foreground text-right font-mono pr-2 sm:pr-8">
+                        {v}
+                      </span>
+                      <span className="text-gold text-right font-mono">
+                        {c}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -1007,12 +1351,35 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
         </motion.div>
 
         {/* ── HIGHLIGHTS ROW — 3D floating feature cards ── */}
-        <div className="lg:col-span-12 mt-6 pt-6 border-t border-gold/15 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 animate-float-up" style={{ transformStyle: "preserve-3d" }}>
+        <div
+          className="lg:col-span-12 mt-6 pt-6 border-t border-gold/15 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 animate-float-up"
+          style={{ transformStyle: "preserve-3d" }}
+        >
           {[
-            { i: Building2, t: "Corporate Ambience", d: "Live trading floor experience", z: 20 },
-            { i: Users, t: "Expert Mentors", d: "Decade-experienced guidance", z: 30 },
-            { i: TrendingUp, t: "Practical Learning", d: "Trade with real capital", z: 25 },
-            { i: Calendar, t: "Flexible Batches", d: "Weekday & weekend classes", z: 15 },
+            {
+              i: Building2,
+              t: "Corporate Ambience",
+              d: "Live trading floor experience",
+              z: 20,
+            },
+            {
+              i: Users,
+              t: "Expert Mentors",
+              d: "Decade-experienced guidance",
+              z: 30,
+            },
+            {
+              i: TrendingUp,
+              t: "Practical Learning",
+              d: "Trade with real capital",
+              z: 25,
+            },
+            {
+              i: Calendar,
+              t: "Flexible Batches",
+              d: "Weekday & weekend classes",
+              z: 15,
+            },
           ].map(({ i: Icon, t, d, z }) => (
             <motion.div
               key={t}
@@ -1025,8 +1392,12 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                 <Icon className="size-5 text-gold" />
               </div>
               <div>
-                <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors">{t}</div>
-                <div className="text-xs text-muted-foreground mt-1 leading-tight">{d}</div>
+                <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors">
+                  {t}
+                </div>
+                <div className="text-xs text-muted-foreground mt-1 leading-tight">
+                  {d}
+                </div>
               </div>
             </motion.div>
           ))}
@@ -1036,40 +1407,86 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   );
 }
 
-function SectionHeading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
+function SectionHeading({
+  eyebrow,
+  title,
+  sub,
+}: {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+}) {
   return (
     <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 px-4">
       <div className="inline-flex items-center gap-3 text-gold text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-4">
-        <span className="h-px w-6 sm:h-px sm:w-8 bg-gold" /> {eyebrow} <span className="h-px w-6 sm:h-px sm:w-8 bg-gold" />
+        <span className="h-px w-6 sm:h-px sm:w-8 bg-gold" /> {eyebrow}{" "}
+        <span className="h-px w-6 sm:h-px sm:w-8 bg-gold" />
       </div>
-      <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-4 leading-tight">{title}</h2>
-      {sub && <p className="text-muted-foreground text-sm sm:text-base">{sub}</p>}
+      <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl mb-4 leading-tight">
+        {title}
+      </h2>
+      {sub && (
+        <p className="text-muted-foreground text-sm sm:text-base">{sub}</p>
+      )}
     </div>
   );
 }
 
 function About() {
   const leftPillars = [
-    { i: Building2, t: "Professional Environment", d: "Access our corporate-grade live trading floor and professional study environments designed for serious focus." },
-    { i: Activity, t: "Practical Learning", d: "Learn by doing with live market charts, hands-on simulation, and direct execution practice." },
-    { i: Layers, t: "Corporate Infrastructure", d: "Utilize high-speed feeds, interactive smart board displays, and institutional-grade workspace setups." },
+    {
+      i: Building2,
+      t: "Professional Environment",
+      d: "Access our corporate-grade live trading floor and professional study environments designed for serious focus.",
+    },
+    {
+      i: Activity,
+      t: "Practical Learning",
+      d: "Learn by doing with live market charts, hands-on simulation, and direct execution practice.",
+    },
+    {
+      i: Layers,
+      t: "Corporate Infrastructure",
+      d: "Utilize high-speed feeds, interactive smart board displays, and institutional-grade workspace setups.",
+    },
   ];
 
   const rightPillars = [
-    { i: Users, t: "Industry Mentors", d: "Get direct guidance from veteran market traders with over a decade of real-world trading experience." },
-    { i: TrendingUp, t: "Real-Time Markets", d: "Be in the middle of active market sessions, pre-market analysis, and post-market review briefs." },
-    { i: Network, t: "Community Driven", d: "Join a disciplined, active network of traders, technical analysts, and financial enthusiasts." },
+    {
+      i: Users,
+      t: "Industry Mentors",
+      d: "Get direct guidance from veteran market traders with over a decade of real-world trading experience.",
+    },
+    {
+      i: TrendingUp,
+      t: "Real-Time Markets",
+      d: "Be in the middle of active market sessions, pre-market analysis, and post-market review briefs.",
+    },
+    {
+      i: Network,
+      t: "Community Driven",
+      d: "Join a disciplined, active network of traders, technical analysts, and financial enthusiasts.",
+    },
   ];
 
   const metrics = [
     { val: 12, suffix: "K+", label: "Active Traders", i: Users },
-    { val: 240, prefix: "₹", suffix: "Cr", label: "Tracked Capital", i: TrendingUp },
+    {
+      val: 240,
+      prefix: "₹",
+      suffix: "Cr",
+      label: "Tracked Capital",
+      i: TrendingUp,
+    },
     { val: 4.9, suffix: "★", decimals: 1, label: "Mentor Rating", i: Trophy },
     { val: 10, suffix: "+", label: "Years Experience", i: ShieldCheck },
   ];
 
   return (
-    <section id="about" className="pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
+    <section
+      id="about"
+      className="pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden"
+    >
       <div className="mx-auto max-w-7xl px-6">
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto mb-10 px-4">
@@ -1083,7 +1500,11 @@ function About() {
             </h2>
             <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-center max-w-2xl mx-auto">
-              We are a results-driven trading academy and live floor workspace helping aspiring and seasoned traders grow through strategy, discipline, and performance. From foundational knowledge to advanced execution, we turn market analysis into consistent results.
+              We are a results-driven trading academy and live floor workspace
+              helping aspiring and seasoned traders grow through strategy,
+              discipline, and performance. From foundational knowledge to
+              advanced execution, we turn market analysis into consistent
+              results.
             </p>
           </div>
         </ScrollReveal>
@@ -1104,8 +1525,12 @@ function About() {
                       <Icon className="size-6 text-emerald-deep" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">
+                        {t}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">
+                        {d}
+                      </p>
                     </div>
                   </div>
                 </MouseGlowTracker>
@@ -1143,8 +1568,12 @@ function About() {
                       <Icon className="size-6 text-emerald-deep" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">
+                        {t}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">
+                        {d}
+                      </p>
                     </div>
                   </div>
                 </MouseGlowTracker>
@@ -1160,7 +1589,10 @@ function About() {
               {metrics.map((s, index) => {
                 const Icon = s.i;
                 return (
-                  <div key={s.label} className="flex flex-col md:flex-row items-center gap-6 w-full md:w-auto">
+                  <div
+                    key={s.label}
+                    className="flex flex-col md:flex-row items-center gap-6 w-full md:w-auto"
+                  >
                     {index > 0 && (
                       <>
                         <div className="hidden md:block w-px h-12 bg-gold/15" />
@@ -1173,9 +1605,16 @@ function About() {
                       </div>
                       <div>
                         <div className="font-serif text-2xl sm:text-3xl text-gold font-bold">
-                          <AnimatedCounter value={s.val} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />
+                          <AnimatedCounter
+                            value={s.val}
+                            prefix={s.prefix}
+                            suffix={s.suffix}
+                            decimals={s.decimals}
+                          />
                         </div>
-                        <div className="text-[10px] sm:text-xs tracking-wider sm:tracking-widest uppercase text-muted-foreground mt-0.5 leading-tight">{s.label}</div>
+                        <div className="text-[10px] sm:text-xs tracking-wider sm:tracking-widest uppercase text-muted-foreground mt-0.5 leading-tight">
+                          {s.label}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1262,7 +1701,9 @@ function Services() {
                         </div>
                         <div className="mt-auto flex items-center gap-1.5 text-xs font-semibold tracking-wider text-[#c57d29] hover:text-gold transition-colors uppercase cursor-pointer">
                           <span>Learn More</span>
-                          <span className="group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                          <span className="group-hover:translate-x-1.5 transition-transform duration-300">
+                            →
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -1275,7 +1716,12 @@ function Services() {
         {/* Bottom stylized divider line with Tirumala Ventures logo */}
         <div className="w-full flex items-center justify-center mt-12 mb-6 gap-6 select-none opacity-45">
           <div className="h-px bg-gold/15 flex-1" />
-          <img src={logoAsset} alt="Tirumala Ventures" className="size-10 object-contain brightness-95" suppressHydrationWarning />
+          <img
+            src={logoAsset}
+            alt="Tirumala Ventures"
+            className="size-10 object-contain brightness-95"
+            suppressHydrationWarning
+          />
           <div className="h-px bg-gold/15 flex-1" />
         </div>
       </div>
@@ -1310,7 +1756,8 @@ function USP() {
               The Tirumala Advantage
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-              If You Are a Experienced Trader, Come join us For the new experience.
+              If You Are a Experienced Trader, Come join us For the new
+              experience.
             </p>
           </div>
         </ScrollReveal>
@@ -1323,7 +1770,12 @@ function USP() {
             const direction = col < 2 ? "left" : "right";
             const delay = (col % 2) * 0.1 + row * 0.05;
             return (
-              <ScrollReveal key={t} direction={direction} delay={delay} className="h-full">
+              <ScrollReveal
+                key={t}
+                direction={direction}
+                delay={delay}
+                className="h-full"
+              >
                 <MouseGlowTracker className="rounded-2xl h-full">
                   <div className="glass-card rounded-2xl overflow-hidden hover:border-gold/40 transition-all duration-300 h-full flex flex-col justify-between relative group min-h-[290px] sm:min-h-[360px]">
                     {/* 3D image — absolute positioned, very large & overlapping */}
@@ -1364,22 +1816,48 @@ function USP() {
   );
 }
 
-
 function TradingFloor() {
   const leftPillars = [
-    { i: Wifi, t: "High-Speed Internet & Mentorship", d: "We Provide High speed internet and A Mentor For Market Analysis" },
-    { i: Activity, t: "Smart Board Interactive Display", d: "Analyze live market charts, indices, and options chains together using our interactive smart board display." },
-    { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
+    {
+      i: Wifi,
+      t: "High-Speed Internet & Mentorship",
+      d: "We Provide High speed internet and A Mentor For Market Analysis",
+    },
+    {
+      i: Activity,
+      t: "Smart Board Interactive Display",
+      d: "Analyze live market charts, indices, and options chains together using our interactive smart board display.",
+    },
+    {
+      i: Monitor,
+      t: "Professional Trading Desks",
+      d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session.",
+    },
   ];
 
   const rightPillars = [
-    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and live market Analysis in a buzzing open-floor environment where traders learn and grow together in real time." },
-    { i: Network, t: "Learning & Networking Space", d: "Dedicated breakout zones and seminar spaces where knowledge meets opportunity — connect with mentors and fellow traders." },
-    { i: ShieldCheck, t: "Institutional-Grade Infrastructure", d: "Every workstation is equipped with professional-level data feeds, Bloomberg terminals access, and enterprise security standards." },
+    {
+      i: Users,
+      t: "Collaborative Trading Environment",
+      d: "Share ideas, strategies and live market Analysis in a buzzing open-floor environment where traders learn and grow together in real time.",
+    },
+    {
+      i: Network,
+      t: "Learning & Networking Space",
+      d: "Dedicated breakout zones and seminar spaces where knowledge meets opportunity — connect with mentors and fellow traders.",
+    },
+    {
+      i: ShieldCheck,
+      t: "Institutional-Grade Infrastructure",
+      d: "Every workstation is equipped with professional-level data feeds, Bloomberg terminals access, and enterprise security standards.",
+    },
   ];
 
   return (
-    <section id="floor" className="pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden bg-card/40">
+    <section
+      id="floor"
+      className="pt-16 pb-16 sm:pt-20 sm:pb-24 overflow-hidden bg-card/40"
+    >
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <ScrollReveal>
@@ -1394,7 +1872,9 @@ function TradingFloor() {
             </h2>
             <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-              Step inside an institutional-grade trading floor meticulously designed for serious market participants. Every detail engineered for performance, focus, and professional growth.
+              Step inside an institutional-grade trading floor meticulously
+              designed for serious market participants. Every detail engineered
+              for performance, focus, and professional growth.
             </p>
           </div>
         </ScrollReveal>
@@ -1404,15 +1884,24 @@ function TradingFloor() {
           {/* Left Column */}
           <div className="lg:col-span-4 flex flex-col gap-6 justify-between">
             {leftPillars.map(({ i: Icon, t, d }, index) => (
-              <ScrollReveal key={t} direction="left" delay={index * 0.1} className="flex-1">
+              <ScrollReveal
+                key={t}
+                direction="left"
+                delay={index * 0.1}
+                className="flex-1"
+              >
                 <MouseGlowTracker className="rounded-xl h-full">
                   <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-all duration-300 flex items-start gap-4 h-full">
                     <div className="size-12 rounded-xl bg-gold border border-gold/15 flex items-center justify-center shrink-0">
                       <Icon className="size-6 text-emerald-deep" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">
+                        {t}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">
+                        {d}
+                      </p>
                     </div>
                   </div>
                 </MouseGlowTracker>
@@ -1442,15 +1931,24 @@ function TradingFloor() {
           {/* Right Column */}
           <div className="lg:col-span-4 flex flex-col gap-6 justify-between">
             {rightPillars.map(({ i: Icon, t, d }, index) => (
-              <ScrollReveal key={t} direction="right" delay={index * 0.1} className="flex-1">
+              <ScrollReveal
+                key={t}
+                direction="right"
+                delay={index * 0.1}
+                className="flex-1"
+              >
                 <MouseGlowTracker className="rounded-xl h-full">
                   <div className="glass-card rounded-xl p-5 sm:p-6 hover:border-gold/40 transition-all duration-300 flex items-start gap-4 h-full">
                     <div className="size-12 rounded-xl bg-gold border border-gold/15 flex items-center justify-center shrink-0">
                       <Icon className="size-6 text-emerald-deep" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">{t}</h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">{d}</p>
+                      <h3 className="font-serif text-base sm:text-lg text-gold font-semibold uppercase tracking-wider mb-2">
+                        {t}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">
+                        {d}
+                      </p>
                     </div>
                   </div>
                 </MouseGlowTracker>
@@ -1476,35 +1974,120 @@ function TradingFloor() {
 
 function LiveMarket() {
   const initial = [
-    { sym: "RELIANCE", name: "Reliance Industries", price: 2945.20, change: 1.24, call: "BUY", target: 3050, sl: 2890 },
-    { sym: "TCS", name: "Tata Consultancy", price: 4120.55, change: -0.42, call: "HOLD", target: 4250, sl: 4020 },
-    { sym: "HDFCBANK", name: "HDFC Bank", price: 1682.10, change: 0.86, call: "BUY", target: 1740, sl: 1645 },
-    { sym: "INFY", name: "Infosys", price: 1875.40, change: 1.91, call: "BUY", target: 1960, sl: 1820 },
-    { sym: "ICICIBANK", name: "ICICI Bank", price: 1245.75, change: 0.55, call: "BUY", target: 1290, sl: 1210 },
-    { sym: "SBIN", name: "State Bank of India", price: 824.30, change: -0.31, call: "HOLD", target: 860, sl: 798 },
-    { sym: "TATAMOTORS", name: "Tata Motors", price: 982.65, change: 2.14, call: "BUY", target: 1040, sl: 945 },
-    { sym: "ADANIENT", name: "Adani Enterprises", price: 2410.90, change: -1.08, call: "SELL", target: 2300, sl: 2480 },
-    { sym: "BAJFINANCE", name: "Bajaj Finance", price: 7195.40, change: 0.74, call: "BUY", target: 7400, sl: 7050 },
-    { sym: "LT", name: "Larsen & Toubro", price: 3625.20, change: 1.42, call: "BUY", target: 3780, sl: 3540 },
+    {
+      sym: "RELIANCE",
+      name: "Reliance Industries",
+      price: 2945.2,
+      change: 1.24,
+      call: "BUY",
+      target: 3050,
+      sl: 2890,
+    },
+    {
+      sym: "TCS",
+      name: "Tata Consultancy",
+      price: 4120.55,
+      change: -0.42,
+      call: "HOLD",
+      target: 4250,
+      sl: 4020,
+    },
+    {
+      sym: "HDFCBANK",
+      name: "HDFC Bank",
+      price: 1682.1,
+      change: 0.86,
+      call: "BUY",
+      target: 1740,
+      sl: 1645,
+    },
+    {
+      sym: "INFY",
+      name: "Infosys",
+      price: 1875.4,
+      change: 1.91,
+      call: "BUY",
+      target: 1960,
+      sl: 1820,
+    },
+    {
+      sym: "ICICIBANK",
+      name: "ICICI Bank",
+      price: 1245.75,
+      change: 0.55,
+      call: "BUY",
+      target: 1290,
+      sl: 1210,
+    },
+    {
+      sym: "SBIN",
+      name: "State Bank of India",
+      price: 824.3,
+      change: -0.31,
+      call: "HOLD",
+      target: 860,
+      sl: 798,
+    },
+    {
+      sym: "TATAMOTORS",
+      name: "Tata Motors",
+      price: 982.65,
+      change: 2.14,
+      call: "BUY",
+      target: 1040,
+      sl: 945,
+    },
+    {
+      sym: "ADANIENT",
+      name: "Adani Enterprises",
+      price: 2410.9,
+      change: -1.08,
+      call: "SELL",
+      target: 2300,
+      sl: 2480,
+    },
+    {
+      sym: "BAJFINANCE",
+      name: "Bajaj Finance",
+      price: 7195.4,
+      change: 0.74,
+      call: "BUY",
+      target: 7400,
+      sl: 7050,
+    },
+    {
+      sym: "LT",
+      name: "Larsen & Toubro",
+      price: 3625.2,
+      change: 1.42,
+      call: "BUY",
+      target: 3780,
+      sl: 3540,
+    },
   ];
   const [stocks, setStocks] = useState(initial);
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
     const id = setInterval(() => {
-      setStocks(prev => prev.map(s => {
-        const delta = (Math.random() - 0.48) * (s.price * 0.0025);
-        const price = +(s.price + delta).toFixed(2);
-        const change = +((s.change + (Math.random() - 0.5) * 0.15)).toFixed(2);
-        return { ...s, price, change };
-      }));
-      setTick(t => t + 1);
+      setStocks((prev) =>
+        prev.map((s) => {
+          const delta = (Math.random() - 0.48) * (s.price * 0.0025);
+          const price = +(s.price + delta).toFixed(2);
+          const change = +(s.change + (Math.random() - 0.5) * 0.15).toFixed(2);
+          return { ...s, price, change };
+        }),
+      );
+      setTick((t) => t + 1);
     }, 2000);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <section id="live-market" className="pt-6 pb-12 md:pt-8 md:pb-16 bg-card/40">
+    <section
+      id="live-market"
+      className="pt-6 pb-12 md:pt-8 md:pb-16 bg-card/40"
+    >
       <div className="mx-auto max-w-7xl px-6">
         <ScrollReveal>
           <SectionHeading
@@ -1519,38 +2102,73 @@ function LiveMarket() {
               <span className="size-2 rounded-full bg-gold animate-pulse-glow" />
               LIVE · NSE / BSE · Tick #{tick}
             </div>
-            <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wider uppercase">Indicative analysis · Not investment advice</div>
+            <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wider uppercase">
+              Indicative analysis · Not investment advice
+            </div>
           </div>
           <div className="glass-card rounded-2xl overflow-hidden">
             <div className="grid grid-cols-12 px-3 py-3 sm:px-5 text-[9px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.2em] uppercase text-muted-foreground border-b border-gold/15">
-              <div className="col-span-4 md:col-span-3">Live Market Analysis</div>
+              <div className="col-span-4 md:col-span-3">
+                Live Market Analysis
+              </div>
               <div className="col-span-2 md:col-span-2 text-right">LTP</div>
               <div className="col-span-3 md:col-span-2 text-right">Change</div>
-              <div className="hidden md:block md:col-span-2 text-right">Target</div>
+              <div className="hidden md:block md:col-span-2 text-right">
+                Target
+              </div>
               <div className="hidden md:block md:col-span-1 text-right">SL</div>
-              <div className="col-span-3 md:col-span-2 text-right">Recommendation</div>
+              <div className="col-span-3 md:col-span-2 text-right">
+                Recommendation
+              </div>
             </div>
             <div className="divide-y divide-gold/10">
-              {stocks.map(s => {
+              {stocks.map((s) => {
                 const up = s.change >= 0;
-                const callColor = s.call === "BUY" ? "text-emerald-400 border-emerald-400/40 bg-emerald-400/5"
-                  : s.call === "SELL" ? "text-red-400 border-red-400/40 bg-red-400/5"
-                    : "text-gold border-gold/40 bg-gold/5";
+                const callColor =
+                  s.call === "BUY"
+                    ? "text-emerald-400 border-emerald-400/40 bg-emerald-400/5"
+                    : s.call === "SELL"
+                      ? "text-red-400 border-red-400/40 bg-red-400/5"
+                      : "text-gold border-gold/40 bg-gold/5";
                 return (
-                  <div key={s.sym} className="grid grid-cols-12 px-3 py-3 sm:px-5 sm:py-4 items-center hover:bg-gold/[0.03] transition-colors">
+                  <div
+                    key={s.sym}
+                    className="grid grid-cols-12 px-3 py-3 sm:px-5 sm:py-4 items-center hover:bg-gold/[0.03] transition-colors"
+                  >
                     <div className="col-span-4 md:col-span-3">
-                      <div className="font-serif text-sm sm:text-base text-gold leading-tight">{s.sym}</div>
-                      <div className="text-[10px] sm:text-[11px] text-muted-foreground truncate max-w-[80px] sm:max-w-none">{s.name}</div>
+                      <div className="font-serif text-sm sm:text-base text-gold leading-tight">
+                        {s.sym}
+                      </div>
+                      <div className="text-[10px] sm:text-[11px] text-muted-foreground truncate max-w-[80px] sm:max-w-none">
+                        {s.name}
+                      </div>
                     </div>
-                    <div className="col-span-2 md:col-span-2 text-right font-mono text-xs sm:text-sm">₹{s.price.toFixed(2)}</div>
-                    <div className={`col-span-3 md:col-span-2 text-right font-mono text-xs sm:text-sm inline-flex items-center justify-end gap-0.5 sm:gap-1 ${up ? "text-emerald-400" : "text-red-400"}`}>
-                      {up ? <ArrowUpRight className="size-3.5" /> : <ArrowDownRight className="size-3.5" />}
-                      {s.change > 0 ? "+" : ""}{s.change.toFixed(2)}%
+                    <div className="col-span-2 md:col-span-2 text-right font-mono text-xs sm:text-sm">
+                      ₹{s.price.toFixed(2)}
                     </div>
-                    <div className="hidden md:block md:col-span-2 text-right font-mono text-sm text-foreground/80">₹{s.target}</div>
-                    <div className="hidden md:block md:col-span-1 text-right font-mono text-sm text-foreground/60">₹{s.sl}</div>
+                    <div
+                      className={`col-span-3 md:col-span-2 text-right font-mono text-xs sm:text-sm inline-flex items-center justify-end gap-0.5 sm:gap-1 ${up ? "text-emerald-400" : "text-red-400"}`}
+                    >
+                      {up ? (
+                        <ArrowUpRight className="size-3.5" />
+                      ) : (
+                        <ArrowDownRight className="size-3.5" />
+                      )}
+                      {s.change > 0 ? "+" : ""}
+                      {s.change.toFixed(2)}%
+                    </div>
+                    <div className="hidden md:block md:col-span-2 text-right font-mono text-sm text-foreground/80">
+                      ₹{s.target}
+                    </div>
+                    <div className="hidden md:block md:col-span-1 text-right font-mono text-sm text-foreground/60">
+                      ₹{s.sl}
+                    </div>
                     <div className="col-span-3 md:col-span-2 text-right">
-                      <span className={`inline-block text-[9px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border ${callColor}`}>{s.call}</span>
+                      <span
+                        className={`inline-block text-[9px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border ${callColor}`}
+                      >
+                        {s.call}
+                      </span>
                     </div>
                   </div>
                 );
@@ -1558,7 +2176,11 @@ function LiveMarket() {
             </div>
           </div>
           <div className="mt-6 text-center">
-            <a href="#contact" className="inline-block w-full sm:w-auto"><Button variant="hero" size="lg" className="w-full"><LineChart /> Get Daily Live Market Analysis</Button></a>
+            <a href="#contact" className="inline-block w-full sm:w-auto">
+              <Button variant="hero" size="lg" className="w-full">
+                <LineChart /> Get Daily Live Market Analysis
+              </Button>
+            </a>
           </div>
         </ScrollReveal>
       </div>
@@ -1578,10 +2200,13 @@ function Workspace() {
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/50 text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-pulse-glow">
                   <Sparkles className="size-3" /> Coming Soon
                 </div>
-                <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Trading Workspace</h2>
+                <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">
+                  Trading Workspace
+                </h2>
                 <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-center">
-                  A dedicated professional workspace for traders, investors and market enthusiasts
-                  is currently under development and will be launching soon.
+                  A dedicated professional workspace for traders, investors and
+                  market enthusiasts is currently under development and will be
+                  launching soon.
                 </p>
               </div>
             </div>
@@ -1604,10 +2229,14 @@ function TradersCafe() {
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/50 text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-pulse-glow">
                   <Coffee className="size-3.5" /> Coming Soon
                 </div>
-                <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Traders Cafe</h2>
+                <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">
+                  Traders Cafe
+                </h2>
                 <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto text-center">
-                  A premium networking lounge designed for community members to unwind, discuss market setups, 
-                  share trade logs, and collaborate over coffee. A true social hub for disciplined minds.
+                  A premium networking lounge designed for community members to
+                  unwind, discuss market setups, share trade logs, and
+                  collaborate over coffee. A true social hub for disciplined
+                  minds.
                 </p>
               </div>
             </div>
@@ -1620,9 +2249,21 @@ function TradersCafe() {
 
 function UpcomingProjects() {
   const projects = [
-    { title: "Real Estate", desc: "Premium commercial and residential properties built with modern infrastructure and long-term value.", icon: Building2 },
-    { title: "Land Development", desc: "Strategic land acquisition and layout planning, transforming potential spaces into premium plots.", icon: Layers },
-    { title: "Foods & Beverages", desc: "Expanding into high-quality restaurant chains, cafes, and premium food retail experiences.", icon: Coffee }
+    {
+      title: "Real Estate",
+      desc: "Premium commercial and residential properties built with modern infrastructure and long-term value.",
+      icon: Building2,
+    },
+    {
+      title: "Land Development",
+      desc: "Strategic land acquisition and layout planning, transforming potential spaces into premium plots.",
+      icon: Layers,
+    },
+    {
+      title: "Foods & Beverages",
+      desc: "Expanding into high-quality restaurant chains, cafes, and premium food retail experiences.",
+      icon: Coffee,
+    },
   ];
 
   return (
@@ -1635,17 +2276,26 @@ function UpcomingProjects() {
             sub="Exploring new frontiers of value creation under the Tirumala brand. Our future ventures are designed to set new benchmarks."
           />
         </ScrollReveal>
-        
+
         <div className="grid md:grid-cols-3 gap-6 mt-12">
           {projects.map((p, index) => (
-            <ScrollReveal key={p.title} direction="up" delay={index * 0.1} className="h-full">
+            <ScrollReveal
+              key={p.title}
+              direction="up"
+              delay={index * 0.1}
+              className="h-full"
+            >
               <MouseGlowTracker className="rounded-2xl h-full">
                 <div className="glass-card rounded-2xl p-6 flex flex-col items-center text-center hover:border-gold/30 transition-all duration-300 h-full">
                   <div className="size-12 rounded-full bg-gold/10 flex items-center justify-center mb-4 border border-gold/25 text-gold">
                     <p.icon className="size-5" />
                   </div>
-                  <h3 className="font-serif text-lg sm:text-xl text-gold mb-3 uppercase tracking-wide">{p.title}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-center">{p.desc}</p>
+                  <h3 className="font-serif text-lg sm:text-xl text-gold mb-3 uppercase tracking-wide">
+                    {p.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-center">
+                    {p.desc}
+                  </p>
                 </div>
               </MouseGlowTracker>
             </ScrollReveal>
@@ -1661,7 +2311,10 @@ function Courses({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
     <section id="courses" className="section-pad bg-card/40">
       <div className="mx-auto max-w-7xl px-6">
         <ScrollReveal>
-          <SectionHeading eyebrow="Courses" title="Programs crafted for every level" />
+          <SectionHeading
+            eyebrow="Courses"
+            title="Programs crafted for every level"
+          />
         </ScrollReveal>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {COURSES.map((c, index) => {
@@ -1678,8 +2331,18 @@ function Courses({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                   <div className="glass-card rounded-xl p-6 flex flex-col hover:border-gold/40 transition-colors h-full">
                     <BookOpen className="size-7 text-gold mb-4" />
                     <h3 className="font-serif text-xl mb-3">{c.t}</h3>
-                    <p className="text-sm text-muted-foreground mb-6 flex-1">{c.d}</p>
-                    <a href="#contact"><Button variant="heroOutline" size="sm" className="w-full">Learn More <ArrowRight /></Button></a>
+                    <p className="text-sm text-muted-foreground mb-6 flex-1">
+                      {c.d}
+                    </p>
+                    <a href="#contact">
+                      <Button
+                        variant="heroOutline"
+                        size="sm"
+                        className="w-full"
+                      >
+                        Learn More <ArrowRight />
+                      </Button>
+                    </a>
                   </div>
                 </MouseGlowTracker>
               </ScrollReveal>
@@ -1687,7 +2350,14 @@ function Courses({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
           })}
         </div>
         <ScrollReveal className="text-center mt-12">
-          <Button variant="hero" size="lg" className="cursor-pointer" onClick={onDownloadRequest}><Download /> Download Brochure</Button>
+          <Button
+            variant="hero"
+            size="lg"
+            className="cursor-pointer"
+            onClick={onDownloadRequest}
+          >
+            <Download /> Download Brochure
+          </Button>
         </ScrollReveal>
       </div>
     </section>
@@ -1701,12 +2371,30 @@ export const GALLERY = [
   { src: gallery4, label: "Workshops & Events" },
   { src: tradingFloor, label: "Student Interactions" },
   { src: heroBg, label: "Success Stories" },
-  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM.jpeg", label: "Corporate Workspace" },
-  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM (1).jpeg", label: "Premium Trading Desk" },
-  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM (2).jpeg", label: "Trading Discussion Room" },
-  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.55 AM.jpeg", label: "Executive Trading Floor" },
-  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.55 AM (1).jpeg", label: "Interactive Learning Area" },
-  { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.56 AM.jpeg", label: "Collaborative Workspace" },
+  {
+    src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM.jpeg",
+    label: "Corporate Workspace",
+  },
+  {
+    src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM (1).jpeg",
+    label: "Premium Trading Desk",
+  },
+  {
+    src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM (2).jpeg",
+    label: "Trading Discussion Room",
+  },
+  {
+    src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.55 AM.jpeg",
+    label: "Executive Trading Floor",
+  },
+  {
+    src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.55 AM (1).jpeg",
+    label: "Interactive Learning Area",
+  },
+  {
+    src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.56 AM.jpeg",
+    label: "Collaborative Workspace",
+  },
 ];
 
 export function Gallery() {
@@ -1760,7 +2448,10 @@ export function Gallery() {
     <section id="gallery" className="section-pad overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 mb-12">
         <ScrollReveal>
-          <SectionHeading eyebrow="Gallery" title="Moments from our trading floor" />
+          <SectionHeading
+            eyebrow="Gallery"
+            title="Moments from our trading floor"
+          />
         </ScrollReveal>
       </div>
 
@@ -1773,7 +2464,7 @@ export function Gallery() {
             </h3>
             <div className="w-12 h-0.5 bg-gold/50 mt-2" />
           </ScrollReveal>
-          
+
           <ScrollReveal direction="left" delay={0.1}>
             <ImageAutoSlider
               images={row1Images}
@@ -1792,7 +2483,7 @@ export function Gallery() {
             </h3>
             <div className="w-12 h-0.5 bg-gold/50 mt-2" />
           </ScrollReveal>
-          
+
           <ScrollReveal direction="right" delay={0.2}>
             <ImageAutoSlider
               images={row2Images}
@@ -1842,7 +2533,10 @@ export function Gallery() {
             </button>
 
             {/* Lightbox Content */}
-            <div className="relative max-w-[85vw] max-h-[80vh] flex flex-col items-center justify-center gap-4" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="relative max-w-[85vw] max-h-[80vh] flex flex-col items-center justify-center gap-4"
+              onClick={(e) => e.stopPropagation()}
+            >
               <motion.img
                 key={activeIndex}
                 src={GALLERY[activeIndex].src}
@@ -1930,7 +2624,10 @@ function Testimonials() {
   }, [api]);
 
   return (
-    <section id="testimonials" className="section-pad bg-card/40 relative overflow-hidden">
+    <section
+      id="testimonials"
+      className="section-pad bg-card/40 relative overflow-hidden"
+    >
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/[0.02] rounded-full blur-3xl pointer-events-none" />
 
@@ -1952,16 +2649,24 @@ function Testimonials() {
             >
               <CarouselContent className="-ml-4">
                 {TESTIMONIALS.map((t, idx) => (
-                  <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem
+                    key={idx}
+                    className="pl-4 md:basis-1/2 lg:basis-1/3"
+                  >
                     <MouseGlowTracker className="rounded-2xl h-full">
                       <div className="glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full hover:border-gold/30 transition-all duration-300">
                         <div>
                           {/* Quote mark and stars */}
                           <div className="flex items-center justify-between mb-6">
-                            <span className="text-gold text-5xl font-serif leading-none select-none">“</span>
+                            <span className="text-gold text-5xl font-serif leading-none select-none">
+                              “
+                            </span>
                             <div className="flex gap-1">
                               {Array.from({ length: t.rating }).map((_, i) => (
-                                <Sparkles key={i} className="size-4 fill-gold text-gold" />
+                                <Sparkles
+                                  key={i}
+                                  className="size-4 fill-gold text-gold"
+                                />
                               ))}
                             </div>
                           </div>
@@ -1995,8 +2700,11 @@ function Testimonials() {
                 <button
                   key={i}
                   onClick={() => api?.scrollTo(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${current === i ? "bg-gold w-6" : "bg-gold/25 w-2 hover:bg-gold/40"
-                    }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    current === i
+                      ? "bg-gold w-6"
+                      : "bg-gold/25 w-2 hover:bg-gold/40"
+                  }`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
@@ -2013,22 +2721,28 @@ function Careers() {
     <section id="career" className="section-pad bg-card/20">
       <div className="mx-auto max-w-7xl px-6">
         <ScrollReveal>
-          <SectionHeading 
-            eyebrow="Careers" 
-            title="Join the Tirumala Team" 
+          <SectionHeading
+            eyebrow="Careers"
+            title="Join the Tirumala Team"
             sub="We are always looking for talented market analysts, passionate trading mentors, and operations managers to shape the future of financial education."
           />
         </ScrollReveal>
-        
+
         <ScrollReveal direction="up" delay={0.1}>
           <div className="max-w-3xl mx-auto glass-card rounded-3xl p-8 sm:p-12 text-center border border-gold/20">
-            <h3 className="font-serif text-xl sm:text-2xl text-gold mb-4 uppercase tracking-wide">Grow Your Career in Finance</h3>
+            <h3 className="font-serif text-xl sm:text-2xl text-gold mb-4 uppercase tracking-wide">
+              Grow Your Career in Finance
+            </h3>
             <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto text-center">
-              If you have a disciplined approach to the markets, experience in mentoring, or strong analytical skills, we want to hear from you.
+              If you have a disciplined approach to the markets, experience in
+              mentoring, or strong analytical skills, we want to hear from you.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="mailto:careers@tirumalaventures.com" className="w-full sm:w-auto">
+              <a
+                href="mailto:careers@tirumalaventures.com"
+                className="w-full sm:w-auto"
+              >
                 <Button variant="hero" size="lg" className="w-full">
                   <Mail className="size-4 mr-2" /> Email Your Resume
                 </Button>
@@ -2039,7 +2753,7 @@ function Careers() {
                 </Button>
               </a>
             </div>
-            
+
             <div className="text-[10px] sm:text-xs text-muted-foreground mt-6 uppercase tracking-wider">
               Send your CV/Resume with details of your trading experience
             </div>
@@ -2058,7 +2772,9 @@ function Contact() {
     setTimeout(() => {
       setSubmitting(false);
       (e.target as HTMLFormElement).reset();
-      toast.success("Thank you! Our team will reach out within one business day.");
+      toast.success(
+        "Thank you! Our team will reach out within one business day.",
+      );
     }, 600);
   }
 
@@ -2075,7 +2791,10 @@ function Contact() {
   ];
 
   return (
-    <section id="contact" className="relative section-pad overflow-hidden flex items-center justify-center min-h-[700px] bg-background">
+    <section
+      id="contact"
+      className="relative section-pad overflow-hidden flex items-center justify-center min-h-[700px] bg-background"
+    >
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <img
@@ -2095,9 +2814,12 @@ function Contact() {
               Contact Us
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-[1.1] text-foreground font-medium uppercase mb-10 tracking-wide">
-              Let's Build<br />
-              Something<br />
-              Amazing<br />
+              Let's Build
+              <br />
+              Something
+              <br />
+              Amazing
+              <br />
               Together!
             </h2>
 
@@ -2112,7 +2834,9 @@ function Contact() {
                   <MapPin className="size-5 text-gold" />
                 </div>
                 <span className="leading-relaxed">
-                  Iconic Trade Center, Second Floor, Above Ramraj Showroom, Opp. Karnataka Bank, Near NTTF Stop, Hosa Yellapur, Dharwad - 580001
+                  Iconic Trade Center, Second Floor, Above Ramraj Showroom, Opp.
+                  Karnataka Bank, Near NTTF Stop, Hosa Yellapur, Dharwad -
+                  580001
                 </span>
               </a>
               <div className="flex items-center gap-4">
@@ -2140,7 +2864,10 @@ function Contact() {
         {/* Right Column: Glassmorphic Contact Card */}
         <ScrollReveal direction="right" className="lg:col-span-7 w-full">
           <MouseGlowTracker className="rounded-3xl w-full">
-            <form onSubmit={onSubmit} className="glass-card rounded-3xl p-6 sm:p-10 text-left relative z-10 w-full hover:border-gold/30 transition-all duration-500">
+            <form
+              onSubmit={onSubmit}
+              className="glass-card rounded-3xl p-6 sm:p-10 text-left relative z-10 w-full hover:border-gold/30 transition-all duration-500"
+            >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
                 <div>
                   <h3 className="font-serif text-xl sm:text-2xl font-semibold text-foreground tracking-wide flex items-center gap-2">
@@ -2148,14 +2875,19 @@ function Contact() {
                   </h3>
                   <div className="mt-2 text-xs sm:text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap">
                     <span>Mail us at</span>
-                    <a href="mailto:cmpsgroup@tirumalaventures.in" className="text-foreground hover:text-gold transition-colors font-medium">
+                    <a
+                      href="mailto:cmpsgroup@tirumalaventures.in"
+                      className="text-foreground hover:text-gold transition-colors font-medium"
+                    >
                       cmpsgroup@tirumalaventures.in
                     </a>
                   </div>
                 </div>
                 {/* Social media links */}
                 <div className="flex items-center gap-3 shrink-0">
-                  <span className="text-xs text-muted-foreground uppercase tracking-widest mr-1">OR</span>
+                  <span className="text-xs text-muted-foreground uppercase tracking-widest mr-1">
+                    OR
+                  </span>
                   <a
                     href="https://facebook.com"
                     target="_blank"
@@ -2184,7 +2916,9 @@ function Contact() {
 
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Your name</Label>
+                    <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">
+                      Your name
+                    </Label>
                     <Input
                       name="name"
                       required
@@ -2193,7 +2927,9 @@ function Contact() {
                     />
                   </div>
                   <div>
-                    <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Email</Label>
+                    <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">
+                      Email
+                    </Label>
                     <Input
                       name="email"
                       type="email"
@@ -2205,7 +2941,9 @@ function Contact() {
                 </div>
 
                 <div>
-                  <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Briefly describe your project idea...</Label>
+                  <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">
+                    Briefly describe your project idea...
+                  </Label>
                   <Textarea
                     name="message"
                     required
@@ -2216,17 +2954,24 @@ function Contact() {
                 </div>
 
                 <div>
-                  <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium block mb-3">I'm looking for...</Label>
+                  <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium block mb-3">
+                    I'm looking for...
+                  </Label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-3.5 gap-x-4">
                     {lookingForOptions.map((opt) => (
-                      <label key={opt.value} className="flex items-center gap-3 cursor-pointer text-xs sm:text-sm text-foreground/90 hover:text-white select-none group">
+                      <label
+                        key={opt.value}
+                        className="flex items-center gap-3 cursor-pointer text-xs sm:text-sm text-foreground/90 hover:text-white select-none group"
+                      >
                         <input
                           type="checkbox"
                           name="lookingFor"
                           value={opt.value}
                           className="appearance-none size-4.5 rounded-full border border-gold/35 bg-[#0e261c]/45 checked:bg-gold checked:border-gold cursor-pointer transition-all relative shrink-0 after:content-[''] after:absolute after:hidden checked:after:block after:left-[5px] after:top-[2px] after:w-[4px] after:h-[7px] after:border-[#0e261c] after:border-r-2 after:border-b-2 after:rotate-45 focus:ring-1 focus:ring-gold/30"
                         />
-                        <span className="group-hover:translate-x-0.5 transition-transform duration-200">{opt.label}</span>
+                        <span className="group-hover:translate-x-0.5 transition-transform duration-200">
+                          {opt.label}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -2248,11 +2993,31 @@ function Contact() {
   );
 }
 
-function Field({ label, name, type = "text", required, placeholder }: { label: string; name: string; type?: string; required?: boolean; placeholder?: string }) {
+function Field({
+  label,
+  name,
+  type = "text",
+  required,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+}) {
   return (
     <div>
-      <Label className="text-xs tracking-widest uppercase text-muted-foreground">{label}</Label>
-      <Input name={name} type={type} required={required} placeholder={placeholder} className="mt-2 bg-input/40 border-gold/20" />
+      <Label className="text-xs tracking-widest uppercase text-muted-foreground">
+        {label}
+      </Label>
+      <Input
+        name={name}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="mt-2 bg-input/40 border-gold/20"
+      />
     </div>
   );
 }
@@ -2308,7 +3073,8 @@ function Leadership() {
       badge: "ANALYST",
       tags: ["Software Engineer", "MBA", "NSE Certified", "14+ Years Exp."],
       bio: "A Software Engineer, MBA graduate, and NSE Certified Professional with over 14 years of experience in the Indian stock market. Having conducted 150+ training programs, specializing in equity research, technical & fundamental analysis, portfolio management, and investor education.",
-      quote: "Knowledge, Discipline, and Consistency are the keys to successful investing.",
+      quote:
+        "Knowledge, Discipline, and Consistency are the keys to successful investing.",
     },
     {
       name: "Prem Kalal",
@@ -2346,7 +3112,9 @@ function Leadership() {
         <div className="mx-auto max-w-7xl px-6">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-3">Our Leadership</div>
+              <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-3">
+                Our Leadership
+              </div>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground uppercase tracking-wide">
                 Founders
               </h2>
@@ -2357,43 +3125,64 @@ function Leadership() {
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             {founders.map((f, i) => {
               const isCEO = i === 1;
-              const orderClass = i === 0 ? "order-1" : i === 1 ? "order-2" : "order-3";
+              const orderClass =
+                i === 0 ? "order-1" : i === 1 ? "order-2" : "order-3";
               return (
-                <ScrollReveal key={f.name} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className={`h-full ${orderClass}`}>
+                <ScrollReveal
+                  key={f.name}
+                  direction={i === 0 ? "left" : i === 2 ? "right" : "up"}
+                  className={`h-full ${orderClass}`}
+                >
                   <MouseGlowTracker className="h-full rounded-3xl">
-                    <div className={`glass-card rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-500 group relative
-                      ${isCEO
-                        ? "border-2 border-gold/70 shadow-[0_0_40px_rgba(180,140,60,0.25)] hover:shadow-[0_0_60px_rgba(180,140,60,0.4)] hover:border-gold scale-[1.02] lg:scale-[1.04] z-10"
-                        : "hover:border-gold/40"
+                    <div
+                      className={`glass-card rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-500 group relative
+                      ${
+                        isCEO
+                          ? "border-2 border-gold/70 shadow-[0_0_40px_rgba(180,140,60,0.25)] hover:shadow-[0_0_60px_rgba(180,140,60,0.4)] hover:border-gold scale-[1.02] lg:scale-[1.04] z-10"
+                          : "hover:border-gold/40"
                       }`}
                     >
                       {/* Badge Tag */}
                       <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-gold text-[#030d08] text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full shadow-lg">
                         {f.badge.includes("CEO") && (
-                          <svg className="size-3 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+                          <svg
+                            className="size-3 shrink-0"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                          </svg>
                         )}
                         {f.badge}
                       </div>
 
                       {/* Photo */}
-                      <div className={`relative overflow-hidden shrink-0 ${isCEO ? "h-80 sm:h-96" : "h-72"}`}>
+                      <div
+                        className={`relative overflow-hidden shrink-0 ${isCEO ? "h-80 sm:h-96" : "h-72"}`}
+                      >
                         <img
                           src={f.img}
                           alt={f.name}
                           className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         />
-                        <div className={`absolute inset-0 ${isCEO
-                          ? "bg-gradient-to-t from-[#030d08] via-[#030d08]/30 to-transparent"
-                          : "bg-gradient-to-t from-[#030d08]/90 via-[#030d08]/20 to-transparent"
-                        }`} />
+                        <div
+                          className={`absolute inset-0 ${
+                            isCEO
+                              ? "bg-gradient-to-t from-[#030d08] via-[#030d08]/30 to-transparent"
+                              : "bg-gradient-to-t from-[#030d08]/90 via-[#030d08]/20 to-transparent"
+                          }`}
+                        />
                         {isCEO && (
                           <div className="absolute inset-0 rounded-tl-3xl rounded-tr-3xl ring-inset ring-2 ring-gold/20 pointer-events-none" />
                         )}
                         <div className="absolute bottom-4 left-0 right-0 px-6">
                           <div className="flex flex-wrap gap-1.5 justify-center">
-                            {f.tags.map(tag => (
-                              <span key={tag} className={`text-[9px] uppercase tracking-widest border rounded-full font-medium px-2 py-0.5
-                                ${isCEO ? "bg-gold/30 border-gold/60 text-gold" : "bg-gold/20 border-gold/30 text-gold"}`}>
+                            {f.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className={`text-[9px] uppercase tracking-widest border rounded-full font-medium px-2 py-0.5
+                                ${isCEO ? "bg-gold/30 border-gold/60 text-gold" : "bg-gold/20 border-gold/30 text-gold"}`}
+                              >
                                 {tag}
                               </span>
                             ))}
@@ -2402,17 +3191,37 @@ function Leadership() {
                       </div>
 
                       {/* Content */}
-                      <div className={`flex flex-col flex-1 ${isCEO ? "p-7 sm:p-9" : "p-6 sm:p-8"}`}>
+                      <div
+                        className={`flex flex-col flex-1 ${isCEO ? "p-7 sm:p-9" : "p-6 sm:p-8"}`}
+                      >
                         <div className="text-center mb-5">
-                          <h3 className={`font-serif font-semibold text-foreground mb-1 ${isCEO ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"}`}>{f.name}</h3>
-                          <p className={`uppercase tracking-[0.2em] font-medium leading-relaxed ${isCEO ? "text-[11px] text-gold" : "text-[10px] text-gold/80"}`}>{f.title}</p>
+                          <h3
+                            className={`font-serif font-semibold text-foreground mb-1 ${isCEO ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"}`}
+                          >
+                            {f.name}
+                          </h3>
+                          <p
+                            className={`uppercase tracking-[0.2em] font-medium leading-relaxed ${isCEO ? "text-[11px] text-gold" : "text-[10px] text-gold/80"}`}
+                          >
+                            {f.title}
+                          </p>
                         </div>
-                        <div className={`h-0.5 mx-auto mb-5 ${isCEO ? "w-16 bg-gold/60" : "w-12 bg-gold/30"}`} />
+                        <div
+                          className={`h-0.5 mx-auto mb-5 ${isCEO ? "w-16 bg-gold/60" : "w-12 bg-gold/30"}`}
+                        />
                         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
-                          {f.bio.map((p, j) => <p key={j} className="text-left">{p}</p>)}
+                          {f.bio.map((p, j) => (
+                            <p key={j} className="text-left">
+                              {p}
+                            </p>
+                          ))}
                         </div>
-                        <div className={`mt-6 pt-5 border-t text-center ${isCEO ? "border-gold/30" : "border-gold/15"}`}>
-                          <div className={`font-signature text-gold tracking-wide select-none leading-none ${isCEO ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl"}`}>
+                        <div
+                          className={`mt-6 pt-5 border-t text-center ${isCEO ? "border-gold/30" : "border-gold/15"}`}
+                        >
+                          <div
+                            className={`font-signature text-gold tracking-wide select-none leading-none ${isCEO ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl"}`}
+                          >
                             {f.signature}
                           </div>
                         </div>
@@ -2431,20 +3240,28 @@ function Leadership() {
         <div className="mx-auto max-w-7xl px-6">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-3">Expert Faculty</div>
+              <div className="text-gold text-xs sm:text-sm tracking-[0.4em] uppercase mb-3">
+                Expert Faculty
+              </div>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground uppercase tracking-wide">
                 Meet Our Mentors
               </h2>
               <div className="w-16 h-0.5 bg-gold/50 mx-auto mt-4" />
               <p className="text-muted-foreground text-sm sm:text-base mt-4 max-w-xl mx-auto">
-                Industry veterans and certified professionals dedicated to transforming your trading journey.
+                Industry veterans and certified professionals dedicated to
+                transforming your trading journey.
               </p>
             </div>
           </ScrollReveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {mentors.map((m, i) => (
-              <ScrollReveal key={m.name} direction="up" className="h-full" style={{ transitionDelay: `${i * 80}ms` }}>
+              <ScrollReveal
+                key={m.name}
+                direction="up"
+                className="h-full"
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
                 <MouseGlowTracker className="rounded-2xl h-full">
                   <div className="glass-card rounded-2xl overflow-hidden flex flex-col h-full hover:border-gold/40 transition-all duration-500 group">
                     {/* Photo or Aesthetic Abstract Placeholder */}
@@ -2460,19 +3277,53 @@ function Leadership() {
                           {/* Deep market-toned base */}
                           <div className="absolute inset-0 bg-gradient-to-br from-[#0c1f12] via-[#071510] to-[#030d08]" />
                           {/* Abstract candlestick SVG art blended in */}
-                          <svg className="absolute inset-0 w-full h-full opacity-[0.12]" viewBox="0 0 200 224" preserveAspectRatio="none">
-                            <polyline points="10,180 30,140 50,160 70,90 90,120 110,60 130,80 150,30 170,50 190,20" fill="none" stroke="#c9a84c" strokeWidth="2"/>
-                            <polyline points="10,200 40,175 70,185 100,145 130,158 160,115 190,95" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.5"/>
-                            {[20,45,70,95,120,145,170].map((x, idx) => (
+                          <svg
+                            className="absolute inset-0 w-full h-full opacity-[0.12]"
+                            viewBox="0 0 200 224"
+                            preserveAspectRatio="none"
+                          >
+                            <polyline
+                              points="10,180 30,140 50,160 70,90 90,120 110,60 130,80 150,30 170,50 190,20"
+                              fill="none"
+                              stroke="#c9a84c"
+                              strokeWidth="2"
+                            />
+                            <polyline
+                              points="10,200 40,175 70,185 100,145 130,158 160,115 190,95"
+                              fill="none"
+                              stroke="#c9a84c"
+                              strokeWidth="1"
+                              opacity="0.5"
+                            />
+                            {[20, 45, 70, 95, 120, 145, 170].map((x, idx) => (
                               <g key={x}>
-                                <rect x={x - 3} y={80 + (idx % 3) * 20} width="6" height={25 + (idx % 4) * 12} fill="#c9a84c" opacity="0.18" rx="1"/>
-                                <line x1={x} y1={74 + (idx % 3) * 20} x2={x} y2={114 + (idx % 3) * 20 + (idx % 4) * 12} stroke="#c9a84c" strokeWidth="1.5" opacity="0.25"/>
+                                <rect
+                                  x={x - 3}
+                                  y={80 + (idx % 3) * 20}
+                                  width="6"
+                                  height={25 + (idx % 4) * 12}
+                                  fill="#c9a84c"
+                                  opacity="0.18"
+                                  rx="1"
+                                />
+                                <line
+                                  x1={x}
+                                  y1={74 + (idx % 3) * 20}
+                                  x2={x}
+                                  y2={114 + (idx % 3) * 20 + (idx % 4) * 12}
+                                  stroke="#c9a84c"
+                                  strokeWidth="1.5"
+                                  opacity="0.25"
+                                />
                               </g>
                             ))}
                           </svg>
                           {/* Giant translucent monogram behind everything */}
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                            <span className="font-serif font-bold text-gold/[0.06] leading-none" style={{ fontSize: "10rem" }}>
+                            <span
+                              className="font-serif font-bold text-gold/[0.06] leading-none"
+                              style={{ fontSize: "10rem" }}
+                            >
                               {m.name.charAt(0)}
                             </span>
                           </div>
@@ -2481,14 +3332,18 @@ function Leadership() {
                           {/* Centered avatar initial circle */}
                           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                             <div className="size-16 rounded-full border border-gold/30 bg-gold/[0.08] flex items-center justify-center shadow-[0_0_20px_rgba(180,140,60,0.15)]">
-                              <span className="font-serif text-2xl font-semibold text-gold/70">{m.name.charAt(0)}</span>
+                              <span className="font-serif text-2xl font-semibold text-gold/70">
+                                {m.name.charAt(0)}
+                              </span>
                             </div>
-                            <span className="text-[8px] text-gold/35 uppercase tracking-[0.35em]">Photo Coming Soon</span>
+                            <span className="text-[8px] text-gold/35 uppercase tracking-[0.35em]">
+                              Photo Coming Soon
+                            </span>
                           </div>
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#030d08]/80 via-transparent to-transparent" />
-                      
+
                       {/* Badge Tag */}
                       <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-gold text-[#030d08] text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full shadow-lg">
                         {m.badge}
@@ -2498,13 +3353,20 @@ function Leadership() {
                     {/* Content */}
                     <div className="flex flex-col flex-1 p-5">
                       <div className="mb-3">
-                        <h3 className="font-serif text-base sm:text-lg font-semibold text-foreground mb-1 text-center">{m.name}</h3>
-                        <p className="text-[9px] uppercase tracking-[0.18em] text-gold/80 font-medium text-center leading-relaxed">{m.title}</p>
+                        <h3 className="font-serif text-base sm:text-lg font-semibold text-foreground mb-1 text-center">
+                          {m.name}
+                        </h3>
+                        <p className="text-[9px] uppercase tracking-[0.18em] text-gold/80 font-medium text-center leading-relaxed">
+                          {m.title}
+                        </p>
                       </div>
 
                       <div className="flex flex-wrap gap-1 justify-center mb-4">
-                        {m.tags.map(tag => (
-                          <span key={tag} className="text-[8px] uppercase tracking-wider bg-gold/10 border border-gold/20 text-gold/80 px-2 py-0.5 rounded-full">
+                        {m.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[8px] uppercase tracking-wider bg-gold/10 border border-gold/20 text-gold/80 px-2 py-0.5 rounded-full"
+                          >
                             {tag}
                           </span>
                         ))}
@@ -2512,7 +3374,9 @@ function Leadership() {
 
                       <div className="w-8 h-px bg-gold/30 mx-auto mb-3" />
 
-                      <p className="text-xs text-muted-foreground leading-relaxed text-center sm:text-left flex-1">{m.bio}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed text-center sm:text-left flex-1">
+                        {m.bio}
+                      </p>
 
                       {m.quote && (
                         <div className="mt-4 pt-4 border-t border-gold/10">
@@ -2533,27 +3397,59 @@ function Leadership() {
   );
 }
 
-export function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
+export function Footer({
+  onDownloadRequest,
+}: {
+  onDownloadRequest?: () => void;
+}) {
   return (
     <footer className="border-t border-gold/15 py-12">
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
         <div className="lg:col-span-3">
-          <div className="font-serif text-xl text-gold tracking-widest mb-2">TIRUMALA</div>
-          <div className="text-xs uppercase tracking-[0.3em] text-gold/80 mb-4">ventures</div>
-          <p className="text-sm text-muted-foreground">A premium trading education and live trading workspace — a unit of CMPS group.</p>
+          <div className="font-serif text-xl text-gold tracking-widest mb-2">
+            TIRUMALA
+          </div>
+          <div className="text-xs uppercase tracking-[0.3em] text-gold/80 mb-4">
+            ventures
+          </div>
+          <p className="text-sm text-muted-foreground">
+            A premium trading education and live trading workspace — a unit of
+            CMPS group.
+          </p>
         </div>
         <div className="lg:col-span-2">
           <div className="text-sm font-serif text-gold mb-3">Explore</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            {NAV.map(n => <li key={n.href}><a href={n.href} className="hover:text-gold">{n.label}</a></li>)}
+            {NAV.map((n) => (
+              <li key={n.href}>
+                <a href={n.href} className="hover:text-gold">
+                  {n.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="lg:col-span-2">
           <div className="text-sm font-serif text-gold mb-3">Resources</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><button onClick={onDownloadRequest} className="hover:text-gold inline-flex items-center gap-2 cursor-pointer bg-transparent border-none text-left p-0 focus:outline-none"><Download className="size-4" /> Download Brochure</button></li>
-            <li><a href="#contact" className="hover:text-gold">Book Floor Visit</a></li>
-            <li><a href="#courses" className="hover:text-gold">All Courses</a></li>
+            <li>
+              <button
+                onClick={onDownloadRequest}
+                className="hover:text-gold inline-flex items-center gap-2 cursor-pointer bg-transparent border-none text-left p-0 focus:outline-none"
+              >
+                <Download className="size-4" /> Download Brochure
+              </button>
+            </li>
+            <li>
+              <a href="#contact" className="hover:text-gold">
+                Book Floor Visit
+              </a>
+            </li>
+            <li>
+              <a href="#courses" className="hover:text-gold">
+                All Courses
+              </a>
+            </li>
           </ul>
         </div>
         <div className="lg:col-span-3">
@@ -2566,11 +3462,23 @@ export function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }
                 rel="noopener noreferrer"
                 className="hover:text-gold transition-colors"
               >
-                Iconic Trade Center, Second Floor, Above Ramraj Showroom, Opp. Karnataka Bank, Near NTTF Stop, Hosa Yellapur, Dharwad - 580001
+                Iconic Trade Center, Second Floor, Above Ramraj Showroom, Opp.
+                Karnataka Bank, Near NTTF Stop, Hosa Yellapur, Dharwad - 580001
               </a>
             </li>
-            <li className="pt-2"><a href="tel:+919980196665" className="hover:text-gold">+91 99801 96665</a></li>
-            <li><a href="mailto:cmpsgroup@tirumalaventures.in" className="hover:text-gold break-all">cmpsgroup@tirumalaventures.in</a></li>
+            <li className="pt-2">
+              <a href="tel:+919980196665" className="hover:text-gold">
+                +91 99801 96665
+              </a>
+            </li>
+            <li>
+              <a
+                href="mailto:cmpsgroup@tirumalaventures.in"
+                className="hover:text-gold break-all"
+              >
+                cmpsgroup@tirumalaventures.in
+              </a>
+            </li>
           </ul>
         </div>
         <div className="lg:col-span-2 h-48 lg:h-auto min-h-[160px]">
@@ -2585,14 +3493,22 @@ export function Footer({ onDownloadRequest }: { onDownloadRequest?: () => void }
         </div>
       </div>
       <div className="mx-auto max-w-7xl px-6 mt-10 pt-6 border-t border-gold/10 text-xs text-muted-foreground flex flex-wrap justify-between gap-3">
-        <span>© {new Date().getFullYear()} Tirumala Ventures. All rights reserved.</span>
+        <span>
+          © {new Date().getFullYear()} Tirumala Ventures. All rights reserved.
+        </span>
         <span>Crafted with discipline.</span>
       </div>
     </footer>
   );
 }
 
-export function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export function BrochureModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -2634,8 +3550,11 @@ export function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
-      
+      <div
+        className="absolute inset-0 bg-black/80 backdrop-blur-md"
+        onClick={onClose}
+      />
+
       {/* Modal Content */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -2655,15 +3574,23 @@ export function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           <div className="size-12 rounded-full border border-gold/30 bg-gold/10 flex items-center justify-center mx-auto mb-4">
             <Download className="size-6 text-gold animate-bounce" />
           </div>
-          <h3 className="font-serif text-xl sm:text-2xl text-gold mb-2 uppercase tracking-wide">Request Brochure</h3>
+          <h3 className="font-serif text-xl sm:text-2xl text-gold mb-2 uppercase tracking-wide">
+            Request Brochure
+          </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-normal">
-            Enter your details below to instantly download the brochure and receive a copy on your WhatsApp.
+            Enter your details below to instantly download the brochure and
+            receive a copy on your WhatsApp.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="brochure-name" className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Your Name</Label>
+            <Label
+              htmlFor="brochure-name"
+              className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
+            >
+              Your Name
+            </Label>
             <Input
               id="brochure-name"
               type="text"
@@ -2676,7 +3603,12 @@ export function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           </div>
 
           <div>
-            <Label htmlFor="brochure-email" className="text-xs tracking-widest uppercase text-muted-foreground font-medium">Email Address</Label>
+            <Label
+              htmlFor="brochure-email"
+              className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
+            >
+              Email Address
+            </Label>
             <Input
               id="brochure-email"
               type="email"
@@ -2689,7 +3621,12 @@ export function BrochureModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           </div>
 
           <div>
-            <Label htmlFor="brochure-whatsapp" className="text-xs tracking-widest uppercase text-muted-foreground font-medium">WhatsApp Number</Label>
+            <Label
+              htmlFor="brochure-whatsapp"
+              className="text-xs tracking-widest uppercase text-muted-foreground font-medium"
+            >
+              WhatsApp Number
+            </Label>
             <Input
               id="brochure-whatsapp"
               type="tel"

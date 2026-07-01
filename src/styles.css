@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mr+De+Haviland&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mr+De+Haviland&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -104,7 +104,11 @@
   --gold: oklch(0.82 0.14 90);
   --gold-soft: oklch(0.88 0.1 90);
   --emerald-deep: oklch(0.13 0.035 155);
-  --gradient-gold: linear-gradient(135deg, oklch(0.86 0.13 92), oklch(0.7 0.16 75));
+  --gradient-gold: linear-gradient(
+    135deg,
+    oklch(0.86 0.13 92),
+    oklch(0.7 0.16 75)
+  );
   --shadow-gold: 0 10px 40px -10px oklch(0.82 0.14 90 / 0.35);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -202,7 +206,6 @@
 }
 
 @keyframes pulse-glow {
-
   0%,
   100% {
     box-shadow: 0 0 0 0 oklch(0.82 0.14 90 / 0.5);
@@ -235,11 +238,17 @@
 }
 
 @utility glass-card {
-  background: linear-gradient(180deg, oklch(0.22 0.045 155 / 0.55), oklch(0.18 0.04 155 / 0.45));
+  background: linear-gradient(
+    180deg,
+    oklch(0.22 0.045 155 / 0.55),
+    oklch(0.18 0.04 155 / 0.45)
+  );
   border: 1px solid oklch(0.82 0.14 90 / 0.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: inset 0 1px 1px 0 oklch(1 0 0 / 0.05), 0 10px 30px -10px oklch(0 0 0 / 0.3);
+  box-shadow:
+    inset 0 1px 1px 0 oklch(1 0 0 / 0.05),
+    0 10px 30px -10px oklch(0 0 0 / 0.3);
 }
 
 @keyframes border-gradient-rotate {
@@ -266,10 +275,17 @@
     inset: 0;
     border-radius: inherit;
     padding: 1.5px;
-    background: linear-gradient(135deg, oklch(0.82 0.14 90), oklch(0.4 0.1 155), oklch(0.82 0.14 90));
+    background: linear-gradient(
+      135deg,
+      oklch(0.82 0.14 90),
+      oklch(0.4 0.1 155),
+      oklch(0.82 0.14 90)
+    );
     background-size: 200% 200%;
     animation: border-gradient-rotate 4s linear infinite;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
@@ -324,7 +340,12 @@
 }
 
 @utility animate-shimmer {
-  background: linear-gradient(90deg, transparent, oklch(0.82 0.14 90 / 0.25), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.82 0.14 90 / 0.25),
+    transparent
+  );
   background-size: 200% 100%;
   animation: shimmer 3s linear infinite;
 }
@@ -342,7 +363,7 @@
 }
 
 @utility font-signature {
-  font-family: 'Mr De Haviland', cursive;
+  font-family: "Mr De Haviland", cursive;
 }
 
 @keyframes marquee {

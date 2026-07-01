@@ -9,13 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        default:
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         hero: "gradient-gold text-primary-foreground shadow-gold hover:brightness-110 font-semibold tracking-wide",
-        heroOutline: "border border-gold/60 text-gold bg-transparent hover:bg-gold/10 font-semibold tracking-wide",
-        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        heroOutline:
+          "border border-gold/60 text-gold bg-transparent hover:bg-gold/10 font-semibold tracking-wide",
+        destructive:
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
@@ -34,7 +38,9 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   rippleColor?: string;
   duration?: string;
@@ -53,7 +59,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [buttonRipples, setButtonRipples] = React.useState<
       Array<{ x: number; y: number; size: number; key: number }>
@@ -82,7 +88,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const lastRipple = buttonRipples[buttonRipples.length - 1];
         timeout = setTimeout(() => {
           setButtonRipples((prevRipples) =>
-            prevRipples.filter((ripple) => ripple.key !== lastRipple.key)
+            prevRipples.filter((ripple) => ripple.key !== lastRipple.key),
           );
         }, parseInt(duration));
       }
@@ -95,17 +101,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }, [buttonRipples, duration]);
 
     // Determine default ripple color based on button variant if not explicitly provided
-    const resolvedRippleColor = rippleColor || (
-      variant === "hero" ? "rgba(255, 255, 255, 0.35)" :
-      variant === "heroOutline" ? "rgba(212, 175, 55, 0.25)" :
-      variant === "outline" || variant === "ghost" ? "rgba(212, 175, 55, 0.15)" :
-      "rgba(255, 255, 255, 0.3)"
-    );
+    const resolvedRippleColor =
+      rippleColor ||
+      (variant === "hero"
+        ? "rgba(255, 255, 255, 0.35)"
+        : variant === "heroOutline"
+          ? "rgba(212, 175, 55, 0.25)"
+          : variant === "outline" || variant === "ghost"
+            ? "rgba(212, 175, 55, 0.15)"
+            : "rgba(255, 255, 255, 0.3)");
 
     if (asChild) {
       const Comp = Slot;
       return (
-        <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
+        <Comp
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          {...props}
+        >
           {children}
         </Comp>
       );
@@ -118,7 +131,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
+        <span className="relative z-10 flex items-center justify-center gap-2">
+          {children}
+        </span>
         <span className="pointer-events-none absolute inset-0 block">
           {buttonRipples.map((ripple) => (
             <span
