@@ -47,6 +47,7 @@ import staffRavi from "/staff_images/RaviMudennavar.PNG";
 import staffShrikant from "/staff_images/Shrikant Kurubet.PNG";
 import staffPrem from "/staff_images/PremKalal.PNG";
 import staffGiri from "/staff_images/GiridarshanPattar.PNG";
+import gallery7 from "/gallery7.PNG";
 import CandlestickBackground from "@/components/CandlestickBackground";
 import MouseGlowTracker from "@/components/MouseGlowTracker";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, AnimatePresence } from "framer-motion";
@@ -255,6 +256,7 @@ function Index() {
       <TradingFloor />
       <section id="workspace"><Workspace /></section>
       <TradersCafe />
+      <UpcomingProjects />
       <Courses onDownloadRequest={() => setShowBrochureModal(true)} />
       <Gallery />
       <Testimonials />
@@ -1374,7 +1376,7 @@ function LiveMarket() {
         <ScrollReveal>
           <SectionHeading
             eyebrow="Live Market Analysis"
-            title="Real-time Live Market Analysis"
+            title="Real-time Stock Analysis"
             sub="Mentor-curated live market analysis with entry, target and stop-loss. Updated every few seconds during market hours."
           />
         </ScrollReveal>
@@ -1459,7 +1461,7 @@ function Workspace() {
 
 function TradersCafe() {
   return (
-    <section className="section-pad pt-0">
+    <section className="section-pad pt-0 pb-0">
       <div className="mx-auto max-w-5xl px-6">
         <ScrollReveal direction="left">
           <MouseGlowTracker className="rounded-3xl">
@@ -1478,6 +1480,44 @@ function TradersCafe() {
             </div>
           </MouseGlowTracker>
         </ScrollReveal>
+      </div>
+    </section>
+  );
+}
+
+function UpcomingProjects() {
+  const projects = [
+    { title: "Real Estate", desc: "Premium commercial and residential properties built with modern infrastructure and long-term value.", icon: Building2 },
+    { title: "Land Development", desc: "Strategic land acquisition and layout planning, transforming potential spaces into premium plots.", icon: Layers },
+    { title: "Foods & Beverages", desc: "Expanding into high-quality restaurant chains, cafes, and premium food retail experiences.", icon: Coffee }
+  ];
+
+  return (
+    <section className="section-pad">
+      <div className="mx-auto max-w-5xl px-6">
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="Diversification"
+            title="Upcoming Projects"
+            sub="Exploring new frontiers of value creation under the Tirumala brand. Our future ventures are designed to set new benchmarks."
+          />
+        </ScrollReveal>
+        
+        <div className="grid md:grid-cols-3 gap-6 mt-12">
+          {projects.map((p, index) => (
+            <ScrollReveal key={p.title} direction="up" delay={index * 0.1} className="h-full">
+              <MouseGlowTracker className="rounded-2xl h-full">
+                <div className="glass-card rounded-2xl p-6 flex flex-col items-center text-center hover:border-gold/30 transition-all duration-300 h-full">
+                  <div className="size-12 rounded-full bg-gold/10 flex items-center justify-center mb-4 border border-gold/25 text-gold">
+                    <p.icon className="size-5" />
+                  </div>
+                  <h3 className="font-serif text-lg sm:text-xl text-gold mb-3 uppercase tracking-wide">{p.title}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                </div>
+              </MouseGlowTracker>
+            </ScrollReveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -1526,6 +1566,7 @@ const GALLERY = [
   { src: gallery2, label: "Live Trading Sessions" },
   { src: gallery3, label: "Trading Floor Environment" },
   { src: gallery4, label: "Workshops & Events" },
+  { src: gallery7, label: "Trading Floor Analytics" },
   { src: tradingFloor, label: "Student Interactions" },
   { src: heroBg, label: "Success Stories" },
   { src: "/Office_images/WhatsApp Image 2026-06-30 at 10.58.54 AM.jpeg", label: "Corporate Workspace" },
@@ -1580,8 +1621,8 @@ function Gallery() {
   }, [activeIndex]);
 
   // Split gallery images into two halves for the dual-row marquee
-  const row1Images = GALLERY.slice(0, 6);
-  const row2Images = GALLERY.slice(6, 12);
+  const row1Images = GALLERY.slice(0, 7);
+  const row2Images = GALLERY.slice(7, 13);
 
   return (
     <section id="gallery" className="section-pad overflow-hidden">
@@ -1624,7 +1665,7 @@ function Gallery() {
             <ImageAutoSlider
               images={row2Images}
               onImageClick={(idx) => setActiveIndex(idx)}
-              startIndex={6}
+              startIndex={7}
               reverse={true}
             />
           </ScrollReveal>
