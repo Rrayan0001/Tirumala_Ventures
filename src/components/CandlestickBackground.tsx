@@ -30,7 +30,7 @@ export default function CandlestickBackground() {
 
     // Generate random walk prices for initial candles
     const candles: Candle[] = [];
-    let currentPrice = height * 0.5; // Start in the middle
+    const currentPrice = height * 0.5; // Start in the middle
 
     const generateCandle = (prevClose: number): Candle => {
       const change = (Math.random() - 0.5) * 45; // Price volatility
