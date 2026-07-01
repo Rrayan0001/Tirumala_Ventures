@@ -6,7 +6,7 @@ import {
   Briefcase, Activity, Wallet, ShieldCheck, Sparkles, Building2,
   Network, Layers, Monitor, Wifi, MessageSquare, Trophy, Phone,
   Mail, MapPin, ArrowRight, ArrowLeft, CheckCircle2, Clock, ArrowUpRight, ArrowDownRight, LineChart, X,
-  Facebook, Twitter,
+  Facebook, Twitter, Coffee,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -73,11 +73,11 @@ export const Route = createFileRoute("/")({
 
 const NAV = [
   { label: "Home", href: "#home" },
+  { label: "Live Markets", href: "#live-market" },
   { label: "Services", href: "#services", hasDropdown: true },
-  { label: "Live Market", href: "#live-market" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Floor Life", href: "#gallery" },
+  { label: "Discover", href: "#gallery" },
   { label: "About Us", href: "#about" },
+  { label: "Career", href: "#career" },
   { label: "Contact Us", href: "#contact" },
 ];
 
@@ -254,9 +254,11 @@ function Index() {
       <USP />
       <TradingFloor />
       <section id="workspace"><Workspace /></section>
+      <TradersCafe />
       <Courses onDownloadRequest={() => setShowBrochureModal(true)} />
       <Gallery />
       <Testimonials />
+      <Careers />
       <Contact />
       <Footer onDownloadRequest={() => setShowBrochureModal(true)} />
 
@@ -1455,6 +1457,32 @@ function Workspace() {
   );
 }
 
+function TradersCafe() {
+  return (
+    <section className="section-pad pt-0">
+      <div className="mx-auto max-w-5xl px-6">
+        <ScrollReveal direction="left">
+          <MouseGlowTracker className="rounded-3xl">
+            <div className="relative glass-card glowing-border p-6 sm:p-12 md:p-20 text-center overflow-hidden">
+              <div className="absolute inset-0 animate-shimmer opacity-40" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/50 text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-pulse-glow">
+                  <Coffee className="size-3.5" /> Coming Soon
+                </div>
+                <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl mb-6">Traders Cafe</h2>
+                <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                  A premium networking lounge designed for community members to unwind, discuss market setups, 
+                  share trade logs, and collaborate over coffee. A true social hub for disciplined minds.
+                </p>
+              </div>
+            </div>
+          </MouseGlowTracker>
+        </ScrollReveal>
+      </div>
+    </section>
+  );
+}
+
 function Courses({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
   return (
     <section id="courses" className="section-pad bg-card/40">
@@ -1799,6 +1827,48 @@ function Testimonials() {
                   aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
+            </div>
+          </div>
+        </ScrollReveal>
+      </div>
+    </section>
+  );
+}
+
+function Careers() {
+  return (
+    <section id="career" className="section-pad bg-card/20">
+      <div className="mx-auto max-w-7xl px-6">
+        <ScrollReveal>
+          <SectionHeading 
+            eyebrow="Careers" 
+            title="Join the Tirumala Team" 
+            sub="We are always looking for talented market analysts, passionate trading mentors, and operations managers to shape the future of financial education."
+          />
+        </ScrollReveal>
+        
+        <ScrollReveal direction="up" delay={0.1}>
+          <div className="max-w-3xl mx-auto glass-card rounded-3xl p-8 sm:p-12 text-center border border-gold/20">
+            <h3 className="font-serif text-xl sm:text-2xl text-gold mb-4 uppercase tracking-wide">Grow Your Career in Finance</h3>
+            <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto">
+              If you have a disciplined approach to the markets, experience in mentoring, or strong analytical skills, we want to hear from you.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="mailto:careers@tirumalaventures.com" className="w-full sm:w-auto">
+                <Button variant="hero" size="lg" className="w-full">
+                  <Mail className="size-4 mr-2" /> Email Your Resume
+                </Button>
+              </a>
+              <a href="#contact" className="w-full sm:w-auto">
+                <Button variant="heroOutline" size="lg" className="w-full">
+                  Contact HR Team
+                </Button>
+              </a>
+            </div>
+            
+            <div className="text-[10px] sm:text-xs text-muted-foreground mt-6 uppercase tracking-wider">
+              Send your CV/Resume with details of your trading experience
             </div>
           </div>
         </ScrollReveal>
