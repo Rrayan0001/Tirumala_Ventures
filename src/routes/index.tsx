@@ -1318,9 +1318,9 @@ function USP() {
 
 function TradingFloor() {
   const leftPillars = [
-    { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
-    { i: Activity, t: "Smart Board Interactive Display", d: "Analyze live market charts, indices, and options chains together using our interactive smart board display." },
     { i: Wifi, t: "High-Speed Internet & Mentorship", d: "We Provide High speed internet and A Mentor For Market Analysis" },
+    { i: Activity, t: "Smart Board Interactive Display", d: "Analyze live market charts, indices, and options chains together using our interactive smart board display." },
+    { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
   ];
 
   const rightPillars = [
