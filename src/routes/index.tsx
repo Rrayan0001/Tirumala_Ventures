@@ -1236,7 +1236,7 @@ function TradingFloor() {
   ];
 
   const rightPillars = [
-    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and live calls in a buzzing open-floor environment where traders learn and grow together in real time." },
+    { i: Users, t: "Collaborative Trading Environment", d: "Share ideas, strategies and live market analysis in a buzzing open-floor environment where traders learn and grow together in real time." },
     { i: Network, t: "Learning & Networking Space", d: "Dedicated breakout zones and seminar spaces where knowledge meets opportunity — connect with mentors and fellow traders." },
     { i: ShieldCheck, t: "Institutional-Grade Infrastructure", d: "Every workstation is equipped with professional-level data feeds, Bloomberg terminals access, and enterprise security standards." },
   ];
@@ -1372,8 +1372,8 @@ function LiveMarket() {
         <ScrollReveal>
           <SectionHeading
             eyebrow="Live Market Analysis"
-            title="Real-time stock calls & analysis"
-            sub="Mentor-curated live trade calls with entry, target and stop-loss. Updated every few seconds during market hours."
+            title="Real-time Live Market Analysis"
+            sub="Mentor-curated live market analysis with entry, target and stop-loss. Updated every few seconds during market hours."
           />
         </ScrollReveal>
         <ScrollReveal direction="right">
@@ -1386,12 +1386,12 @@ function LiveMarket() {
           </div>
           <div className="glass-card rounded-2xl overflow-hidden">
             <div className="grid grid-cols-12 px-3 py-3 sm:px-5 text-[9px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.2em] uppercase text-muted-foreground border-b border-gold/15">
-              <div className="col-span-4 md:col-span-3">Stock</div>
+              <div className="col-span-4 md:col-span-3">Live Market Analysis</div>
               <div className="col-span-2 md:col-span-2 text-right">LTP</div>
               <div className="col-span-3 md:col-span-2 text-right">Change</div>
               <div className="hidden md:block md:col-span-2 text-right">Target</div>
               <div className="hidden md:block md:col-span-1 text-right">SL</div>
-              <div className="col-span-3 md:col-span-2 text-right">Call</div>
+              <div className="col-span-3 md:col-span-2 text-right">Recommendation</div>
             </div>
             <div className="divide-y divide-gold/10">
               {stocks.map(s => {
@@ -1421,7 +1421,7 @@ function LiveMarket() {
             </div>
           </div>
           <div className="mt-6 text-center">
-            <a href="#contact" className="inline-block w-full sm:w-auto"><Button variant="hero" size="lg" className="w-full"><LineChart /> Get Daily Live Calls</Button></a>
+            <a href="#contact" className="inline-block w-full sm:w-auto"><Button variant="hero" size="lg" className="w-full"><LineChart /> Get Daily Live Market Analysis</Button></a>
           </div>
         </ScrollReveal>
       </div>
