@@ -76,7 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" },
       { title: "Tirumala Ventures — Premium Trading Education & Live Trading Floor" },
       { name: "description", content: "India's premier trading institute. Live trading floor, expert mentors, practical courses, corporate ambience." },
       { name: "author", content: "Tirumala Ventures" },
