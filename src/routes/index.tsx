@@ -1003,7 +1003,7 @@ function About() {
   const leftPillars = [
     { i: Building2, t: "Professional Environment", d: "Access our corporate-grade live trading floor and professional study environments designed for serious focus." },
     { i: Activity, t: "Practical Learning", d: "Learn by doing with live market charts, hands-on simulation, and direct execution practice." },
-    { i: Layers, t: "Corporate Infrastructure", d: "Utilize high-speed feeds, multi-screen trading terminals, and institutional-grade workspace setups." },
+    { i: Layers, t: "Corporate Infrastructure", d: "Utilize high-speed feeds, interactive smart board displays, and institutional-grade workspace setups." },
   ];
 
   const rightPillars = [
@@ -1319,7 +1319,7 @@ function USP() {
 function TradingFloor() {
   const leftPillars = [
     { i: Wifi, t: "High-Speed Internet & Mentorship", d: "We Provide High speed internet and A Mentor For Market Analysis" },
-    { i: Activity, t: "Multiple Market-Monitoring Screens", d: "Track indices, futures, options and live charts simultaneously across our wall of institutional-grade multi-screen arrays." },
+    { i: Activity, t: "Smart Board Interactive Display", d: "Analyze live market charts, indices, and options chains together using our interactive smart board display." },
     { i: Monitor, t: "Professional Trading Desks", d: "Our floor features premium ergonomic trading desks with dual-monitor setups, built for precision and speed in every session." },
   ];
 
