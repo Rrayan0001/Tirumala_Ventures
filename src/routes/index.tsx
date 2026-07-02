@@ -484,6 +484,7 @@ function Index() {
       <TradersCafe />
       <UpcomingProjects />
       <Courses onDownloadRequest={() => setShowBrochureModal(true)} />
+      <Gallery />
       <Testimonials />
       <Careers />
       <Contact />
