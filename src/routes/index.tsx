@@ -2819,6 +2819,25 @@ function Testimonials() {
                 />
               ))}
             </div>
+
+            {/* Google Reviews CTA Block */}
+            <div className="mt-12 text-center">
+              <div className="inline-flex flex-col items-center gap-4 max-w-xl mx-auto glass-card rounded-2xl p-6 sm:p-8 border border-gold/15 bg-gold/[0.01] hover:border-gold/30 transition-all duration-300">
+                <div className="text-muted-foreground text-sm sm:text-base leading-relaxed text-center">
+                  We welcome you to share your learning experience or check out what our students are saying on our official Google Business page!
+                </div>
+                <a
+                  href="https://www.google.com/maps/place/Tirumala+Ventures/@15.4468352,75.008312,14z/data=!4m8!3m7!1s0x3bb8d3e97525f26b:0x3f928f32d8dae64c!8m2!3d15.452077!4d75.0107969!9m1!1b1!16s%2Fg%2F11nqf46thw?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 w-full sm:w-auto"
+                >
+                  <Button variant="hero" size="md" className="w-full sm:w-auto cursor-pointer">
+                    Write a Review / View All Reviews
+                  </Button>
+                </a>
+              </div>
+            </div>
           </div>
         </ScrollReveal>
       </div>
