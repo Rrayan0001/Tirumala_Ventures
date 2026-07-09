@@ -184,6 +184,11 @@
 
   p {
     text-align: justify !important;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-justify: inter-word;
   }
 }
 
