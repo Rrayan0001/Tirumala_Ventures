@@ -1499,7 +1499,7 @@ function SectionHeading({
         {title}
       </h2>
       {sub && (
-        <p className="text-muted-foreground text-sm sm:text-base">{sub}</p>
+        <div className="text-muted-foreground text-sm sm:text-base text-center">{sub}</div>
       )}
     </div>
   );
@@ -1566,12 +1566,12 @@ function About() {
               Building Knowledge. Developing Discipline. Creating Independent Market Participants.
             </h2>
             <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
-            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-center max-w-3xl mx-auto">
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-justify max-w-3xl mx-auto">
               Tirumala Ventures is a professional stock market education and mentorship platform committed to making financial-market learning practical, structured, and accessible. Having trained and guided over 1,500 investors, with 150+ trained participants actively participating in the financial markets as traders, our focus goes beyond theoretical education. We help learners develop practical market understanding, risk-management awareness, analytical thinking, emotional discipline, and the confidence to make independent and informed market decisions.
             </p>
-            <p className="text-gold italic text-sm sm:text-base mt-6 font-medium text-center">
+            <div className="text-gold italic text-sm sm:text-base mt-6 font-medium text-center">
               Our Mission: To transform market curiosity into knowledge, and knowledge into disciplined action.
-            </p>
+            </div>
           </div>
         </ScrollReveal>
 
@@ -1699,9 +1699,9 @@ function About() {
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mt-4">
               Our focus goes beyond theoretical learning. We aim to build practical market understanding, disciplined trading habits, and informed decision-making skills that help students navigate the dynamic world of financial markets with confidence.
             </p>
-            <p className="text-gold font-serif text-base sm:text-lg font-medium tracking-wide mt-6 uppercase">
+            <div className="text-gold font-serif text-base sm:text-lg font-medium tracking-wide mt-6 uppercase text-center">
               From Learning to Live Markets — Empowering the Next Generation of Traders.
-            </p>
+            </div>
           </div>
         </ScrollReveal>
       </div>
@@ -2373,7 +2373,7 @@ function UpcomingProjects() {
                   <h3 className="font-serif text-lg sm:text-xl text-gold mb-3 uppercase tracking-wide">
                     {p.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-center">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-justify">
                     {p.desc}
                   </p>
                 </div>
@@ -2843,10 +2843,10 @@ function Careers() {
             <h3 className="font-serif text-xl sm:text-2xl text-gold mb-4 uppercase tracking-wide">
               Grow Your Career in Finance
             </h3>
-            <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto text-center">
+            <div className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto text-center">
               If you have a disciplined approach to the markets, experience in
               mentoring, or strong analytical skills, we want to hear from you.
-            </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
@@ -3304,16 +3304,16 @@ function Leadership() {
                           >
                             {f.name}
                           </h3>
-                          <p
-                            className={`uppercase tracking-[0.2em] font-medium leading-relaxed ${isCEO ? "text-[11px] text-gold" : "text-[10px] text-gold/80"}`}
+                          <div
+                            className={`uppercase tracking-[0.2em] font-medium leading-relaxed text-center ${isCEO ? "text-[11px] text-gold" : "text-[10px] text-gold/80"}`}
                           >
                             {f.title}
-                          </p>
+                          </div>
                         </div>
                         <div
                           className={`h-0.5 mx-auto mb-5 ${isCEO ? "w-16 bg-gold/60" : "w-12 bg-gold/30"}`}
                         />
-                        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
+                        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed flex-1">
                           {f.bio.map((p, j) => (
                             <p key={j} className="text-justify">
                               {p}
@@ -3351,10 +3351,10 @@ function Leadership() {
                 Meet Our Mentors
               </h2>
               <div className="w-16 h-0.5 bg-gold/50 mx-auto mt-4" />
-              <p className="text-muted-foreground text-sm sm:text-base mt-4 max-w-xl mx-auto">
+              <div className="text-muted-foreground text-sm sm:text-base mt-4 max-w-xl mx-auto text-center">
                 Industry veterans and certified professionals dedicated to
                 transforming your trading journey.
-              </p>
+              </div>
             </div>
           </ScrollReveal>
 
@@ -3460,9 +3460,9 @@ function Leadership() {
                         <h3 className="font-serif text-base sm:text-lg font-semibold text-foreground mb-1 text-center">
                           {m.name}
                         </h3>
-                        <p className="text-[9px] uppercase tracking-[0.18em] text-gold/80 font-medium text-center leading-relaxed">
+                        <div className="text-[9px] uppercase tracking-[0.18em] text-gold/80 font-medium text-center leading-relaxed">
                           {m.title}
-                        </p>
+                        </div>
                       </div>
 
                       <div className="flex flex-wrap gap-1 justify-center mb-4">
@@ -3478,15 +3478,15 @@ function Leadership() {
 
                       <div className="w-8 h-px bg-gold/30 mx-auto mb-3" />
 
-                      <p className="text-xs text-muted-foreground leading-relaxed text-justify flex-1">
+                      <div className="text-xs text-muted-foreground leading-relaxed text-justify flex-1">
                         {m.bio}
-                      </p>
+                      </div>
 
                       {m.quote && (
                         <div className="mt-4 pt-4 border-t border-gold/10">
-                          <p className="text-[10px] italic text-gold/70 text-center leading-relaxed">
+                          <div className="text-[10px] italic text-gold/70 text-center leading-relaxed">
                             &ldquo;{m.quote}&rdquo;
-                          </p>
+                          </div>
                         </div>
                       )}
                     </div>
