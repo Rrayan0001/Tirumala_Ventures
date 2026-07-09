@@ -228,7 +228,7 @@ export const NAV = [
 
 export const COURSES = [
   {
-    t: "Beginner Trading Program",
+    t: "Beginner Stock Market Program",
     d: "Stock market basics, demat setup, risk fundamentals and your first trades.",
   },
   {
@@ -236,11 +236,11 @@ export const COURSES = [
     d: "Charts, indicators, patterns and price action — read markets like a pro.",
   },
   {
-    t: "Options Trading Program",
+    t: "Options Education Program",
     d: "Greeks, strategies, hedging and disciplined options execution.",
   },
   {
-    t: "Intraday Trading Strategies",
+    t: "Intraday Trading Education",
     d: "Setups, entries, exits and risk control for active intraday traders.",
   },
   {
@@ -1314,22 +1314,20 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
               </span>
               {/* Line 3 — muted italic, smaller, offbeat weight */}
               <span className="block text-2xl sm:text-3xl lg:text-4xl font-medium italic text-muted-foreground/70 mt-1">
-                with Confidence.
+                with Knowledge, Discipline & Confidence.
               </span>
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 text-left">
-              Learn professional trading inside a corporate-grade live trading
-              floor. Mentorship, real-time market exposure and a community of
-              disciplined traders.
+              Experience professional stock market education through structured learning, experienced mentorship, real-time market exposure, and a corporate-grade learning environment designed for serious investors and traders.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-8 max-w-4xl">
-              <a href="#contact" className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-8 max-w-2xl">
+              <a href="#courses" className="w-full">
                 <Button
                   variant="hero"
                   size="lg"
                   className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"
                 >
-                  <GraduationCap className="size-4 shrink-0" /> Enroll Now
+                  <GraduationCap className="size-4 shrink-0" /> Explore Our Programs
                 </Button>
               </a>
               <a href="#contact" className="w-full">
@@ -1349,15 +1347,6 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
               >
                 <Download className="size-4 shrink-0" /> Download Brochure
               </Button>
-              <a href="#courses" className="w-full">
-                <Button
-                  variant="heroOutline"
-                  size="lg"
-                  className="w-full px-2.5 sm:px-8 text-xs sm:text-sm"
-                >
-                  <BookOpen className="size-4 shrink-0" /> Courses
-                </Button>
-              </a>
             </div>
             <a
               href="#floor"
@@ -1389,21 +1378,10 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
             <MouseGlowTracker className="rounded-3xl">
               <div className="relative glass-card glowing-border p-5 sm:p-8 shadow-gold">
                 <div className="absolute -inset-px rounded-2xl animate-shimmer pointer-events-none" />
-                <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
+                <div className="grid grid-cols-2 gap-4 sm:gap-8 text-center">
                   {[
-                    { val: 12, suffix: "K+", label: "Active Traders" },
-                    {
-                      val: 240,
-                      prefix: "₹",
-                      suffix: "Cr",
-                      label: "Tracked Capital",
-                    },
-                    {
-                      val: 4.9,
-                      suffix: "★",
-                      decimals: 1,
-                      label: "Mentor Rating",
-                    },
+                    { val: 1500, suffix: "+", label: "Investors Trained" },
+                    { val: 150, suffix: "+", label: "Active Traders" },
                   ].map((s) => (
                     <div key={s.label}>
                       <div className="font-serif text-lg sm:text-2xl text-gold">
@@ -1565,16 +1543,10 @@ function About() {
   ];
 
   const metrics = [
-    { val: 12, suffix: "K+", label: "Active Traders", i: Users },
-    {
-      val: 240,
-      prefix: "₹",
-      suffix: "Cr",
-      label: "Tracked Capital",
-      i: TrendingUp,
-    },
-    { val: 4.9, suffix: "★", decimals: 1, label: "Mentor Rating", i: Trophy },
-    { val: 10, suffix: "+", label: "Years Experience", i: ShieldCheck },
+    { val: 1500, suffix: "+", label: "Investors Trained", i: Users },
+    { val: 150, suffix: "+", label: "Active Traders", i: TrendingUp },
+    { val: 150, suffix: "+", label: "Training Programs", i: Trophy },
+    { val: 14, suffix: "+", label: "Years Experience", i: ShieldCheck },
   ];
 
   return (
@@ -1584,22 +1556,21 @@ function About() {
     >
       <div className="mx-auto max-w-7xl px-6">
         <ScrollReveal>
-          <div className="text-center max-w-3xl mx-auto mb-10 px-4">
+          <div className="text-center max-w-4xl mx-auto mb-10 px-4">
             <div className="flex items-center justify-center gap-3 text-gold text-xs tracking-[0.4em] uppercase mb-4">
               <span className="h-[1.5px] w-8 bg-gold/50" />
               <span>About Us</span>
               <span className="h-[1.5px] w-8 bg-gold/50" />
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl mb-4 leading-tight uppercase tracking-wider text-gradient-gold">
-              About Tirumala Ventures
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight uppercase tracking-wider text-gradient-gold">
+              Building Knowledge. Developing Discipline. Creating Independent Market Participants.
             </h2>
             <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
-            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-center max-w-2xl mx-auto">
-              We are a results-driven trading academy and live floor workspace
-              helping aspiring and seasoned traders grow through strategy,
-              discipline, and performance. From foundational knowledge to
-              advanced execution, we turn market analysis into consistent
-              results.
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-center max-w-3xl mx-auto">
+              Tirumala Ventures is a professional stock market education and mentorship platform committed to making financial-market learning practical, structured, and accessible. Having trained and guided over 1,500 investors, with 150+ trained participants actively participating in the financial markets as traders, our focus goes beyond theoretical education. We help learners develop practical market understanding, risk-management awareness, analytical thinking, emotional discipline, and the confidence to make independent and informed market decisions.
+            </p>
+            <p className="text-gold italic text-sm sm:text-base mt-6 font-medium text-center">
+              Our Mission: To transform market curiosity into knowledge, and knowledge into disciplined action.
             </p>
           </div>
         </ScrollReveal>
@@ -1718,6 +1689,21 @@ function About() {
             </div>
           </MouseGlowTracker>
         </ScrollReveal>
+
+        {/* Descriptive Impact Block */}
+        <ScrollReveal direction="up" delay={0.3} className="max-w-4xl mx-auto mt-16 text-center">
+          <div className="glass-card rounded-2xl p-6 sm:p-10 border border-gold/15 bg-gold/[0.01]">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              At Tirumala Ventures, we are proud to have trained and guided over 1,500 investors in stock market education. Today, 150+ of our trained students are actively participating in the financial markets as traders, applying their knowledge, strategies, and risk-management skills in real-market conditions.
+            </p>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mt-4">
+              Our focus goes beyond theoretical learning. We aim to build practical market understanding, disciplined trading habits, and informed decision-making skills that help students navigate the dynamic world of financial markets with confidence.
+            </p>
+            <p className="text-gold font-serif text-base sm:text-lg font-medium tracking-wide mt-6 uppercase">
+              From Learning to Live Markets — Empowering the Next Generation of Traders.
+            </p>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -1738,13 +1724,13 @@ function Services() {
     },
     {
       i: Activity,
-      t: "Live\nTrading",
+      t: "Live Market\nLearning",
       d: "Real-time trading sessions with market analysis and execution strategies.",
       img: box3,
     },
     {
       i: Wallet,
-      t: "Demat\nSupport",
+      t: "Demat Account\nSupport",
       d: "Complete assistance for opening and managing Demat & Trading accounts.",
       img: box4,
     },
@@ -1830,10 +1816,10 @@ function USP() {
     { i: Building2, t: "Corporate Trading Ambience", img: wcuBox2 },
     { i: Users, t: "Experienced Mentors", img: wcuBox3 },
     { i: Sparkles, t: "Practical Learning", img: wcuBox4 },
-    { i: MessageSquare, t: "Real-Time Trade Discussions", img: wcuBox5 },
-    { i: Monitor, t: "Professional Trading Floor", img: wcuBox6 },
+    { i: MessageSquare, t: "Real-Time Market Discussions", img: wcuBox5 },
+    { i: Monitor, t: "Professional Learning Environment", img: wcuBox6 },
     { i: Network, t: "Networking Opportunities", img: wcuBox7 },
-    { i: Trophy, t: "Beginner to Advanced Training", img: wcuBox8 },
+    { i: Trophy, t: "Beginner to Advanced Education", img: wcuBox8 },
   ];
 
   return (
@@ -1851,8 +1837,7 @@ function USP() {
               The Tirumala Advantage
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-              If You Are a Experienced Trader, Come join us For the new
-              experience.
+              We believe successful market participation begins with knowledge, discipline, risk awareness, and continuous learning.
             </p>
           </div>
         </ScrollReveal>
@@ -1920,7 +1905,7 @@ function TradingFloor() {
     },
     {
       i: Activity,
-      t: "Smart Board Interactive Display",
+      t: "Interactive Smart Board",
       d: "Analyze live market charts, indices, and options chains together using our interactive smart board display.",
     },
     {
@@ -1933,7 +1918,7 @@ function TradingFloor() {
   const rightPillars = [
     {
       i: Users,
-      t: "Collaborative Trading Environment",
+      t: "Collaborative Market Environment",
       d: "Share ideas, strategies and live market Analysis in a buzzing open-floor environment where traders learn and grow together in real time.",
     },
     {
@@ -1962,8 +1947,8 @@ function TradingFloor() {
               <span>Trading Floor Showcase</span>
               <span className="h-[1.5px] w-8 bg-gold/50" />
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl mb-4 leading-tight uppercase tracking-wider text-gradient-gold">
-              Live Trading Corporate Ambience
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight uppercase tracking-wider text-gradient-gold">
+              Experience Markets in a Professional Learning Environment
             </h2>
             <div className="w-16 h-[2px] bg-gold mx-auto mb-8" />
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
@@ -2545,7 +2530,7 @@ export function Gallery() {
         <ScrollReveal>
           <SectionHeading
             eyebrow="Gallery"
-            title="Moments from our trading floor"
+            title="Real Learning. Real People. Real Market Experience."
           />
         </ScrollReveal>
       </div>
@@ -2661,6 +2646,36 @@ export function Gallery() {
 
 const TESTIMONIALS = [
   {
+    name: "Siddalingesh Hiremath",
+    role: "Verified Google Review",
+    text: "I have no knowledge about stock market and trading, the institute called Tirumala Ventures gave me excellent training and gave me complete information about it. And if I am fully taught how to trade. The trainer is also very supportive and is a fully trusted institute. Over all very worth it.👍",
+    rating: 5,
+  },
+  {
+    name: "Manoj Kondekar",
+    role: "Verified Google Review",
+    text: "Tirumala Ventures offers comprehensive trading education, with a standout instructor who excels in teaching. Trainers expertise and effective teaching style significantly enhance the learning experience. With a well-rounded curriculum and dedicated support, Tirumala Ventures Institute provides a solid foundation for aspiring traders. Thank you, for your exceptional guidance!",
+    rating: 5,
+  },
+  {
+    name: "Mallikarjunhallikeri Hallikeri",
+    role: "Verified Google Review",
+    text: "Tirumala Ventures Trading Academy sounds like an excellent place for both beginners and experienced traders to enhance their skills. The combination of concise modules, interactive resources, personalized feedback, and ongoing support creates an optimal learning environment. It seems like they've thoughtfully designed their program to cater to the needs of various skill levels.",
+    rating: 5,
+  },
+  {
+    name: "Arjun",
+    role: "Verified Google Review",
+    text: "Tirumala Ventures Trading Academy offers a comprehensive curriculum and interactive learning experience, with knowledgeable instructors and practical application, making it a top choice for traders seeking to enhance their skills and achieve success in the career of trading and financial markets.",
+    rating: 5,
+  },
+  {
+    name: "H Pratham Kumar",
+    role: "Verified Google Review",
+    text: "Trading at Tirumala Ventures has been transformative! Their expert guidance and comprehensive strategies have empowered me to navigate the complexities of the stock market with confidence. From risk management to technical analysis, Tirumala Institute equips traders with the tools for success. Highly recommended for anyone serious about mastering the art of trading!",
+    rating: 5,
+  },
+  {
     name: "Rohan Mehta",
     role: "Professional Swing Trader",
     text: "Tirumala Ventures completely transformed my approach to risk management. The live floor environment is unmatched, allowing me to trade alongside experts and refine my setups daily.",
@@ -2730,8 +2745,8 @@ function Testimonials() {
         <ScrollReveal>
           <SectionHeading
             eyebrow="Reviews"
-            title="Voices of Tirumala Traders"
-            sub="Hear how our live trading floor and mentorship programs are helping students build consistency in the markets."
+            title="Voices from the Tirumala Community"
+            sub="Display only genuine student testimonials, with real names and photographs where permission has been obtained."
           />
         </ScrollReveal>
 
@@ -2818,7 +2833,7 @@ function Careers() {
         <ScrollReveal>
           <SectionHeading
             eyebrow="Careers"
-            title="Join the Tirumala Team"
+            title="Build Your Career with Tirumala Ventures"
             sub="We are always looking for talented market analysts, passionate trading mentors, and operations managers to shape the future of financial education."
           />
         </ScrollReveal>
@@ -2874,15 +2889,15 @@ function Contact() {
   }
 
   const lookingForOptions = [
-    { value: "website", label: "Website" },
-    { value: "mobile-app", label: "Mobile App" },
-    { value: "web-app", label: "Web App" },
-    { value: "ecommerce", label: "E-Commerce" },
-    { value: "brand-identity", label: "Brand Identity" },
-    { value: "3d-animation", label: "3D & Animation" },
-    { value: "social-media", label: "Social Media Marketing" },
-    { value: "brand-strategy", label: "Brand Strategy & Consulting" },
-    { value: "other", label: "Other" },
+    { value: "stock-market-education", label: "Stock Market Education" },
+    { value: "technical-analysis-program", label: "Technical Analysis Program" },
+    { value: "options-education", label: "Options Education" },
+    { value: "mentorship-program", label: "Mentorship Program" },
+    { value: "weekend-classes", label: "Weekend Classes" },
+    { value: "live-market-learning", label: "Live Market Learning" },
+    { value: "demat-account-support", label: "Demat Account Support" },
+    { value: "corporate-floor-visit", label: "Corporate Floor Visit" },
+    { value: "other-enquiry", label: "Other Enquiry" },
   ];
 
   return (
@@ -2909,18 +2924,16 @@ function Contact() {
               Contact Us
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-[1.1] text-foreground font-medium uppercase mb-10 tracking-wide">
-              Let's Build
+              Begin Your
               <br />
-              Something
+              Market Learning
               <br />
-              Amazing
-              <br />
-              Together!
+              Journey
             </h2>
 
             <div className="space-y-6 text-sm sm:text-base text-foreground/90">
               <a
-                href="https://maps.app.goo.gl/Lyj9WyKDTykHPjc79"
+                href="https://maps.app.goo.gl/4jeTJcVi3F4Q4mqT7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-4 hover:text-gold transition-colors group text-left"
@@ -2946,11 +2959,16 @@ function Contact() {
                 </div>
                 <span>cmpsgroup@tirumalaventures.in</span>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md">
+              <div className="flex items-start gap-4">
+                <div className="size-10 rounded-full border border-gold/30 bg-background/50 flex items-center justify-center shrink-0 shadow-md mt-1">
                   <Clock className="size-5 text-gold" />
                 </div>
-                <span>Mon — Sat · 8:30 AM to 8:00 PM IST</span>
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-semibold text-foreground/90">Office Timings:</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Monday to Friday: 9:00 AM to 5:00 PM</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Saturday: 10:00 AM to 5:00 PM</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Sunday: Holiday</span>
+                </div>
               </div>
             </div>
           </div>
@@ -3037,12 +3055,12 @@ function Contact() {
 
                 <div>
                   <Label className="text-xs tracking-widest uppercase text-muted-foreground font-medium">
-                    Briefly describe your project idea...
+                    Briefly describe your enquiry...
                   </Label>
                   <Textarea
                     name="message"
                     required
-                    placeholder="Briefly describe your project idea..."
+                    placeholder="Briefly describe your enquiry..."
                     rows={4}
                     className="mt-2 bg-[#0e261c]/45 border-gold/20 hover:border-gold/35 focus:border-gold/60 focus:bg-[#0e261c]/70 transition-all rounded-xl resize-none"
                   />
@@ -3239,15 +3257,6 @@ function Leadership() {
                     >
                       {/* Badge Tag */}
                       <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-gold text-[#030d08] text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full shadow-lg">
-                        {f.badge.includes("CEO") && (
-                          <svg
-                            className="size-3 shrink-0"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                          >
-                            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-                          </svg>
-                        )}
                         {f.badge}
                       </div>
 
@@ -3508,8 +3517,7 @@ export function Footer({
             ventures
           </div>
           <p className="text-sm text-muted-foreground">
-            A premium trading education and live trading workspace — a unit of
-            CMPS group.
+            Tirumala Ventures — Professional stock market education, mentorship, real-time market exposure, and a growing community of informed investors and disciplined traders.
           </p>
         </div>
         <div className="lg:col-span-2">
@@ -3552,7 +3560,7 @@ export function Footer({
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="leading-relaxed">
               <a
-                href="https://maps.app.goo.gl/Lyj9WyKDTykHPjc79"
+                href="https://maps.app.goo.gl/4jeTJcVi3F4Q4mqT7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gold transition-colors"
@@ -3587,9 +3595,12 @@ export function Footer({
           />
         </div>
       </div>
-      <div className="mx-auto max-w-7xl px-6 mt-10 pt-6 border-t border-gold/10 text-xs text-muted-foreground flex flex-wrap justify-between gap-3">
+      <div className="mx-auto max-w-7xl px-6 mt-10 pt-6 border-t border-gold/10 text-xs text-muted-foreground flex flex-wrap justify-between items-center gap-3">
         <span>
           © {new Date().getFullYear()} Tirumala Ventures. All rights reserved.
+        </span>
+        <span className="text-gold font-medium uppercase tracking-widest text-[10px] sm:text-xs">
+          Think Growth | Think Tirumala
         </span>
         <span>Crafted with discipline.</span>
       </div>
