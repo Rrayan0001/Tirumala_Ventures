@@ -3582,6 +3582,16 @@ export function Footer({
                 cmpsgroup@tirumalaventures.in
               </a>
             </li>
+            <li className="pt-1">
+              <a
+                href="https://maps.app.goo.gl/4jeTJcVi3F4Q4mqT7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gold transition-colors inline-flex items-center gap-1.5"
+              >
+                <MapPin className="size-3.5 text-gold/80" /> Google Profile Link
+              </a>
+            </li>
           </ul>
         </div>
         <div className="lg:col-span-2 h-48 lg:h-auto min-h-[160px]">
