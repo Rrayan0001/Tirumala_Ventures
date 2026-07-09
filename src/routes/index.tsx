@@ -3200,11 +3200,11 @@ function Leadership() {
     },
     {
       name: "Giridarshan Pattar",
-      title: "BCA Graduate (Coder) | Trader | Trainer | Analyst",
+      title: "Trader | Trainer | Analyst",
       img: staffGiri,
       badge: "TRAINER",
-      tags: ["BCA Graduate", "Coder", "Trader", "Trainer"],
-      bio: "With over three years of experience in the financial markets, he has established himself as a dedicated Financial Market Trader and Trainer, specializing in market analysis, trading strategies, and risk management. As a trainer, he is passionate about mentoring aspiring traders through practical, structured, and engaging learning sessions. His teaching approach focuses on simplifying complex market concepts into actionable insights, helping students develop the knowledge, discipline, confidence, and mindset required to make informed trading decisions and pursue long-term success in the financial markets.",
+      tags: ["Trader", "Trainer", "Analyst"],
+      bio: "Financial Market Trader and Trainer, specializing in market analysis, trading strategies, and risk management. As a trainer, he is passionate about mentoring aspiring traders through practical, structured, and engaging learning sessions. His teaching approach focuses on simplifying complex market concepts into actionable insights, helping students develop the knowledge, discipline, confidence, and mindset required to make informed trading decisions and pursue long-term success in the financial markets.",
       quote: null,
     },
     {
