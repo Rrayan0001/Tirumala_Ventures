@@ -35,6 +35,7 @@ import {
   Facebook,
   Twitter,
   Coffee,
+  Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -949,10 +950,10 @@ export function Nav() {
               suppressHydrationWarning
             />
             <div className="leading-tight">
-              <div className="font-serif text-xl sm:text-2xl text-gold tracking-widest leading-none">
+              <div className="font-serif text-lg sm:text-2xl text-gold tracking-wider sm:tracking-widest leading-none">
                 TIRUMALA
               </div>
-              <div className="text-[11px] uppercase tracking-[0.35em] text-gold/80 mt-1">
+              <div className="text-[9px] sm:text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.35em] text-gold/80 mt-1">
                 ventures
               </div>
             </div>
@@ -996,7 +997,7 @@ export function Nav() {
               className="lg:hidden text-gold p-1.5"
               aria-label="Open Menu"
             >
-              <Layers className="size-6" />
+              <Menu className="size-6" />
             </button>
           </div>
         </div>
