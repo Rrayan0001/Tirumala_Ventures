@@ -1317,7 +1317,7 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                 with Knowledge, Discipline & Confidence.
               </span>
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 text-center mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 text-justify mx-auto">
               Experience professional stock market education through structured learning, experienced mentorship, real-time market exposure, and a corporate-grade learning environment designed for serious investors and traders.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-8 max-w-2xl">
@@ -3315,7 +3315,7 @@ function Leadership() {
                         />
                         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed text-center flex-1">
                           {f.bio.map((p, j) => (
-                            <p key={j} className="text-center">
+                            <p key={j} className="text-justify">
                               {p}
                             </p>
                           ))}
@@ -3478,7 +3478,7 @@ function Leadership() {
 
                       <div className="w-8 h-px bg-gold/30 mx-auto mb-3" />
 
-                      <p className="text-xs text-muted-foreground leading-relaxed text-center flex-1">
+                      <p className="text-xs text-muted-foreground leading-relaxed text-justify flex-1">
                         {m.bio}
                       </p>
 
