@@ -1406,41 +1406,23 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                     </div>
                   ))}
                 </div>
-                <div className="mt-8 border-t border-gold/15 pt-6 space-y-4">
+                <div className="mt-8 border-t border-gold/15 pt-6 space-y-3 text-xs sm:text-sm">
                   {[
-                    {
-                      i: Building2,
-                      t: "Corporate Ambience",
-                      d: "Live trading floor experience",
-                    },
-                    {
-                      i: Users,
-                      t: "Expert Mentors",
-                      d: "Decade-experienced guidance",
-                    },
-                    {
-                      i: TrendingUp,
-                      t: "Practical Learning",
-                      d: "Trade with real capital",
-                    },
-                    {
-                      i: Calendar,
-                      t: "Flexible Batches",
-                      d: "Weekday & weekend classes",
-                    },
-                  ].map(({ i: Icon, t, d }) => (
-                    <div key={t} className="flex gap-4 items-start text-left group">
-                      <div className="size-8 rounded-lg bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 group-hover:bg-gold/15 transition-all duration-300">
-                        <Icon className="size-4.5 text-gold" />
-                      </div>
-                      <div>
-                        <div className="text-xs sm:text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors font-medium">
-                          {t}
-                        </div>
-                        <div className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 leading-tight">
-                          {d}
-                        </div>
-                      </div>
+                    ["NIFTY 50", "24,812.45", "+0.84%"],
+                    ["BANK NIFTY", "53,204.10", "+1.12%"],
+                    ["SENSEX", "81,402.30", "+0.67%"],
+                    ["GOLD", "₹74,210", "+0.31%"],
+                  ].map(([k, v, c]) => (
+                    <div key={k} className="grid grid-cols-3 items-center">
+                      <span className="text-muted-foreground tracking-wide text-left">
+                        {k}
+                      </span>
+                      <span className="text-foreground text-right font-mono pr-2 sm:pr-8">
+                        {v}
+                      </span>
+                      <span className="text-gold text-right font-mono">
+                        {c}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -1448,6 +1430,59 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
             </MouseGlowTracker>
           </motion.div>
         </motion.div>
+
+        {/* ── HIGHLIGHTS ROW — 3D floating feature cards ── */}
+        <div
+          className="lg:col-span-12 mt-6 pt-6 border-t border-gold/15 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 animate-float-up"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {[
+            {
+              i: Building2,
+              t: "Corporate Ambience",
+              d: "Live trading floor experience",
+              z: 20,
+            },
+            {
+              i: Users,
+              t: "Expert Mentors",
+              d: "Decade-experienced guidance",
+              z: 30,
+            },
+            {
+              i: TrendingUp,
+              t: "Practical Learning",
+              d: "Trade with real capital",
+              z: 25,
+            },
+            {
+              i: Calendar,
+              t: "Flexible Batches",
+              d: "Weekday & weekend classes",
+              z: 15,
+            },
+          ].map(({ i: Icon, t, d, z }) => (
+            <motion.div
+              key={t}
+              className="flex gap-4 items-start group cursor-default"
+              style={{ translateZ: z }}
+              whileHover={{ translateZ: z + 20, scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <div className="size-10 rounded-xl bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:bg-gold/15 transition-all duration-300 mt-0.5">
+                <Icon className="size-5 text-gold" />
+              </div>
+              <div>
+                <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors">
+                  {t}
+                </div>
+                <div className="text-xs text-muted-foreground mt-1 leading-tight">
+                  {d}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
     </motion.section>
   );
