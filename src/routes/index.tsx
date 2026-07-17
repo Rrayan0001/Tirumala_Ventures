@@ -1246,7 +1246,7 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen flex flex-col justify-center pt-36 pb-12 lg:pt-32 lg:pb-16 overflow-hidden parallax-container"
+      className="relative pt-28 pb-8 sm:pb-12 overflow-hidden parallax-container"
       style={{ perspective: "1200px" }}
     >
       {/* ── DEPTH LAYER 0: Farthest — hero background image ── */}
@@ -1286,7 +1286,7 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
         style={
           isMobile ? {} : { rotateX, rotateY, transformStyle: "preserve-3d" }
         }
-        className="relative mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center"
+        className="relative mx-auto max-w-7xl px-6 pt-2 pb-8 lg:pt-4 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center"
       >
         {/* ── DEPTH LAYER 3: Foreground — hero text ── */}
         <motion.div
