@@ -368,13 +368,13 @@ function AnimatedCounter({
 }
 
 function Index() {
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const hasSeen = sessionStorage.getItem("hasSeenSplash") === "true";
-      if (!hasSeen) {
-        setShowSplash(true);
+      if (hasSeen) {
+        setShowSplash(false);
       }
     }
   }, []);
@@ -403,10 +403,13 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    if (showSplash) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (typeof window !== "undefined") {
+      const hasSeen = sessionStorage.getItem("hasSeenSplash") === "true";
+      if (showSplash && !hasSeen) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
     }
     return () => {
       document.body.style.overflow = "";
@@ -586,6 +589,10 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
   return (
     <>
       <style>{`
+        html.no-splash .intro-overlay {
+          display: none !important;
+        }
+
         .intro-overlay {
           position: fixed;
           inset: 0;
@@ -1239,7 +1246,7 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative pt-28 pb-8 sm:pb-12 overflow-hidden parallax-container"
+      className="relative min-h-screen flex flex-col justify-center pt-36 pb-12 lg:pt-32 lg:pb-16 overflow-hidden parallax-container"
       style={{ perspective: "1200px" }}
     >
       {/* ── DEPTH LAYER 0: Farthest — hero background image ── */}
@@ -1279,7 +1286,7 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
         style={
           isMobile ? {} : { rotateX, rotateY, transformStyle: "preserve-3d" }
         }
-        className="relative mx-auto max-w-7xl px-6 pt-2 pb-8 lg:pt-4 lg:pb-12 grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center"
+        className="relative mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-y-10 lg:gap-y-12 gap-x-12 items-center"
       >
         {/* ── DEPTH LAYER 3: Foreground — hero text ── */}
         <motion.div
@@ -1399,23 +1406,41 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
                     </div>
                   ))}
                 </div>
-                <div className="mt-8 border-t border-gold/15 pt-6 space-y-3 text-xs sm:text-sm">
+                <div className="mt-8 border-t border-gold/15 pt-6 space-y-4">
                   {[
-                    ["NIFTY 50", "24,812.45", "+0.84%"],
-                    ["BANK NIFTY", "53,204.10", "+1.12%"],
-                    ["SENSEX", "81,402.30", "+0.67%"],
-                    ["GOLD", "₹74,210", "+0.31%"],
-                  ].map(([k, v, c]) => (
-                    <div key={k} className="grid grid-cols-3 items-center">
-                      <span className="text-muted-foreground tracking-wide text-left">
-                        {k}
-                      </span>
-                      <span className="text-foreground text-right font-mono pr-2 sm:pr-8">
-                        {v}
-                      </span>
-                      <span className="text-gold text-right font-mono">
-                        {c}
-                      </span>
+                    {
+                      i: Building2,
+                      t: "Corporate Ambience",
+                      d: "Live trading floor experience",
+                    },
+                    {
+                      i: Users,
+                      t: "Expert Mentors",
+                      d: "Decade-experienced guidance",
+                    },
+                    {
+                      i: TrendingUp,
+                      t: "Practical Learning",
+                      d: "Trade with real capital",
+                    },
+                    {
+                      i: Calendar,
+                      t: "Flexible Batches",
+                      d: "Weekday & weekend classes",
+                    },
+                  ].map(({ i: Icon, t, d }) => (
+                    <div key={t} className="flex gap-4 items-start text-left group">
+                      <div className="size-8 rounded-lg bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 group-hover:bg-gold/15 transition-all duration-300">
+                        <Icon className="size-4.5 text-gold" />
+                      </div>
+                      <div>
+                        <div className="text-xs sm:text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors font-medium">
+                          {t}
+                        </div>
+                        <div className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 leading-tight">
+                          {d}
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1423,59 +1448,6 @@ function Hero({ onDownloadRequest }: { onDownloadRequest?: () => void }) {
             </MouseGlowTracker>
           </motion.div>
         </motion.div>
-
-        {/* ── HIGHLIGHTS ROW — 3D floating feature cards ── */}
-        <div
-          className="lg:col-span-12 mt-6 pt-6 border-t border-gold/15 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 animate-float-up"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {[
-            {
-              i: Building2,
-              t: "Corporate Ambience",
-              d: "Live trading floor experience",
-              z: 20,
-            },
-            {
-              i: Users,
-              t: "Expert Mentors",
-              d: "Decade-experienced guidance",
-              z: 30,
-            },
-            {
-              i: TrendingUp,
-              t: "Practical Learning",
-              d: "Trade with real capital",
-              z: 25,
-            },
-            {
-              i: Calendar,
-              t: "Flexible Batches",
-              d: "Weekday & weekend classes",
-              z: 15,
-            },
-          ].map(({ i: Icon, t, d, z }) => (
-            <motion.div
-              key={t}
-              className="flex gap-4 items-start group cursor-default"
-              style={{ translateZ: z }}
-              whileHover={{ translateZ: z + 20, scale: 1.04 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <div className="size-10 rounded-xl bg-gold/5 border border-gold/15 flex items-center justify-center shrink-0 shadow-sm shadow-gold/5 group-hover:bg-gold/15 transition-all duration-300 mt-0.5">
-                <Icon className="size-5 text-gold" />
-              </div>
-              <div>
-                <div className="text-sm font-serif text-gold font-semibold tracking-wide leading-tight group-hover:text-white transition-colors">
-                  {t}
-                </div>
-                <div className="text-xs text-muted-foreground mt-1 leading-tight">
-                  {d}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </motion.div>
     </motion.section>
   );
