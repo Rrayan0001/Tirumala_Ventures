@@ -563,24 +563,28 @@ function Index() {
   );
 }
 
-const LOGO_PHASE_MS = 5000;
+const LOGO_PHASE_MS = 4500;
 const CURTAIN_PHASE_MS = 1200;
 
 function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
-  const [phase, setPhase] = useState<"logo" | "reveal" | "done">("logo");
+  const [phase, setPhase] = useState<"logo" | "ready" | "reveal" | "done">("logo");
 
   useEffect(() => {
-    const revealTimer = setTimeout(() => setPhase("reveal"), LOGO_PHASE_MS);
-    const finishTimer = setTimeout(() => {
+    if (phase === "logo") {
+      const timer = setTimeout(() => {
+        setPhase("ready");
+      }, LOGO_PHASE_MS);
+      return () => clearTimeout(timer);
+    }
+  }, [phase]);
+
+  const handleLaunch = () => {
+    setPhase("reveal");
+    setTimeout(() => {
       setPhase("done");
       onComplete?.();
-    }, LOGO_PHASE_MS + CURTAIN_PHASE_MS);
-
-    return () => {
-      clearTimeout(revealTimer);
-      clearTimeout(finishTimer);
-    };
-  }, [onComplete]);
+    }, CURTAIN_PHASE_MS);
+  };
 
   if (phase === "done") return null;
 
@@ -684,24 +688,10 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
       <div
         className={`intro-overlay ${phase === "reveal" ? "reveal-phase" : ""}`}
       >
-        <AnimatePresence>
-          {phase === "logo" && (
-            <motion.button
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              onClick={onComplete}
-              className="group absolute top-6 right-6 z-[100] px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] text-gold/70 hover:text-gold border border-gold/20 hover:border-gold/50 bg-[#080b09]/60 hover:bg-[#080b09]/90 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer rounded-full flex items-center gap-1.5 font-medium shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_4px_20px_rgba(212,175,55,0.15)]"
-            >
-              <span>Skip Intro</span>
-              <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </motion.button>
-          )}
-        </AnimatePresence>
-
         <div
-          className={`intro-logo-stage ${phase === "logo" ? "is-active" : ""}`}
+          className={`intro-logo-stage ${
+            phase === "logo" || phase === "ready" ? "is-active" : ""
+          }`}
         >
           <div className="intro-logo-wrap">
             {/* Glowing Logo */}
@@ -736,12 +726,28 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
               <div className="h-[1px] w-4/5 bg-gradient-to-r from-transparent via-gold to-transparent mt-2.5 opacity-65" />
             </div>
 
-            {/* Progress line */}
-            <div className="w-48 h-[2px] bg-gold/15 rounded-full overflow-hidden mt-6 mx-auto relative">
-              <div
-                className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar"
-                style={{ animationDuration: `${LOGO_PHASE_MS}ms` }}
-              />
+            {/* Below all text details: Progress Line or Centered Launch Button */}
+            <div className="mt-8 flex flex-col items-center justify-center min-h-[56px]">
+              {phase === "logo" ? (
+                <div className="w-48 h-[2px] bg-gold/15 rounded-full overflow-hidden relative">
+                  <div
+                    className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar"
+                    style={{ animationDuration: `${LOGO_PHASE_MS}ms` }}
+                  />
+                </div>
+              ) : (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.88, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={handleLaunch}
+                  className="group relative inline-flex items-center gap-3 px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-gold/20 via-gold/30 to-gold/20 hover:from-gold hover:via-gold-soft hover:to-gold border border-gold/60 hover:border-gold text-gold hover:text-[#030d08] font-serif text-xs sm:text-sm font-bold uppercase tracking-[0.25em] transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.75)] cursor-pointer active:scale-95"
+                >
+                  <Sparkles className="size-4 text-gold group-hover:text-[#030d08] transition-colors" />
+                  <span>Launch Experience</span>
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 text-gold group-hover:text-[#030d08]" />
+                </motion.button>
+              )}
             </div>
           </div>
         </div>
