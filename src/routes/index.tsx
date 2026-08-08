@@ -563,27 +563,35 @@ function Index() {
   );
 }
 
-const LOGO_PHASE_MS = 4500;
-const CURTAIN_PHASE_MS = 1200;
+const LOGO_PHASE_MS = 3800;
+const CURTAIN_PHASE_MS = 900;
 
 function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
-  const [phase, setPhase] = useState<"logo" | "ready" | "reveal" | "done">("logo");
+  const [phase, setPhase] = useState<"animating" | "reveal" | "done">("animating");
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (phase === "logo") {
-      const timer = setTimeout(() => {
-        setPhase("ready");
-      }, LOGO_PHASE_MS);
-      return () => clearTimeout(timer);
-    }
-  }, [phase]);
-
-  const handleLaunch = () => {
+  const triggerLaunch = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
     setPhase("reveal");
     setTimeout(() => {
       setPhase("done");
       onComplete?.();
     }, CURTAIN_PHASE_MS);
+  };
+
+  useEffect(() => {
+    if (phase === "animating") {
+      timerRef.current = setTimeout(() => {
+        triggerLaunch();
+      }, LOGO_PHASE_MS);
+      return () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+      };
+    }
+  }, [phase]);
+
+  const handleSkip = () => {
+    triggerLaunch();
   };
 
   if (phase === "done") return null;
@@ -598,10 +606,11 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
         .intro-overlay {
           position: fixed;
           inset: 0;
-          background: #000;
+          background: #030d08;
           z-index: 9999;
           overflow: hidden;
-          transition: background-color 0.12s linear;
+          transition: background-color 0.4s ease-out;
+          will-change: background-color;
         }
         .intro-overlay.reveal-phase {
           background: transparent;
@@ -615,38 +624,42 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-        .intro-logo-stage.is-active {
           opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+          transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform, filter;
         }
+        .intro-logo-stage.reveal-out {
+          opacity: 0;
+          transform: scale(1.06);
+          filter: blur(8px);
+          pointer-events: none;
+        }
+
         .intro-logo-wrap {
           position: relative;
           width: min(94vw, 920px);
-          aspect-ratio: 3 / 2;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          animation: logoPop 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: logoPop 1s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         .intro-logo {
           position: relative;
           z-index: 1;
           opacity: 0;
-          transform: scale(0.94);
-          animation: logoFade 0.8s ease-out forwards 0.05s;
+          transform: scale(0.92);
+          animation: logoFade 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.1s;
         }
         @keyframes logoPop {
-          0% { transform: scale(0.82); opacity: 0; }
-          30% { transform: scale(1.04); opacity: 1; }
-          65% { transform: scale(0.98); }
-          100% { transform: scale(1); }
+          0% { transform: scale(0.85); opacity: 0; }
+          40% { transform: scale(1.02); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
         }
         @keyframes logoFade {
-          0% { opacity: 0; transform: scale(0.94); }
-          60% { opacity: 1; transform: scale(1.01); }
+          0% { opacity: 0; transform: scale(0.92); }
           100% { opacity: 1; transform: scale(1); }
         }
 
@@ -656,41 +669,56 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
           z-index: 2;
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
+          pointer-events: none;
         }
         .curtain-panel {
           position: relative;
           height: 100%;
           background: linear-gradient(180deg, oklch(0.13 0.035 155) 0%, oklch(0.08 0.02 155) 100%);
-          border: 1px solid transparent;
-          transform: translateY(0);
+          border-right: 1px solid rgba(212, 175, 55, 0.08);
+          transform: translate3d(0, 0, 0);
+          will-change: transform;
+        }
+        .curtain-panel:last-child {
+          border-right: none;
         }
         .curtain-open .curtain-panel {
-          border-color: rgba(212, 175, 55, 0.85);
+          border-color: rgba(212, 175, 55, 0.4);
         }
         .curtain-open .panel-1 {
-          animation: liftPanel 0.96s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.15s;
+          animation: liftPanel 0.85s cubic-bezier(0.76, 0, 0.24, 1) forwards 0.08s;
         }
         .curtain-open .panel-2 {
-          animation: liftPanel 0.78s cubic-bezier(0.22, 1, 0.36, 1) forwards 0s;
+          animation: liftPanel 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards 0s;
         }
         .curtain-open .panel-3 {
-          animation: liftPanel 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.06s;
+          animation: liftPanel 0.82s cubic-bezier(0.76, 0, 0.24, 1) forwards 0.04s;
         }
         .curtain-open .panel-4 {
-          animation: liftPanel 0.90s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.21s;
+          animation: liftPanel 0.88s cubic-bezier(0.76, 0, 0.24, 1) forwards 0.12s;
         }
         @keyframes liftPanel {
-          from { transform: translateY(0); }
-          to { transform: translateY(-115vh); }
+          from { transform: translate3d(0, 0, 0); }
+          to { transform: translate3d(0, -110vh, 0); }
         }
       `}</style>
 
       <div
         className={`intro-overlay ${phase === "reveal" ? "reveal-phase" : ""}`}
       >
+        {/* Skip Welcome Animation Button (Top Right) */}
+        <button
+          onClick={handleSkip}
+          className="absolute top-5 right-5 sm:top-7 sm:right-7 z-[50] inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2 rounded-full bg-[#030d08]/80 hover:bg-gold/15 border border-gold/40 hover:border-gold text-gold/90 hover:text-gold font-serif text-[11px] sm:text-xs uppercase tracking-[0.18em] backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.6)] hover:shadow-[0_0_25px_rgba(212,175,55,0.35)] cursor-pointer active:scale-95 group"
+          aria-label="Skip welcome animation"
+        >
+          <span>Skip Animation</span>
+          <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+        </button>
+
         <div
           className={`intro-logo-stage ${
-            phase === "logo" || phase === "ready" ? "is-active" : ""
+            phase === "reveal" ? "reveal-out" : ""
           }`}
         >
           <div className="intro-logo-wrap">
@@ -726,28 +754,14 @@ function WelcomeSplash({ onComplete }: { onComplete?: () => void }) {
               <div className="h-[1px] w-4/5 bg-gradient-to-r from-transparent via-gold to-transparent mt-2.5 opacity-65" />
             </div>
 
-            {/* Below all text details: Progress Line or Centered Launch Button */}
-            <div className="mt-8 flex flex-col items-center justify-center min-h-[56px]">
-              {phase === "logo" ? (
-                <div className="w-48 h-[2px] bg-gold/15 rounded-full overflow-hidden relative">
-                  <div
-                    className="h-full bg-gradient-to-r from-gold/50 via-gold to-gold/50 rounded-full w-full origin-left animate-progress-bar"
-                    style={{ animationDuration: `${LOGO_PHASE_MS}ms` }}
-                  />
-                </div>
-              ) : (
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.88, y: 12 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={handleLaunch}
-                  className="group relative inline-flex items-center gap-3 px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-gold/20 via-gold/30 to-gold/20 hover:from-gold hover:via-gold-soft hover:to-gold border border-gold/60 hover:border-gold text-gold hover:text-[#030d08] font-serif text-xs sm:text-sm font-bold uppercase tracking-[0.25em] transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.75)] cursor-pointer active:scale-95"
-                >
-                  <Sparkles className="size-4 text-gold group-hover:text-[#030d08] transition-colors" />
-                  <span>Launch Experience</span>
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 text-gold group-hover:text-[#030d08]" />
-                </motion.button>
-              )}
+            {/* Smooth Progress Line Indicator */}
+            <div className="mt-8 flex flex-col items-center justify-center min-h-[32px]">
+              <div className="w-48 sm:w-56 h-[2px] bg-gold/15 rounded-full overflow-hidden relative">
+                <div
+                  className="h-full bg-gradient-to-r from-gold/40 via-gold to-gold/40 rounded-full w-full origin-left animate-progress-bar"
+                  style={{ animationDuration: `${LOGO_PHASE_MS}ms` }}
+                />
+              </div>
             </div>
           </div>
         </div>
